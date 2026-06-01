@@ -1,0 +1,110 @@
+### TechShop E-commerce API Testing Endpoints
+@baseUrl = http://localhost:5000/api
+
+### 1. Register a new Customer account
+POST {{baseUrl}}/auth/register
+Content-Type: application/json
+
+{
+  "TaiKhoan": "khachhang3",
+  "MatKhau": "customer123",
+  "TenKH": "Lê Văn C",
+  "SDT": "0988776655",
+  "Email": "levanc@gmail.com"
+}
+
+
+### 2. Login as Customer (Username or Email)
+# @name customerLogin
+POST {{baseUrl}}/auth/login
+Content-Type: application/json
+
+{
+  "loginIdentifier": "customer",
+  "MatKhau": "customer123"
+}
+
+### Capture token from login response
+@customerToken = {{customerLogin.response.body.token}}
+
+
+### 3. Login as Admin
+# @name adminLogin
+POST {{baseUrl}}/auth/login
+Content-Type: application/json
+
+{
+  "loginIdentifier": "admin",
+  "MatKhau": "admin123"
+}
+
+### Capture token from admin login
+@adminToken = {{adminLogin.response.body.token}}
+
+
+### 4. Fetch Products (Public - filters by search term, category and price range)
+GET {{baseUrl}}/products?search=iPhone&categoryId=1&minPrice=10000000
+Content-Type: application/json
+
+
+### 5. Fetch Categories (Public)
+GET {{baseUrl}}/categories
+Content-Type: application/json
+
+
+### 6. Fetch Cart (Requires Authentication)
+GET {{baseUrl}}/cart
+Authorization: Bearer {{customerToken}}
+
+
+### 7. Add product to Cart (Requires Authentication - checks stock)
+POST {{baseUrl}}/cart
+Authorization: Bearer {{customerToken}}
+Content-Type: application/json
+
+{
+  "MaSP": 1,
+  "SoLuong": 1
+}
+
+
+### 8. Place an order (Deducts stock inside a database transaction)
+POST {{baseUrl}}/orders
+Authorization: Bearer {{customerToken}}
+Content-Type: application/json
+
+{
+  "DiaChiGiaoHang": "789 Đường Điện Biên Phủ, Quận Bình Thạnh, TP. HCM",
+  "SDTNhanHang": "0988776655",
+  "GhiChu": "Giao ngoài giờ hành chính."
+}
+
+
+### 9. View Customer Order History (Requires Authentication)
+GET {{baseUrl}}/orders/history
+Authorization: Bearer {{customerToken}}
+
+
+### 10. Public Order Tracking (By phone number or order ID)
+GET {{baseUrl}}/orders/track?phone=0988776655
+Content-Type: application/json
+
+
+### 11. Admin: View all orders (Requires Admin Role)
+GET {{baseUrl}}/admin/orders
+Authorization: Bearer {{adminToken}}
+
+
+### 12. Admin: Update order status (If updated to 'Đã hủy', automatically restores stock in a transaction)
+PUT {{baseUrl}}/admin/orders/1/status
+Authorization: Bearer {{adminToken}}
+Content-Type: application/json
+
+{
+  "TrangThai": "Đã hủy"
+}
+
+
+### 13. Admin: Lock customer account (Lock toggle)
+PUT {{baseUrl}}/admin/users/2/lock
+Authorization: Bearer {{adminToken}}
