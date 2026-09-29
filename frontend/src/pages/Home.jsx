@@ -1,16 +1,82 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation, useNavigate, Link } from 'react-router-dom';
-import { Search, SlidersHorizontal, AlertCircle, ShoppingCart, ArrowRight, Eye, ShieldCheck, HelpCircle } from 'lucide-react';
+import { 
+  Search, 
+  SlidersHorizontal, 
+  AlertCircle, 
+  ShoppingCart, 
+  ArrowRight, 
+  Flame, 
+  Clock, 
+  ChevronRight, 
+  Star, 
+  ShieldCheck, 
+  Truck, 
+  RefreshCw,
+  CheckCircle,
+  X,
+  Zap,
+  Sparkles,
+  Smartphone,
+  Laptop,
+  Tablet,
+  Headphones,
+  Watch
+} from 'lucide-react';
 import api from '../services/api';
 import { useCart } from '../context/CartContext';
 import Toast from '../components/Toast';
+
+const HERO_BANNERS = [
+  {
+    id: 1,
+    title: 'Samsung Galaxy S24 Ultra',
+    subtitle: 'Galaxy AI Quyền Năng - Ưu đãi độc quyền NovaTech đến 5 triệu',
+    image: 'https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?w=1000&auto=format&fit=crop&q=80',
+    link: '/?search=Samsung',
+    tag: 'Galaxy AI'
+  },
+  {
+    id: 2,
+    title: 'iPhone 15 Pro Max',
+    subtitle: 'Khung Titan Tự Nhiên - Trả góp 0% duyệt siêu nhanh',
+    image: 'https://images.unsplash.com/photo-1695048133142-1a20484d2569?w=1000&auto=format&fit=crop&q=80',
+    link: '/?search=iPhone',
+    tag: 'Apple Chính Hãng'
+  },
+  {
+    id: 3,
+    title: 'Laptop Gaming & Doanh Nhân',
+    subtitle: 'Hiệu năng đỉnh cao - Giảm đến 4 triệu cho thành viên NovaTech',
+    image: 'https://images.unsplash.com/photo-1603302576837-37561b2e2302?w=1000&auto=format&fit=crop&q=80',
+    link: '/?categoryId=2',
+    tag: 'Laptop Giá Sốc'
+  },
+  {
+    id: 4,
+    title: 'Tai nghe & Phụ kiện cao cấp',
+    subtitle: 'Âm thanh chân thực - Tặng thêm quà khi mua kèm máy',
+    image: 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=1000&auto=format&fit=crop&q=80',
+    link: '/?categoryId=3',
+    tag: 'Phụ Kiện Hot'
+  }
+];
+
+const BRANDS = [
+  { name: 'Apple', logo: '' },
+  { name: 'Samsung', logo: 'SAMSUNG' },
+  { name: 'ASUS', logo: 'ASUS' },
+  { name: 'Sony', logo: 'SONY' },
+  { name: 'Xiaomi', logo: 'XIAOMI' },
+  { name: 'OPPO', logo: 'OPPO' },
+  { name: 'Marshall', logo: 'MARSHALL' }
+];
 
 const Home = () => {
   const { addToCart } = useCart();
   const location = useLocation();
   const navigate = useNavigate();
 
-  // Parse search queries
   const searchParams = new URLSearchParams(location.search);
   const initialSearch = searchParams.get('search') || '';
   const initialCategory = searchParams.get('categoryId') || '';
@@ -19,46 +85,47 @@ const Home = () => {
 
   const [products, setProducts] = useState([]);
   const [categories, setCategories] = useState([]);
+  const [activeBanner, setActiveBanner] = useState(0);
   
-  // Active states
   const [selectedCategory, setSelectedCategory] = useState(initialCategory);
   const [searchVal, setSearchVal] = useState(initialSearch);
   const [priceRange, setPriceRange] = useState(initialPriceRange);
-  const [brandFilter, setBrandFilter] = useState(initialBrand); // 'Apple', 'Samsung', 'Sony', 'Keychron', 'ASUS'
+  const [brandFilter, setBrandFilter] = useState(initialBrand);
+  const [sortBy, setSortBy] = useState('popular');
+
   const [loading, setLoading] = useState(true);
   const [toast, setToast] = useState(null);
 
-  // Checks if user is looking at a filter view or the root landing page
-  const isCatalogMode = !!(searchVal || selectedCategory || priceRange || brandFilter);
+  const [timeLeft, setTimeLeft] = useState({ hours: 5, minutes: 42, seconds: 18 });
 
-  // Sync search state with URL parameter changes
+  const isFiltering = !!(searchVal || selectedCategory || priceRange || brandFilter);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setActiveBanner((prev) => (prev + 1) % HERO_BANNERS.length);
+    }, 4500);
+    return () => clearInterval(interval);
+  }, []);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setTimeLeft((prev) => {
+        if (prev.seconds > 0) return { ...prev, seconds: prev.seconds - 1 };
+        if (prev.minutes > 0) return { ...prev, minutes: prev.minutes - 1, seconds: 59 };
+        if (prev.hours > 0) return { ...prev, hours: prev.hours - 1, minutes: 59, seconds: 59 };
+        return { hours: 6, minutes: 0, seconds: 0 };
+      });
+    }, 1000);
+    return () => clearInterval(timer);
+  }, []);
+
   useEffect(() => {
     setSearchVal(initialSearch);
-  }, [initialSearch]);
-
-  useEffect(() => {
     setSelectedCategory(initialCategory);
-  }, [initialCategory]);
-
-  useEffect(() => {
     setPriceRange(initialPriceRange);
-  }, [initialPriceRange]);
-
-  useEffect(() => {
     setBrandFilter(initialBrand);
-  }, [initialBrand]);
+  }, [initialSearch, initialCategory, initialPriceRange, initialBrand]);
 
-  // Reset all filters when URL path query parameters are cleared (e.g. clicking Logo/Home)
-  useEffect(() => {
-    if (location.search === '') {
-      setSearchVal('');
-      setSelectedCategory('');
-      setPriceRange('');
-      setBrandFilter('');
-    }
-  }, [location.search]);
-
-  // Update query parameters in URL
   const updateFilter = (key, value) => {
     const params = new URLSearchParams(location.search);
     if (value) {
@@ -69,29 +136,32 @@ const Home = () => {
     navigate(`/?${params.toString()}`);
   };
 
-  const handleBrandChange = (brandVal) => {
-    const newVal = brandFilter === brandVal ? '' : brandVal;
+  const handleBrandClick = (brandName) => {
+    const newVal = brandFilter === brandName ? '' : brandName;
     updateFilter('brand', newVal);
   };
 
-  const handlePriceChange = (priceVal) => {
-    updateFilter('priceRange', priceVal);
+  const handlePriceClick = (rangeVal) => {
+    const newVal = priceRange === rangeVal ? '' : rangeVal;
+    updateFilter('priceRange', newVal);
   };
 
-  // Fetch categories
+  const handleClearAllFilters = () => {
+    navigate('/');
+  };
+
   useEffect(() => {
     const fetchCategories = async () => {
       try {
         const res = await api.get('/categories');
         setCategories(res.data);
       } catch (err) {
-        console.error('Error fetching categories:', err);
+        console.error('Error loading categories:', err);
       }
     };
     fetchCategories();
   }, []);
 
-  // Fetch products
   useEffect(() => {
     const fetchProducts = async () => {
       setLoading(true);
@@ -99,58 +169,53 @@ const Home = () => {
         const queryParams = new URLSearchParams();
         if (searchVal) queryParams.append('search', searchVal);
         if (selectedCategory) queryParams.append('categoryId', selectedCategory);
-        
-        // Price limits in VND (matching our seeded tech products: 29M, 31M, 24M, 1.8M, etc.)
-        if (priceRange === '100') {
-          queryParams.append('maxPrice', '5000000'); // Under 5 Million
-        } else if (priceRange === '300') {
+
+        if (priceRange === 'under5m') {
+          queryParams.append('maxPrice', '5000000');
+        } else if (priceRange === '5to15m') {
           queryParams.append('minPrice', '5000000');
-          queryParams.append('maxPrice', '20000000'); // 5M to 20M
-        } else if (priceRange === '500') {
-          queryParams.append('minPrice', '20000000'); // Over 20 Million
+          queryParams.append('maxPrice', '15000000');
+        } else if (priceRange === '15to25m') {
+          queryParams.append('minPrice', '15000000');
+          queryParams.append('maxPrice', '25000000');
+        } else if (priceRange === 'over25m') {
+          queryParams.append('minPrice', '25000000');
         }
 
         queryParams.append('status', 'Đang bán');
 
         const res = await api.get(`/products?${queryParams.toString()}`);
-        
-        // Filter by Brand in frontend
         let data = res.data;
+
         if (brandFilter) {
-          data = data.filter(product => {
-            const name = (product.TenSP || '').toLowerCase();
-            return name.includes(brandFilter.toLowerCase());
-          });
+          data = data.filter((p) =>
+            (p.TenSP || '').toLowerCase().includes(brandFilter.toLowerCase())
+          );
+        }
+
+        if (sortBy === 'priceAsc') {
+          data.sort((a, b) => parseFloat(a.GiaBan) - parseFloat(b.GiaBan));
+        } else if (sortBy === 'priceDesc') {
+          data.sort((a, b) => parseFloat(b.GiaBan) - parseFloat(a.GiaBan));
         }
 
         setProducts(data);
       } catch (err) {
-        console.error('Error fetching products:', err);
+        console.error('Error loading products:', err);
       } finally {
         setLoading(false);
       }
     };
 
     fetchProducts();
-  }, [selectedCategory, searchVal, priceRange, brandFilter]);
-
-  const handleCategoryClick = (categoryId) => {
-    navigate(`/?categoryId=${categoryId}`);
-  };
-
-  const handleClearFilters = () => {
-    setSelectedCategory('');
-    setSearchVal('');
-    setPriceRange('');
-    setBrandFilter('');
-    navigate('/');
-  };
+  }, [selectedCategory, searchVal, priceRange, brandFilter, sortBy]);
 
   const handleAddToCart = async (e, product) => {
     e.preventDefault();
+    e.stopPropagation();
     const res = await addToCart(product, 1);
     if (res.success) {
-      setToast({ type: 'success', message: `Thêm thành công ${product.TenSP} vào giỏ.` });
+      setToast({ type: 'success', message: `Đã thêm "${product.TenSP}" vào giỏ hàng!` });
     } else {
       setToast({ type: 'error', message: res.message });
     }
@@ -160,8 +225,33 @@ const Home = () => {
     return new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(price);
   };
 
+  const parseSpecs = (specsStr) => {
+    if (!specsStr) return [];
+    try {
+      const obj = typeof specsStr === 'string' ? JSON.parse(specsStr) : specsStr;
+      return Object.entries(obj).slice(0, 3).map(([k, v]) => `${v}`);
+    } catch {
+      return [];
+    }
+  };
+
+  const flashSaleProducts = products.slice(0, 5);
+  const phoneProducts = products.filter((p) => p.MaDM === 1).slice(0, 5);
+  const laptopProducts = products.filter((p) => p.MaDM === 2).slice(0, 5);
+  const accessoryProducts = products.filter((p) => p.MaDM === 3 || p.MaDM === 4).slice(0, 5);
+
+  const getCategoryIcon = (name = '') => {
+    const lower = name.toLowerCase();
+    if (lower.includes('thoại') || lower.includes('phone')) return <Smartphone className="w-4 h-4 text-sky-500" />;
+    if (lower.includes('laptop') || lower.includes('pc') || lower.includes('máy tính')) return <Laptop className="w-4 h-4 text-blue-500" />;
+    if (lower.includes('tablet') || lower.includes('ipad') || lower.includes('bảng')) return <Tablet className="w-4 h-4 text-indigo-500" />;
+    if (lower.includes('phụ kiện') || lower.includes('tai nghe')) return <Headphones className="w-4 h-4 text-cyan-500" />;
+    if (lower.includes('thông minh') || lower.includes('smartwatch')) return <Watch className="w-4 h-4 text-emerald-500" />;
+    return <Zap className="w-4 h-4 text-amber-500" />;
+  };
+
   return (
-    <div className="w-full">
+    <div className="w-full bg-[#f4f6fa] dark:bg-[#080d1a] min-h-screen pb-12 transition-colors">
       {toast && (
         <Toast
           message={toast.message}
@@ -170,425 +260,604 @@ const Home = () => {
         />
       )}
 
-      {!isCatalogMode ? (
-        /* ==================== LANDING MODE (Page 1) ==================== */
-        <div className="animate-fade-in">
-          {/* Hero Banner Section */}
-          <div 
-            className="w-full bg-cover bg-center py-20 px-6 flex items-center justify-center relative border-b border-cyan-100"
-            style={{ 
-              backgroundImage: 'url("https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=1600")' 
-            }}
-          >
-            <div className="absolute inset-0 bg-slate-900/10 mix-blend-multiply" />
+      {/* Main Container */}
+      <div className="max-w-7xl mx-auto px-2 sm:px-4 py-3.5 space-y-4">
+        
+        {/* ================= 1. CELLPHONES-STYLE 3-COLUMN HERO SECTION ================= */}
+        {!isFiltering && (
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-2.5 items-stretch">
+            
+            {/* Column 1: Left Vertical Category Mega Menu (3 cols) */}
+            <div className="hidden lg:flex lg:col-span-3 bg-white dark:bg-[#0f1a30] rounded-md border border-slate-200 dark:border-slate-800 shadow-sm p-2 flex-col justify-between text-xs">
+              <div className="space-y-0.5">
+                <div className="px-2.5 py-1 text-[11px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider flex items-center gap-1.5 border-b border-slate-100 dark:border-slate-800 mb-1">
+                  <SlidersHorizontal className="w-3 h-3 text-[#0284c7]" />
+                  <span>Danh Mục Sản Phẩm</span>
+                </div>
 
-            {/* Glass Container Card */}
-            <div className="relative z-10 max-w-3xl w-full text-center glass-banner rounded-3xl p-10 md:p-14 space-y-6">
-              <div className="inline-flex items-center gap-1.5 px-3.5 py-1 bg-cyan-100/50 border border-cyan-200/50 text-cyan-800 rounded-full text-xs font-semibold">
-                <span className="text-[10px]">🔥</span> Siêu phẩm công nghệ
-              </div>
-              
-              <h1 className="text-4xl md:text-5xl font-extrabold text-slate-800 tracking-tight leading-tight font-display">
-                Thế Giới Công Nghệ <br />
-                <span className="text-primary-600 font-black">Chính Hãng</span>
-              </h1>
-
-              <p className="text-slate-500 font-light text-sm md:text-base max-w-xl mx-auto leading-relaxed">
-                Khám phá các dòng điện thoại thông minh, laptop cao cấp và phụ kiện công nghệ mới nhất với nhiều chính sách ưu đãi độc quyền.
-              </p>
-
-              <div className="flex flex-col sm:flex-row items-center justify-center gap-3 pt-4">
                 <button
-                  onClick={() => handleCategoryClick(1)} // open Phone category
-                  className="w-full sm:w-auto bg-primary-600 hover:bg-primary-700 text-white font-bold px-6 py-3 rounded-full text-xs transition-colors flex items-center justify-center gap-1.5 shadow-md shadow-primary-200"
+                  onClick={() => updateFilter('categoryId', '')}
+                  className={`w-full flex items-center justify-between px-2.5 py-2 rounded text-left transition-colors cursor-pointer ${
+                    !selectedCategory
+                      ? 'bg-sky-50 dark:bg-sky-950/50 text-[#0284c7] font-bold'
+                      : 'text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800/80 hover:text-[#0284c7]'
+                  }`}
                 >
-                  Mua ngay ➔
+                  <div className="flex items-center gap-2">
+                    <Sparkles className="w-4 h-4 text-[#0284c7]" />
+                    <span>Tất cả sản phẩm</span>
+                  </div>
+                  <ChevronRight className="w-3.5 h-3.5 text-slate-400" />
                 </button>
+
+                {categories.map((cat) => {
+                  const isSelected = selectedCategory === String(cat.MaDM);
+                  return (
+                    <button
+                      key={cat.MaDM}
+                      onClick={() => updateFilter('categoryId', String(cat.MaDM))}
+                      className={`w-full flex items-center justify-between px-2.5 py-2 rounded text-left transition-colors cursor-pointer ${
+                        isSelected
+                          ? 'bg-sky-50 dark:bg-sky-950/50 text-[#0284c7] font-bold'
+                          : 'text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800/80 hover:text-[#0284c7]'
+                      }`}
+                    >
+                      <div className="flex items-center gap-2">
+                        {getCategoryIcon(cat.TenDM)}
+                        <span className="truncate">{cat.TenDM}</span>
+                      </div>
+                      <ChevronRight className="w-3.5 h-3.5 text-slate-400" />
+                    </button>
+                  );
+                })}
+
                 <button
-                  onClick={() => setSearchVal(' ')} // triggers catalog mode
-                  className="w-full sm:w-auto bg-white/70 hover:bg-white text-slate-700 font-semibold px-6 py-3 rounded-full border border-slate-200 text-xs transition-colors"
+                  onClick={() => handleBrandClick('Apple')}
+                  className="w-full flex items-center justify-between px-2.5 py-2 rounded text-left text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800/80 hover:text-[#0284c7] transition-colors cursor-pointer"
+                >
+                  <div className="flex items-center gap-2">
+                    <span className="text-sm font-serif"></span>
+                    <span>Apple Chính Hãng</span>
+                  </div>
+                  <ChevronRight className="w-3.5 h-3.5 text-slate-400" />
+                </button>
+
+                <Link
+                  to="/tracking"
+                  className="w-full flex items-center justify-between px-2.5 py-2 rounded text-left text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800/80 hover:text-[#0284c7] transition-colors"
+                >
+                  <div className="flex items-center gap-2">
+                    <RefreshCw className="w-4 h-4 text-emerald-500" />
+                    <span>Thu cũ đổi mới</span>
+                  </div>
+                  <ChevronRight className="w-3.5 h-3.5 text-slate-400" />
+                </Link>
+              </div>
+
+              {/* Bottom Member Banner in Sidebar */}
+              <div className="mt-2 p-2 bg-gradient-to-r from-sky-500 to-[#0284c7] text-white rounded text-[11px] flex items-center justify-between shadow-sm">
+                <div>
+                  <p className="font-bold leading-tight">NovaMember</p>
+                  <p className="text-[9.5px] text-sky-100">Đăng ký nhận deal hời</p>
+                </div>
+                <Link to="/login" className="bg-white text-[#0284c7] px-2 py-0.5 rounded font-bold text-[10px]">
+                  Vào ngay
+                </Link>
+              </div>
+            </div>
+
+            {/* Column 2: Center Main Carousel (6 cols) */}
+            <div className="lg:col-span-6 bg-white dark:bg-[#0f1a30] rounded-md overflow-hidden shadow-sm border border-slate-200 dark:border-slate-800 flex flex-col justify-between">
+              <div className="relative h-56 sm:h-64 md:h-72 lg:h-80 w-full overflow-hidden bg-slate-900 group">
+                <img
+                  src={HERO_BANNERS[activeBanner].image}
+                  alt={HERO_BANNERS[activeBanner].title}
+                  className="w-full h-full object-cover object-center transition-all duration-700 group-hover:scale-105"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-slate-900/30 to-transparent flex flex-col justify-end p-4 text-white">
+                  <span className="inline-block self-start px-2 py-0.5 bg-[#0284c7] text-white font-bold text-[10px] rounded mb-1 uppercase shadow-sm">
+                    {HERO_BANNERS[activeBanner].tag}
+                  </span>
+                  <h2 className="text-lg sm:text-xl font-black">{HERO_BANNERS[activeBanner].title}</h2>
+                  <p className="text-xs text-sky-200 font-medium">{HERO_BANNERS[activeBanner].subtitle}</p>
+                </div>
+              </div>
+
+              {/* Banner Tab bar (4 tabs) */}
+              <div className="grid grid-cols-4 border-t border-slate-200 dark:border-slate-800 bg-white dark:bg-[#0b1325] text-[11px] font-semibold text-center divide-x divide-slate-100 dark:divide-slate-800">
+                {HERO_BANNERS.map((b, idx) => (
+                  <button
+                    key={b.id}
+                    onClick={() => setActiveBanner(idx)}
+                    className={`py-2 px-1 transition-colors leading-tight cursor-pointer ${
+                      activeBanner === idx
+                        ? 'border-b-2 border-[#0284c7] font-bold text-[#0284c7] bg-sky-50/70 dark:bg-sky-950/50'
+                        : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-50 dark:hover:bg-slate-800'
+                    }`}
+                  >
+                    <span className="line-clamp-2">{b.title}</span>
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            {/* Column 3: Right Side Promo Cards (3 cols) */}
+            <div className="lg:col-span-3 flex flex-col sm:flex-row lg:flex-col gap-2.5">
+              <div 
+                onClick={() => navigate('/?brand=Apple')}
+                className="flex-1 bg-gradient-to-br from-slate-900 via-slate-800 to-sky-950 rounded-md p-3.5 text-white shadow-sm cursor-pointer hover:border-sky-500 border border-slate-700/60 transition-all flex flex-col justify-between min-h-[110px]"
+              >
+                <div>
+                  <span className="text-[9.5px] font-bold uppercase tracking-wider bg-white/10 px-1.5 py-0.5 rounded text-sky-300">
+                    Độc quyền NovaTech
+                  </span>
+                  <h3 className="text-sm font-black mt-1.5">THU CŨ ĐỔI MỚI</h3>
+                  <p className="text-[11px] text-slate-300 mt-0.5 leading-snug">
+                    Trợ giá lên đến 2.500.000đ khi lên đời máy tại NovaTech
+                  </p>
+                </div>
+                <div className="flex items-center gap-1 text-[11px] text-sky-400 font-bold mt-2">
+                  <span>Khám phá ngay</span>
+                  <ChevronRight className="w-3.5 h-3.5" />
+                </div>
+              </div>
+
+              <div 
+                onClick={() => navigate('/?priceRange=under5m')}
+                className="flex-1 bg-gradient-to-br from-[#0c2a4d] to-[#0284c7] rounded-md p-3.5 text-white shadow-sm cursor-pointer hover:border-sky-400 border border-sky-800/60 transition-all flex flex-col justify-between min-h-[110px]"
+              >
+                <div>
+                  <span className="text-[9.5px] font-bold uppercase tracking-wider bg-white/20 px-1.5 py-0.5 rounded text-white">
+                    Ưu Đãi Học Sinh - SV
+                  </span>
+                  <h3 className="text-sm font-black mt-1.5">LAPTOP CHÍNH HÃNG</h3>
+                  <p className="text-[11px] text-sky-100 mt-0.5 leading-snug">
+                    Giảm thêm 500.000đ và tặng balo chống sốc cao cấp
+                  </p>
+                </div>
+                <div className="flex items-center gap-1 text-[11px] text-white font-bold mt-2">
+                  <span>Xem danh sách</span>
+                  <ChevronRight className="w-3.5 h-3.5" />
+                </div>
+              </div>
+
+              <div 
+                onClick={() => navigate('/?brand=Samsung')}
+                className="hidden xl:flex flex-1 bg-gradient-to-br from-blue-900 to-indigo-950 rounded-md p-3.5 text-white shadow-sm cursor-pointer hover:border-blue-400 border border-blue-800/60 transition-all flex flex-col justify-between min-h-[100px]"
+              >
+                <div>
+                  <span className="text-[9.5px] font-bold uppercase tracking-wider bg-amber-400 text-slate-950 px-1.5 py-0.5 rounded">
+                    Galaxy AI
+                  </span>
+                  <h3 className="text-sm font-black mt-1.5">SAMSUNG GALAXY</h3>
+                  <p className="text-[11px] text-blue-200 mt-0.5 leading-snug">
+                    Tặng gói bảo hành Samsung Care+ 1 năm miễn phí
+                  </p>
+                </div>
+                <div className="flex items-center gap-1 text-[11px] text-amber-300 font-bold mt-1.5">
+                  <span>Nhận ưu đãi</span>
+                  <ChevronRight className="w-3.5 h-3.5" />
+                </div>
+              </div>
+            </div>
+
+          </div>
+        )}
+
+        {/* ================= 2. BRAND QUICK FILTER CHIPS ================= */}
+        <div className="bg-white rounded-xl p-3 shadow-sm border border-slate-200">
+          <div className="flex items-center justify-between gap-2 mb-2">
+            <span className="text-xs font-bold text-slate-700 uppercase tracking-wide flex items-center gap-1.5">
+              <Sparkles className="w-3.5 h-3.5 text-[#0284c7]" />
+              Thương hiệu nổi bật:
+            </span>
+            {brandFilter && (
+              <button
+                onClick={() => handleBrandClick(brandFilter)}
+                className="text-xs text-[#0284c7] hover:underline flex items-center gap-1 font-semibold"
+              >
+                <span>Xóa lọc ({brandFilter})</span>
+                <X className="w-3 h-3" />
+              </button>
+            )}
+          </div>
+          <div className="flex items-center gap-2 overflow-x-auto no-scrollbar py-1">
+            {BRANDS.map((b) => {
+              const isActive = brandFilter.toLowerCase() === b.name.toLowerCase();
+              return (
+                <button
+                  key={b.name}
+                  onClick={() => handleBrandClick(b.name)}
+                  className={`px-3.5 py-1.5 rounded-full border text-xs font-bold transition-all whitespace-nowrap cursor-pointer flex items-center gap-1.5 ${
+                    isActive
+                      ? 'border-[#0284c7] bg-[#e0f2fe] text-[#0284c7] shadow-sm'
+                      : 'border-slate-200 hover:border-[#38bdf8] text-slate-700 bg-[#f8fafc] hover:bg-white'
+                  }`}
+                >
+                  <span>{b.logo}</span>
+                  <span>{b.name}</span>
+                </button>
+              );
+            })}
+          </div>
+        </div>
+
+        {/* ================= 3. PRICE QUICK FILTER ================= */}
+        <div className="flex items-center gap-2 overflow-x-auto no-scrollbar pb-1 text-xs">
+          <span className="font-bold text-slate-500 shrink-0">Chọn mức giá:</span>
+          {[
+            { id: 'under5m', label: 'Dưới 5 triệu' },
+            { id: '5to15m', label: 'Từ 5 - 15 triệu' },
+            { id: '15to25m', label: 'Từ 15 - 25 triệu' },
+            { id: 'over25m', label: 'Trên 25 triệu' }
+          ].map((r) => {
+            const isSelected = priceRange === r.id;
+            return (
+              <button
+                key={r.id}
+                onClick={() => handlePriceClick(r.id)}
+                className={`px-3 py-1.5 rounded-lg border font-semibold whitespace-nowrap transition-colors cursor-pointer ${
+                  isSelected
+                    ? 'border-[#0284c7] bg-[#0284c7] text-white font-bold shadow-sm'
+                    : 'border-slate-200 bg-white text-slate-700 hover:border-slate-300'
+                }`}
+              >
+                {r.label}
+              </button>
+            );
+          })}
+
+          {isFiltering && (
+            <button
+              onClick={handleClearAllFilters}
+              className="ml-auto px-3 py-1.5 rounded-lg bg-slate-200 hover:bg-slate-300 text-slate-700 font-bold text-xs whitespace-nowrap transition-colors"
+            >
+              Xóa tất cả bộ lọc
+            </button>
+          )}
+        </div>
+
+        {/* ================= 4. FLASH SALE SECTION (NOVATECH ELECTRIC BLUE) ================= */}
+        {!isFiltering && flashSaleProducts.length > 0 && (
+          <div className="rounded-xl overflow-hidden shadow-sm border border-sky-200 bg-white">
+            
+            {/* Flash Sale Banner Header */}
+            <div className="nova-flash-header text-white px-4 py-3 flex flex-wrap items-center justify-between gap-3 shadow-sm">
+              <div className="flex items-center gap-2">
+                <Flame className="w-5 h-5 text-amber-300 animate-pulse" />
+                <h2 className="text-lg sm:text-xl font-black uppercase tracking-tight text-white drop-shadow-sm">
+                  GIỜ VÀNG GIÁ SỐC
+                </h2>
+              </div>
+
+              {/* Countdown Timer */}
+              <div className="flex items-center gap-1.5 text-xs font-bold">
+                <span className="text-sky-100">KẾT THÚC TRONG:</span>
+                <span className="bg-slate-900 text-white px-2 py-1 rounded font-mono font-black text-sm">
+                  {String(timeLeft.hours).padStart(2, '0')}
+                </span>
+                <span>:</span>
+                <span className="bg-slate-900 text-white px-2 py-1 rounded font-mono font-black text-sm">
+                  {String(timeLeft.minutes).padStart(2, '0')}
+                </span>
+                <span>:</span>
+                <span className="bg-slate-900 text-white px-2 py-1 rounded font-mono font-black text-sm">
+                  {String(timeLeft.seconds).padStart(2, '0')}
+                </span>
+              </div>
+            </div>
+
+            {/* Flash Sale Products Grid */}
+            <div className="p-3 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3">
+              {flashSaleProducts.map((product) => {
+                const giaGoc = product.GiaBan * 1.15;
+                const specs = parseSpecs(product.ThongSo);
+
+                return (
+                  <div
+                    key={`flash-${product.MaSP}`}
+                    onClick={() => navigate(`/product/${product.MaSP}`)}
+                    className="nova-card p-3 flex flex-col justify-between group cursor-pointer relative"
+                  >
+                    {/* Top tags */}
+                    <div className="flex items-center justify-between mb-2">
+                      <span className="nova-tag-installment">Trả góp 0%</span>
+                      <span className="nova-tag-discount">-15%</span>
+                    </div>
+
+                    {/* Image */}
+                    <div className="w-full aspect-square overflow-hidden flex items-center justify-center p-2 mb-2">
+                      <img
+                        src={product.AnhMinhHoa}
+                        alt={product.TenSP}
+                        className="max-h-full max-w-full object-contain group-hover:scale-105 transition-transform duration-300"
+                        loading="lazy"
+                      />
+                    </div>
+
+                    {/* Specs chips */}
+                    {specs.length > 0 && (
+                      <div className="flex flex-wrap gap-1 mb-1.5">
+                        {specs.map((s, i) => (
+                          <span key={i} className="text-[10px] bg-slate-100 dark:bg-slate-800/80 text-slate-600 dark:text-sky-300 border border-transparent dark:border-slate-700/50 px-1.5 py-0.5 rounded font-medium">
+                            {s}
+                          </span>
+                        ))}
+                      </div>
+                    )}
+
+                    {/* Product Name */}
+                    <h3 className="text-xs sm:text-sm font-bold text-slate-800 line-clamp-2 group-hover:text-[#0284c7] transition-colors mb-2">
+                      {product.TenSP}
+                    </h3>
+
+                    {/* Price & Deal Progress */}
+                    <div className="mt-auto pt-2 border-t border-slate-100">
+                      <div className="flex items-baseline gap-1.5 flex-wrap mb-1">
+                        <span className="text-[#0284c7] font-extrabold text-sm sm:text-base">
+                          {formatPrice(product.GiaBan)}
+                        </span>
+                        <span className="text-slate-400 line-through text-[11px]">
+                          {formatPrice(giaGoc)}
+                        </span>
+                      </div>
+
+                      {/* Sold progress bar */}
+                      <div className="w-full bg-sky-100 dark:bg-slate-800 rounded-full h-3.5 relative overflow-hidden mb-2 border border-transparent dark:border-slate-700/60">
+                        <div 
+                          className="bg-gradient-to-r from-[#0ea5e9] to-[#0284c7] h-full rounded-full"
+                          style={{ width: `${Math.min(95, 40 + (product.MaSP * 7) % 55)}%` }}
+                        />
+                        <span className="absolute inset-0 text-[9px] font-bold text-slate-800 dark:text-white flex items-center justify-center drop-shadow-sm">
+                          ⚡ Đã bán {(product.MaSP * 11) % 40 + 10} suất
+                        </span>
+                      </div>
+
+                      {/* Add to Cart quick button */}
+                      <button
+                        onClick={(e) => handleAddToCart(e, product)}
+                        className="w-full bg-[#0284c7] hover:bg-[#0369a1] text-white font-bold text-xs py-1.5 rounded-lg transition-colors flex items-center justify-center gap-1 shadow-sm"
+                      >
+                        <ShoppingCart className="w-3.5 h-3.5" />
+                        <span>Thêm vào giỏ</span>
+                      </button>
+                    </div>
+
+                  </div>
+                );
+              })}
+            </div>
+
+          </div>
+        )}
+
+        {/* ================= 5. FILTER RESULTS MODE ================= */}
+        {isFiltering ? (
+          <div className="bg-white rounded-xl p-4 shadow-sm border border-slate-200">
+            <div className="flex flex-wrap items-center justify-between gap-3 mb-4 pb-3 border-b border-slate-200">
+              <div>
+                <h2 className="text-base sm:text-lg font-bold text-slate-900">
+                  Kết quả tìm kiếm ({products.length} sản phẩm)
+                </h2>
+                {searchVal && (
+                  <p className="text-xs text-slate-500">Từ khóa: <strong className="text-slate-900">"{searchVal}"</strong></p>
+                )}
+              </div>
+
+              {/* Sorting */}
+              <div className="flex items-center gap-2 text-xs">
+                <span className="text-slate-500 font-medium">Sắp xếp theo:</span>
+                <select
+                  value={sortBy}
+                  onChange={(e) => setSortBy(e.target.value)}
+                  className="bg-[#f8fafc] border border-slate-200 rounded-lg px-2.5 py-1.5 text-xs font-semibold text-slate-700"
+                >
+                  <option value="popular">Nổi bật nhất</option>
+                  <option value="priceAsc">Giá thấp đến cao</option>
+                  <option value="priceDesc">Giá cao đến thấp</option>
+                </select>
+              </div>
+            </div>
+
+            {loading ? (
+              <div className="py-20 text-center text-slate-500 text-sm">
+                <div className="w-8 h-8 border-4 border-[#0284c7] border-t-transparent rounded-full animate-spin mx-auto mb-2" />
+                Đang tải dữ liệu sản phẩm...
+              </div>
+            ) : products.length === 0 ? (
+              <div className="py-16 text-center text-slate-500">
+                <AlertCircle className="w-12 h-12 mx-auto mb-3 text-slate-300" />
+                <p className="text-sm font-semibold">Không tìm thấy sản phẩm nào phù hợp.</p>
+                <p className="text-xs mt-1">Vui lòng thử lại với từ khóa hoặc bộ lọc khác.</p>
+                <button
+                  onClick={handleClearAllFilters}
+                  className="mt-4 px-4 py-2 bg-[#0284c7] text-white font-bold text-xs rounded-lg hover:bg-[#0369a1] transition-colors"
                 >
                   Xem tất cả sản phẩm
                 </button>
               </div>
-            </div>
+            ) : (
+              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3">
+                {products.map((product) => renderProductCard(product))}
+              </div>
+            )}
           </div>
+        ) : (
+          /* ================= 6. CATEGORY SHOWCASE SECTIONS ================= */
+          <div className="space-y-6">
+            
+            {/* Section: Điện thoại nổi bật */}
+            {phoneProducts.length > 0 && (
+              <div className="bg-white rounded-xl p-4 shadow-sm border border-slate-200">
+                <div className="flex items-center justify-between mb-3 border-b border-slate-100 pb-2.5">
+                  <div className="flex items-center gap-2">
+                    <span className="w-2 h-5 bg-[#0284c7] rounded-full" />
+                    <h2 className="text-base sm:text-lg font-black text-slate-900 uppercase">
+                      ĐIỆN THOẠI NỔI BẬT NHẤT
+                    </h2>
+                  </div>
+                  <button
+                    onClick={() => navigate('/?categoryId=1')}
+                    className="text-xs font-bold text-[#0284c7] hover:text-[#0369a1] flex items-center gap-0.5"
+                  >
+                    <span>Xem tất cả ({phoneProducts.length}+)</span>
+                    <ChevronRight className="w-4 h-4" />
+                  </button>
+                </div>
 
-          {/* Categories Grid (Product Categories) */}
-          <div className="max-w-7xl mx-auto px-6 py-16 space-y-8">
-            <div className="flex justify-between items-end">
-              <div>
-                <h2 className="text-2xl font-black text-slate-800 font-display">Danh mục sản phẩm</h2>
-                <p className="text-slate-400 text-xs mt-1">Các nhóm thiết bị công nghệ chính hãng hàng đầu</p>
+                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3">
+                  {phoneProducts.map((p) => renderProductCard(p))}
+                </div>
               </div>
-              <button 
-                onClick={() => setSearchVal(' ')} 
-                className="text-xs font-bold text-primary-600 hover:underline"
-              >
-                Xem tất cả danh mục
-              </button>
+            )}
+
+            {/* Section: Laptop & Máy tính */}
+            {laptopProducts.length > 0 && (
+              <div className="bg-white rounded-xl p-4 shadow-sm border border-slate-200">
+                <div className="flex items-center justify-between mb-3 border-b border-slate-100 pb-2.5">
+                  <div className="flex items-center gap-2">
+                    <span className="w-2 h-5 bg-[#0ea5e9] rounded-full" />
+                    <h2 className="text-base sm:text-lg font-black text-slate-900 uppercase">
+                      LAPTOP &amp; PC GIÁ TỐT
+                    </h2>
+                  </div>
+                  <button
+                    onClick={() => navigate('/?categoryId=2')}
+                    className="text-xs font-bold text-[#0284c7] hover:text-[#0369a1] flex items-center gap-0.5"
+                  >
+                    <span>Xem tất cả ({laptopProducts.length}+)</span>
+                    <ChevronRight className="w-4 h-4" />
+                  </button>
+                </div>
+
+                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3">
+                  {laptopProducts.map((p) => renderProductCard(p))}
+                </div>
+              </div>
+            )}
+
+            {/* Section: Phụ kiện & Thiết bị thông minh */}
+            {accessoryProducts.length > 0 && (
+              <div className="bg-white rounded-xl p-4 shadow-sm border border-slate-200">
+                <div className="flex items-center justify-between mb-3 border-b border-slate-100 pb-2.5">
+                  <div className="flex items-center gap-2">
+                    <span className="w-2 h-5 bg-[#38bdf8] rounded-full" />
+                    <h2 className="text-base sm:text-lg font-black text-slate-900 uppercase">
+                      PHỤ KIỆN &amp; THIẾT BỊ THÔNG MINH
+                    </h2>
+                  </div>
+                  <button
+                    onClick={() => navigate('/?categoryId=3')}
+                    className="text-xs font-bold text-[#0284c7] hover:text-[#0369a1] flex items-center gap-0.5"
+                  >
+                    <span>Xem tất cả ({accessoryProducts.length}+)</span>
+                    <ChevronRight className="w-4 h-4" />
+                  </button>
+                </div>
+
+                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3">
+                  {accessoryProducts.map((p) => renderProductCard(p))}
+                </div>
+              </div>
+            )}
+
+            {/* Section: Toàn bộ danh mục sản phẩm (Gợi ý hôm nay) */}
+            <div className="bg-white rounded-xl p-4 shadow-sm border border-slate-200">
+              <div className="flex items-center justify-between mb-3 border-b border-slate-100 pb-2.5">
+                <div className="flex items-center gap-2">
+                  <span className="w-2 h-5 bg-slate-700 rounded-full" />
+                  <h2 className="text-base sm:text-lg font-black text-slate-900 uppercase">
+                    GỢI Ý HÔM NAY CHO BẠN
+                  </h2>
+                </div>
+                <span className="text-xs text-slate-500 font-semibold">{products.length} sản phẩm</span>
+              </div>
+
+              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3">
+                {products.slice(0, 15).map((p) => renderProductCard(p))}
+              </div>
             </div>
 
-            {/* Custom 4-Grid Categories with high-quality tech illustration placeholders */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-              {/* Card 1: Phones */}
-              <div 
-                onClick={() => handleCategoryClick(1)}
-                className="glass-card rounded-2xl overflow-hidden p-4 cursor-pointer flex flex-col justify-between"
-              >
-                <div className="aspect-video bg-cyan-50/50 rounded-xl overflow-hidden mb-4 border border-cyan-100 flex items-center justify-center">
-                  <img
-                    src="https://images.unsplash.com/photo-1598327105666-5b89351aff97?w=500"
-                    alt="Phones"
-                    className="w-full h-full object-cover"
-                  />
-                </div>
-                <div>
-                  <span className="text-[9px] font-bold text-primary-600 bg-primary-50 px-2 py-0.5 rounded-full">Hot Sale</span>
-                  <h4 className="font-bold text-slate-800 text-sm mt-1.5 font-display">Điện thoại & Tablet</h4>
-                  <p className="text-slate-400 text-xs mt-1 font-light">iPhone 15 Pro, Galaxy S24 Ultra, iPad mới nhất.</p>
-                </div>
-              </div>
-
-              {/* Card 2: Laptops */}
-              <div 
-                onClick={() => handleCategoryClick(2)}
-                className="glass-card rounded-2xl overflow-hidden p-4 cursor-pointer flex flex-col justify-between"
-              >
-                <div className="aspect-video bg-cyan-50/50 rounded-xl overflow-hidden mb-4 border border-cyan-100 flex items-center justify-center">
-                  <img
-                    src="https://images.unsplash.com/photo-1611186871348-b1ce696e52c9?w=500"
-                    alt="Laptops"
-                    className="w-full h-full object-cover"
-                  />
-                </div>
-                <div>
-                  <h4 className="font-bold text-slate-800 text-sm font-display">Laptop & Máy tính</h4>
-                  <p className="text-slate-400 text-xs mt-1 font-light">MacBook Air M2, Laptop Gaming Zephyrus G14.</p>
-                </div>
-              </div>
-
-              {/* Card 3: Accessories */}
-              <div 
-                onClick={() => handleCategoryClick(3)}
-                className="glass-card rounded-2xl overflow-hidden p-4 cursor-pointer flex flex-col justify-between"
-              >
-                <div className="aspect-video bg-cyan-50/50 rounded-xl overflow-hidden mb-4 border border-cyan-100 flex items-center justify-center">
-                  <img
-                    src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=500"
-                    alt="Accessories"
-                    className="w-full h-full object-cover"
-                  />
-                </div>
-                <div>
-                  <h4 className="font-bold text-slate-800 text-sm font-display">Phụ kiện công nghệ</h4>
-                  <p className="text-slate-400 text-xs mt-1 font-light">Tai nghe chống ồn Sony, Bàn phím cơ Keychron.</p>
-                </div>
-              </div>
-
-              {/* Card 4: Smart Devices */}
-              <div 
-                onClick={() => handleCategoryClick(4)}
-                className="glass-card rounded-2xl overflow-hidden p-4 cursor-pointer flex flex-col justify-between"
-              >
-                <div className="aspect-video bg-cyan-50/50 rounded-xl overflow-hidden mb-4 border border-cyan-100 flex items-center justify-center">
-                  <img
-                    src="https://images.unsplash.com/photo-1434494878577-86c23bcb06b9?w=500"
-                    alt="Smartwatches"
-                    className="w-full h-full object-cover"
-                  />
-                </div>
-                <div>
-                  <h4 className="font-bold text-slate-800 text-sm font-display">Thiết bị thông minh</h4>
-                  <p className="text-slate-400 text-xs mt-1 font-light">Apple Watch S9, loa thông minh Marshall.</p>
-                </div>
-              </div>
-            </div>
           </div>
+        )}
 
-          {/* New Products Section */}
-          <div className="bg-slate-50 border-t border-b border-slate-100 py-16">
-            <div className="max-w-7xl mx-auto px-6 space-y-8">
-              <div>
-                <h2 className="text-2xl font-black text-slate-800 font-display">Sản phẩm mới</h2>
-                <p className="text-slate-400 text-xs mt-1">Trải nghiệm những siêu phẩm vừa có mặt tại cửa hàng</p>
-              </div>
+      </div>
+    </div>
+  );
 
-              {loading ? (
-                <div className="text-center py-10 text-slate-400">
-                  <div className="w-6 h-6 border-2 border-slate-200 border-t-primary-600 rounded-full animate-spin mx-auto mb-2" />
-                  Đang tải danh sách thiết bị...
-                </div>
-              ) : (
-                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-                  {products.slice(0, 8).map((product) => (
-                    <Link
-                      to={`/product/${product.MaSP}`}
-                      key={product.MaSP}
-                      className="bg-white rounded-2xl border border-slate-150 hover:border-cyan-100 p-4 transition-all hover:shadow-lg flex flex-col justify-between group overflow-hidden"
-                    >
-                      <div className="aspect-square bg-slate-50 rounded-xl overflow-hidden mb-3 flex items-center justify-center p-2">
-                        <img
-                          src={product.AnhMinhHoa}
-                          alt={product.TenSP}
-                          className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-300"
-                        />
-                      </div>
-                      <div className="flex-grow flex flex-col justify-between">
-                        <div>
-                          <h4 className="font-bold text-slate-800 text-xs font-display line-clamp-1 group-hover:text-primary-600 transition-colors">
-                            {product.TenSP}
-                          </h4>
-                          <p className="text-slate-400 text-[10px] line-clamp-1 mt-0.5 font-light">{product.MoTa}</p>
-                        </div>
+  // Reusable NovaTech Product Card Renderer
+  function renderProductCard(product) {
+    const giaGoc = product.GiaBan * 1.12;
+    const specs = parseSpecs(product.ThongSo);
 
-                        <div className="flex items-center justify-between mt-4 pt-2 border-t border-slate-50">
-                          <span className="font-extrabold text-slate-850 text-sm">
-                            {formatPrice(product.GiaBan)}
-                          </span>
-                          <button
-                            onClick={(e) => handleAddToCart(e, product)}
-                            disabled={product.SoLuongTon === 0}
-                            className="bg-primary-50 hover:bg-primary-600 text-primary-600 hover:text-white rounded-full p-2 transition-colors cursor-pointer"
-                          >
-                            <ArrowRight className="w-3 h-3" />
-                          </button>
-                        </div>
-                      </div>
-                    </Link>
-                  ))}
-                </div>
-              )}
-            </div>
-          </div>
-
-          {/* Three Trust Pillars */}
-          <div className="max-w-7xl mx-auto px-6 py-16 grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="bg-white rounded-2xl border border-slate-100 p-6 space-y-3 shadow-sm hover:shadow-md transition-shadow">
-              <div className="w-10 h-10 rounded-full bg-cyan-50 flex items-center justify-center text-cyan-600 font-bold text-sm">
-                🛡️
-              </div>
-              <h4 className="font-bold text-slate-800 text-sm font-display">Bảo hành chính hãng</h4>
-              <p className="text-slate-400 text-xs font-light leading-relaxed">
-                Cam kết 100% sản phẩm chính hãng, hỗ trợ bảo hành 1 đổi 1 trong vòng 30 ngày nếu phát sinh lỗi phần cứng từ NSX.
-              </p>
-            </div>
-
-            <div className="bg-white rounded-2xl border border-slate-100 p-6 space-y-3 shadow-sm hover:shadow-md transition-shadow">
-              <div className="w-10 h-10 rounded-full bg-cyan-50 flex items-center justify-center text-cyan-600 font-bold text-sm">
-                🚀
-              </div>
-              <h4 className="font-bold text-slate-800 text-sm font-display">Giao hàng siêu tốc</h4>
-              <p className="text-slate-400 text-xs font-light leading-relaxed">
-                Giao hàng nhanh hỏa tốc trong 2h đối với khu vực nội thành, hỗ trợ miễn phí vận chuyển trên toàn quốc.
-              </p>
-            </div>
-
-            <div className="bg-white rounded-2xl border border-slate-100 p-6 space-y-3 shadow-sm hover:shadow-md transition-shadow">
-              <div className="w-10 h-10 rounded-full bg-cyan-50 flex items-center justify-center text-cyan-600 font-bold text-sm">
-                📞
-              </div>
-              <h4 className="font-bold text-slate-800 text-sm font-display">Tư vấn kỹ thuật</h4>
-              <p className="text-slate-400 text-xs font-light leading-relaxed">
-                Đội ngũ chuyên viên tư vấn nhiệt tình, có trình độ chuyên môn cao sẵn sàng giải đáp và hướng dẫn sử dụng 24/7.
-              </p>
-            </div>
-          </div>
+    return (
+      <div
+        key={product.MaSP}
+        onClick={() => navigate(`/product/${product.MaSP}`)}
+        className="nova-card p-3 flex flex-col justify-between group cursor-pointer relative"
+      >
+        {/* Top Badges */}
+        <div className="flex items-center justify-between mb-1.5">
+          <span className="nova-tag-installment">Trả góp 0%</span>
+          <span className="nova-tag-discount">-12%</span>
         </div>
-      ) : (
-        /* ==================== CATALOG MODE (Page 2 & 3) ==================== */
-        <div className="max-w-7xl mx-auto px-6 py-10 animate-fade-in space-y-6">
-          {/* Breadcrumbs */}
-          <div className="flex items-center gap-1.5 text-[11px] text-slate-400 font-semibold uppercase tracking-wider">
-            <Link to="/" className="hover:text-primary-600">Trang chủ</Link>
-            <span>›</span>
-            <span className="hover:text-primary-600">Danh mục</span>
-            <span>›</span>
-            <span className="text-primary-600">
-              {categories.find(c => c.MaDM === parseInt(selectedCategory))?.TenDM || 'Tất cả sản phẩm'}
+
+        {/* Image Container */}
+        <div className="w-full aspect-square overflow-hidden flex items-center justify-center p-2 mb-2">
+          <img
+            src={product.AnhMinhHoa}
+            alt={product.TenSP}
+            className="max-h-full max-w-full object-contain group-hover:scale-105 transition-transform duration-300"
+            loading="lazy"
+          />
+        </div>
+
+        {/* Specs Pills */}
+        {specs.length > 0 && (
+          <div className="flex flex-wrap gap-1 mb-1.5">
+            {specs.map((s, i) => (
+              <span key={i} className="text-[10px] bg-[#f0f9ff] dark:bg-slate-800/80 text-[#0369a1] dark:text-sky-300 border border-transparent dark:border-slate-700/50 px-1.5 py-0.5 rounded font-medium truncate max-w-[120px]">
+                {s}
+              </span>
+            ))}
+          </div>
+        )}
+
+        {/* Product Title */}
+        <h3 className="text-xs sm:text-sm font-bold text-slate-800 line-clamp-2 group-hover:text-[#0284c7] transition-colors mb-2">
+          {product.TenSP}
+        </h3>
+
+        {/* Pricing */}
+        <div className="mt-auto pt-2 border-t border-slate-100">
+          <div className="flex items-baseline gap-1.5 flex-wrap mb-1">
+            <span className="text-[#0284c7] font-extrabold text-sm sm:text-base">
+              {formatPrice(product.GiaBan)}
+            </span>
+            <span className="text-slate-400 line-through text-[11px]">
+              {formatPrice(giaGoc)}
             </span>
           </div>
 
-          {/* Heading */}
-          <div>
-            <h1 className="text-3xl font-extrabold text-slate-800 font-display">
-              {categories.find(c => c.MaDM === parseInt(selectedCategory))?.TenDM || 'Thiết bị công nghệ'}
-            </h1>
-            <p className="text-slate-500 font-light text-sm max-w-xl mt-1.5 leading-relaxed">
-              Khám phá danh sách các thiết bị di động thông minh, máy tính xách tay và linh kiện chính hãng tại siêu thị điện tử Nemo Tech.
-            </p>
+          {/* Ratings & reviews */}
+          <div className="flex items-center gap-1 text-[11px] text-amber-500 font-semibold mb-2.5">
+            <Star className="w-3.5 h-3.5 fill-amber-400 text-amber-400" />
+            <span className="text-slate-700 font-bold">4.8</span>
+            <span className="text-slate-400">({(product.MaSP * 17) % 80 + 20})</span>
           </div>
 
-          {/* Results count & Sort toolbar */}
-          <div className="flex items-center justify-between border-b border-slate-100 pb-3 text-xs">
-            <span className="text-slate-400 font-medium">Tìm thấy {products.length} kết quả</span>
-            <button className="bg-slate-100 hover:bg-slate-200 text-slate-600 font-bold px-3 py-1.5 rounded-full flex items-center gap-1">
-              Sắp xếp
-            </button>
-          </div>
-
-          <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
-            {/* Left Filter Sidebar */}
-            <div className="lg:col-span-1 space-y-6">
-              <div className="bg-white rounded-2xl border border-slate-100 p-6 shadow-sm space-y-6">
-                <div className="flex items-center justify-between border-b border-slate-100 pb-3">
-                  <span className="font-bold text-slate-800 flex items-center gap-1.5 font-display">
-                    <SlidersHorizontal className="w-4.5 h-4.5 text-primary-500" />
-                    Bộ lọc
-                  </span>
-                  <button onClick={handleClearFilters} className="text-xs text-rose-500 font-bold hover:underline">
-                    Xóa tất cả
-                  </button>
-                </div>
-
-                {/* Local Search */}
-                <div className="space-y-1.5">
-                  <label className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Từ khóa</label>
-                  <input
-                    type="text"
-                    value={searchVal === ' ' ? '' : searchVal}
-                    onChange={(e) => setSearchVal(e.target.value)}
-                    placeholder="Tìm tên thiết bị..."
-                    className="w-full bg-slate-50 border border-slate-200 focus:border-primary-500 rounded-xl py-2 px-3 text-xs text-slate-700"
-                  />
-                </div>
-
-                {/* Brand checkboxes */}
-                <div className="space-y-2">
-                  <label className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Thương hiệu</label>
-                  <div className="space-y-2">
-                    {[
-                      { label: 'Apple', value: 'Apple' },
-                      { label: 'Samsung', value: 'Samsung' },
-                      { label: 'Sony', value: 'Sony' },
-                      { label: 'Keychron', value: 'Keychron' },
-                      { label: 'ASUS', value: 'ASUS' }
-                    ].map((brand) => (
-                      <label key={brand.value} className="flex items-center gap-2.5 text-xs text-slate-600 cursor-pointer">
-                        <input
-                          type="checkbox"
-                          checked={brandFilter === brand.value}
-                          onChange={() => handleBrandChange(brand.value)}
-                          className="rounded border-slate-300 text-primary-600 focus:ring-primary-500 w-4 h-4"
-                        />
-                        <span>{brand.label}</span>
-                      </label>
-                    ))}
-                  </div>
-                </div>
-
-                {/* Price slider */}
-                <div className="space-y-2">
-                  <div className="flex justify-between text-[10px] font-bold text-slate-400 uppercase tracking-wider">
-                    <span>Mức giá</span>
-                    <span className="text-primary-600">
-                      {priceRange === '100' ? 'Dưới 5tr' : priceRange === '300' ? '5tr - 20tr' : priceRange === '500' ? 'Trên 20tr' : 'Tất cả'}
-                    </span>
-                  </div>
-                  <div className="space-y-2">
-                    {[
-                      { label: 'Tất cả giá', value: '' },
-                      { label: 'Dưới 5 triệu', value: '100' },
-                      { label: 'Từ 5 - 20 triệu', value: '300' },
-                      { label: 'Trên 20 triệu', value: '500' }
-                    ].map((pr) => (
-                      <label key={pr.value} className="flex items-center gap-2.5 text-xs text-slate-600 cursor-pointer">
-                        <input
-                          type="radio"
-                          name="priceRangeRadio"
-                          checked={priceRange === pr.value}
-                          onChange={() => handlePriceChange(pr.value)}
-                          className="rounded border-slate-300 text-primary-600 focus:ring-primary-500 w-4 h-4"
-                        />
-                        <span>{pr.label}</span>
-                      </label>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* Right Product Grid */}
-            <div className="lg:col-span-3">
-              {loading ? (
-                <div className="text-center py-20 text-slate-400">
-                  <div className="w-10 h-10 border-2 border-slate-200 border-t-primary-600 rounded-full animate-spin mx-auto mb-2" />
-                  Đang tải danh sách thiết bị...
-                </div>
-              ) : products.length === 0 ? (
-                <div className="bg-white rounded-2xl border border-slate-100 p-12 text-center shadow-sm flex flex-col items-center justify-center min-h-[300px]">
-                  <AlertCircle className="w-10 h-10 text-rose-500 mb-3" />
-                  <h4 className="font-bold text-slate-800 font-display">Không tìm thấy thiết bị nào</h4>
-                  <p className="text-xs text-slate-400 mt-1">Vui lòng điều chỉnh hoặc xóa bớt các bộ lọc để có thêm kết quả tìm kiếm.</p>
-                  <button onClick={handleClearFilters} className="mt-4 bg-primary-600 text-white px-4 py-2 rounded-full text-xs font-bold shadow-sm">
-                    Xóa tất cả bộ lọc
-                  </button>
-                </div>
-              ) : (
-                <div className="space-y-8">
-                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    {products.map((product) => (
-                      <Link
-                        to={`/product/${product.MaSP}`}
-                        key={product.MaSP}
-                        className="bg-white rounded-2xl border border-slate-100 hover:border-primary-100 hover:shadow-xl transition-all duration-300 group flex flex-col overflow-hidden p-4"
-                      >
-                        {/* Vector artwork area */}
-                        <div className="relative aspect-square bg-slate-50 border border-slate-50 rounded-xl overflow-hidden mb-4 flex items-center justify-center p-3">
-                          <img
-                            src={product.AnhMinhHoa}
-                            alt={product.TenSP}
-                            className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500"
-                          />
-                        </div>
-
-                        {/* Text and actions */}
-                        <div className="flex-grow flex flex-col justify-between">
-                          <div>
-                            <h4 className="font-bold text-slate-800 text-sm group-hover:text-primary-600 transition-colors truncate font-display">
-                              {product.TenSP}
-                            </h4>
-                            <p className="text-slate-400 text-[10px] font-light line-clamp-1 mt-0.5">
-                              {product.MoTa}
-                            </p>
-                          </div>
-
-                          <div className="flex items-center justify-between mt-4 pt-3 border-t border-slate-50">
-                            <span className="font-black text-slate-800 text-base">
-                              {formatPrice(product.GiaBan)}
-                            </span>
-
-                            <button
-                              onClick={(e) => handleAddToCart(e, product)}
-                              disabled={product.SoLuongTon === 0}
-                              className={`rounded-full p-2.5 transition-all text-white flex items-center justify-center cursor-pointer ${
-                                product.SoLuongTon === 0
-                                  ? 'bg-slate-100 text-slate-400 cursor-not-allowed'
-                                  : 'bg-primary-600 hover:bg-primary-700 hover:scale-105'
-                              }`}
-                            >
-                              <ArrowRight className="w-3.5 h-3.5" />
-                            </button>
-                          </div>
-                        </div>
-                      </Link>
-                    ))}
-                  </div>
-
-                  {/* Load more designs */}
-                  <div className="text-center pt-4">
-                    <button className="border border-primary-600 text-primary-600 hover:bg-primary-50 px-6 py-2 rounded-full text-xs font-bold transition-colors">
-                      Tải thêm thiết bị
-                    </button>
-                  </div>
-                </div>
-              )}
-            </div>
-          </div>
+          {/* Add to Cart button */}
+          <button
+            onClick={(e) => handleAddToCart(e, product)}
+            className="w-full bg-[#f0f9ff] hover:bg-[#0284c7] dark:bg-slate-800/80 dark:hover:bg-[#0284c7] text-[#0284c7] hover:text-white dark:text-sky-300 dark:hover:text-white border border-[#bae6fd] hover:border-[#0284c7] dark:border-slate-700 font-bold text-xs py-1.5 rounded-lg transition-colors flex items-center justify-center gap-1 cursor-pointer"
+          >
+            <ShoppingCart className="w-3.5 h-3.5" />
+            <span>Thêm giỏ hàng</span>
+          </button>
         </div>
-      )}
-    </div>
-  );
+      </div>
+    );
+  }
 };
 
 export default Home;
