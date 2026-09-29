@@ -207,6 +207,25 @@ const DonHang = sequelize.define('DonHang', {
   MaKH: {
     type: DataTypes.INTEGER,
     allowNull: true
+  },
+  PhuongThucThanhToan: {
+    type: DataTypes.STRING(50),
+    allowNull: false,
+    defaultValue: 'COD' // 'COD', 'VIETQR'
+  },
+  TrangThaiThanhToan: {
+    type: DataTypes.STRING(50),
+    allowNull: false,
+    defaultValue: 'Chưa thanh toán' // 'Chưa thanh toán', 'Đã thanh toán'
+  },
+  MaVoucher: {
+    type: DataTypes.INTEGER,
+    allowNull: true
+  },
+  TienGiamGia: {
+    type: DataTypes.DECIMAL(12, 2),
+    allowNull: false,
+    defaultValue: 0
   }
 }, {
   tableName: 'DONHANG'
@@ -298,6 +317,117 @@ ChiTietDonHang.belongsTo(DonHang, { foreignKey: 'MaDonHang' });
 SanPham.hasMany(ChiTietDonHang, { foreignKey: 'MaSP' });
 ChiTietDonHang.belongsTo(SanPham, { foreignKey: 'MaSP', as: 'SanPham' });
 
+// 9. DANHGIA
+const DanhGia = sequelize.define('DanhGia', {
+  MaDanhGia: {
+    type: DataTypes.INTEGER,
+    primaryKey: true,
+    autoIncrement: true
+  },
+  MaSP: {
+    type: DataTypes.INTEGER,
+    allowNull: false
+  },
+  MaKH: {
+    type: DataTypes.INTEGER,
+    allowNull: false
+  },
+  SoSao: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+    validate: {
+      min: 1,
+      max: 5
+    }
+  },
+  NoiDung: {
+    type: DataTypes.TEXT,
+    allowNull: true
+  },
+  HinhAnh: {
+    type: DataTypes.STRING(500),
+    allowNull: true
+  },
+  TrangThai: {
+    type: DataTypes.STRING(50),
+    allowNull: false,
+    defaultValue: 'Hiển thị' // 'Hiển thị', 'Ẩn'
+  },
+  NgayDanhGia: {
+    type: DataTypes.DATE,
+    allowNull: false,
+    defaultValue: DataTypes.NOW
+  }
+}, {
+  tableName: 'DANHGIA'
+});
+
+// 10. KHUYENMAI
+const KhuyenMai = sequelize.define('KhuyenMai', {
+  MaVoucher: {
+    type: DataTypes.INTEGER,
+    primaryKey: true,
+    autoIncrement: true
+  },
+  MaCode: {
+    type: DataTypes.STRING(50),
+    allowNull: false,
+    unique: true
+  },
+  MoTa: {
+    type: DataTypes.STRING(255),
+    allowNull: true
+  },
+  LoaiGiam: {
+    type: DataTypes.STRING(20),
+    allowNull: false,
+    defaultValue: 'TIEN_MAT' // 'TIEN_MAT', 'PHAN_TRAM'
+  },
+  GiaTriGiam: {
+    type: DataTypes.DECIMAL(12, 2),
+    allowNull: false
+  },
+  GiaTriToiDa: {
+    type: DataTypes.DECIMAL(12, 2),
+    allowNull: true
+  },
+  DonToiThieu: {
+    type: DataTypes.DECIMAL(12, 2),
+    allowNull: false,
+    defaultValue: 0
+  },
+  SoLuong: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+    defaultValue: 100
+  },
+  NgayBatDau: {
+    type: DataTypes.DATEONLY,
+    allowNull: true
+  },
+  NgayHetHan: {
+    type: DataTypes.DATEONLY,
+    allowNull: true
+  },
+  TrangThai: {
+    type: DataTypes.STRING(50),
+    allowNull: false,
+    defaultValue: 'Hoạt động' // 'Hoạt động', 'Tạm khóa'
+  }
+}, {
+  tableName: 'KHUYENMAI'
+});
+
+// Associations for DANHGIA & KHUYENMAI
+SanPham.hasMany(DanhGia, { foreignKey: 'MaSP', as: 'DanhGias', onDelete: 'CASCADE' });
+DanhGia.belongsTo(SanPham, { foreignKey: 'MaSP', as: 'SanPham' });
+
+NguoiDung.hasMany(DanhGia, { foreignKey: 'MaKH', as: 'DanhGias', onDelete: 'CASCADE' });
+DanhGia.belongsTo(NguoiDung, { foreignKey: 'MaKH', as: 'NguoiDung' });
+
+KhuyenMai.hasMany(DonHang, { foreignKey: 'MaVoucher', as: 'DonHangs', onDelete: 'SET NULL' });
+DonHang.belongsTo(KhuyenMai, { foreignKey: 'MaVoucher', as: 'Voucher' });
+
 module.exports = {
   sequelize,
   DanhMuc,
@@ -307,5 +437,8 @@ module.exports = {
   GioHang,
   ChiTietGioHang,
   DonHang,
-  ChiTietDonHang
+  ChiTietDonHang,
+  DanhGia,
+  KhuyenMai
 };
+
