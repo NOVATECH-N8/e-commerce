@@ -1,11 +1,9 @@
 | Task | Status | Details |
 |---|---|---|
-| Task 1: Cài đặt Multer & Cấu hình Upload File | Completed | Cài multer, tạo upload.js, route /api/upload, static /uploads, test đạt 100% |
-| Task 2: Models DANHGIA & KHUYENMAI | Completed | Tạo models DanhGia, KhuyenMai, quan hệ, sync CSDL và test đạt 100% |
-| Task 3: Backend Controller & API Voucher | Completed | Tạo voucherController.js, validate voucher, API CRUD voucher admin, test đạt 100% |
-| Task 4: Backend Controller & API Reviews | Completed | Tạo reviewController.js, verified purchase check, admin moderation, test đạt 100% |
-| Task 5: Tạo Đơn Hàng & Thanh toán VietQR | Completed | Nâng cấp placeOrder trừ voucher, sinh QR Napas 24/7 động, test đạt 100% |
-| Task 6: Frontend Giỏ hàng & Thanh toán VietQR | Completed | Áp voucher thực tế trong Cart.jsx, chọn VietQR trong Checkout.jsx, build pass 100% |
-| Task 7: Frontend Đánh giá & Bình luận Sản phẩm | Completed | Hiển thị bảng điểm sao, form viết đánh giá kèm upload ảnh, build pass 100% |
-| Task 8: Frontend Admin CMS Voucher & Reviews | Completed | Trang VoucherAdmin.jsx, ReviewAdmin.jsx, chọn ảnh Multer, build pass 100% |
-| Task 9: Kiểm thử tích hợp toàn diện E2E | Completed | Đã sửa khóa junction table SQLite và kiểm thử thành công 8/8 bước E2E |
+| Task 1: Design System & Tokens Refactoring | Pending | Chuẩn hóa border-radius (2px-6px), triệt tiêu nút bầu bĩnh, CSS tokens kỹ thuật |
+| Task 2: CellphoneS-Style Header & Navbar | Pending | Header chuẩn sàn bán lẻ, gợi ý từ khóa hot, chọn khu vực, badge giỏ vuông |
+| Task 3: 3-Column Hero Section & Mega Menu | Pending | Cột danh mục dọc bên trái, banner slider ở giữa, side-cards ưu đãi bên phải |
+| Task 4: CellphoneS-Style Product Cards & Flash Sale | Pending | Thẻ vuông góc 4px, nhãn đỏ -X%, chip thông số kỹ thuật chữ nhật, nút mua dứt khoát |
+| Task 5: CellphoneS-Style Product Details Page | Pending | Bảng thông số kỹ thuật chi tiết, hộp quà tặng ưu đãi, nút mua to bản chuẩn CellphoneS |
+| Task 6: CellphoneS-Style Cart & Checkout | Pending | Bố cục 2 cột tinh gọn, chip voucher chữ nhật, nút đặt hàng vuông vức |
+| Task 7: Kiểm thử toàn diện & Tối ưu giao diện | Pending | Build production, kiểm tra responsive & Night Mode trên trình duyệt |
