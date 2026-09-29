@@ -15,6 +15,7 @@ const cartController = require('./controllers/cartController');
 const orderController = require('./controllers/orderController');
 const userController = require('./controllers/userController');
 const voucherController = require('./controllers/voucherController');
+const reviewController = require('./controllers/reviewController');
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -100,6 +101,14 @@ app.get('/api/admin/vouchers', isAdmin, voucherController.getAdminVouchers);
 app.post('/api/admin/vouchers', isAdmin, voucherController.createVoucher);
 app.put('/api/admin/vouchers/:id', isAdmin, voucherController.updateVoucher);
 app.delete('/api/admin/vouchers/:id', isAdmin, voucherController.deleteVoucher);
+
+// 8. Product Reviews & Ratings Routes
+app.get('/api/products/:id/reviews', reviewController.getProductReviews);
+app.get('/api/products/:id/can-review', verifyToken, reviewController.checkCanReview);
+app.post('/api/products/:id/reviews', verifyToken, reviewController.submitReview);
+app.get('/api/admin/reviews', isAdmin, reviewController.getAdminReviews);
+app.put('/api/admin/reviews/:id/status', isAdmin, reviewController.updateReviewStatus);
+app.delete('/api/admin/reviews/:id', isAdmin, reviewController.deleteReview);
 
 // Base route
 app.get('/', (req, res) => {
