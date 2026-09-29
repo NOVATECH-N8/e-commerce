@@ -86,6 +86,7 @@ app.get('/api/orders/track', orderController.trackOrderPublic);
 // Admin Order CRUD
 app.get('/api/admin/orders', isAdmin, orderController.getAdminOrders);
 app.put('/api/admin/orders/:id/status', isAdmin, orderController.updateOrderStatus);
+app.put('/api/admin/orders/:id/payment-status', isAdmin, orderController.updatePaymentStatus);
 
 // 6. User Account Routes (Admin only)
 app.get('/api/admin/users', isAdmin, userController.getUsers);

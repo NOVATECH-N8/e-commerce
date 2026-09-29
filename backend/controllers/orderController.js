@@ -1,9 +1,9 @@
-const { DonHang, ChiTietDonHang, SanPham, ChiTietGioHang, GioHang, NguoiDung, sequelize } = require('../models');
+const { DonHang, ChiTietDonHang, SanPham, ChiTietGioHang, GioHang, NguoiDung, KhuyenMai, sequelize } = require('../models');
 const { Op } = require('sequelize');
 
 // Customer: Place an order from cart
 exports.placeOrder = async (req, res) => {
-  const { DiaChiGiaoHang, SDTNhanHang, GhiChu } = req.body;
+  const { DiaChiGiaoHang, SDTNhanHang, GhiChu, PhuongThucThanhToan, voucherCode } = req.body;
 
   if (!DiaChiGiaoHang || !SDTNhanHang) {
     return res.status(400).json({ message: 'Vui lòng cung cấp địa chỉ và số điện thoại nhận hàng.' });
@@ -72,13 +72,82 @@ exports.placeOrder = async (req, res) => {
       });
     }
 
+    // 3.5. Process Voucher if provided
+    let discountAmount = 0;
+    let appliedVoucherId = null;
+
+    if (voucherCode && typeof voucherCode === 'string' && voucherCode.trim()) {
+      const cleanCode = voucherCode.trim().toUpperCase();
+      const voucher = await KhuyenMai.findOne({
+        where: { MaCode: cleanCode },
+        transaction: t
+      });
+
+      if (!voucher) {
+        await t.rollback();
+        return res.status(404).json({ message: `Mã giảm giá '${cleanCode}' không tồn tại.` });
+      }
+
+      if (voucher.TrangThai !== 'Hoạt động') {
+        await t.rollback();
+        return res.status(400).json({ message: `Mã giảm giá '${cleanCode}' hiện đang tạm khóa.` });
+      }
+
+      if (voucher.SoLuong <= 0) {
+        await t.rollback();
+        return res.status(400).json({ message: `Mã giảm giá '${cleanCode}' đã hết lượt sử dụng.` });
+      }
+
+      const todayStr = new Date().toISOString().split('T')[0];
+      if (voucher.NgayBatDau && voucher.NgayBatDau > todayStr) {
+        await t.rollback();
+        return res.status(400).json({ message: `Mã giảm giá '${cleanCode}' chưa có hiệu lực.` });
+      }
+
+      if (voucher.NgayHetHan && voucher.NgayHetHan < todayStr) {
+        await t.rollback();
+        return res.status(400).json({ message: `Mã giảm giá '${cleanCode}' đã hết hạn sử dụng.` });
+      }
+
+      const minSpend = parseFloat(voucher.DonToiThieu) || 0;
+      if (totalAmount < minSpend) {
+        await t.rollback();
+        return res.status(400).json({
+          message: `Đơn hàng chưa đạt giá trị tối thiểu ${new Intl.NumberFormat('vi-VN').format(minSpend)}đ để dùng mã này.`
+        });
+      }
+
+      if (voucher.LoaiGiam === 'PHAN_TRAM') {
+        discountAmount = (totalAmount * parseFloat(voucher.GiaTriGiam)) / 100;
+        if (voucher.GiaTriToiDa && discountAmount > parseFloat(voucher.GiaTriToiDa)) {
+          discountAmount = parseFloat(voucher.GiaTriToiDa);
+        }
+      } else {
+        discountAmount = parseFloat(voucher.GiaTriGiam);
+      }
+
+      discountAmount = Math.min(totalAmount, discountAmount);
+      appliedVoucherId = voucher.MaVoucher;
+
+      // Decrement voucher usage count
+      voucher.SoLuong -= 1;
+      await voucher.save({ transaction: t });
+    }
+
+    const finalTotal = Math.max(0, totalAmount - discountAmount);
+    const paymentMethod = PhuongThucThanhToan === 'VIETQR' ? 'VIETQR' : 'COD';
+
     // 4. Create Order
     const now = new Date();
     const order = await DonHang.create({
       NgayDatHang: now.toISOString().split('T')[0],
       ThoiGianDatHang: now,
-      TongTien: totalAmount,
+      TongTien: finalTotal,
       TrangThai: 'Chờ xử lý',
+      PhuongThucThanhToan: paymentMethod,
+      TrangThaiThanhToan: 'Chưa thanh toán',
+      MaVoucher: appliedVoucherId,
+      TienGiamGia: discountAmount,
       DiaChiGiaoHang,
       SDTNhanHang,
       GhiChu,
@@ -110,10 +179,29 @@ exports.placeOrder = async (req, res) => {
     // Commit transaction
     await t.commit();
 
+    let vietQrInfo = null;
+    if (paymentMethod === 'VIETQR') {
+      const bankId = process.env.VIETQR_BANK_ID || 'MB';
+      const accountNo = process.env.VIETQR_ACCOUNT_NO || '0333888999';
+      const accountName = process.env.VIETQR_ACCOUNT_NAME || 'CONG TY NOVATECH';
+      const memo = `NOVATECH DH${order.MaDonHang}`;
+      const amount = Math.round(finalTotal);
+      const qrUrl = `https://img.vietqr.io/image/${bankId}-${accountNo}-compact2.png?amount=${amount}&addInfo=${encodeURIComponent(memo)}&accountName=${encodeURIComponent(accountName)}`;
+      vietQrInfo = {
+        bankId,
+        accountNo,
+        accountName,
+        memo,
+        amount,
+        qrUrl
+      };
+    }
+
     return res.status(201).json({
       message: 'Đặt hàng thành công.',
       MaDonHang: order.MaDonHang,
-      order
+      order,
+      vietQr: vietQrInfo
     });
   } catch (error) {
     await t.rollback();
@@ -353,3 +441,25 @@ exports.updateOrderStatus = async (req, res) => {
     return res.status(500).json({ message: error.message || 'Lỗi máy chủ khi cập nhật trạng thái.' });
   }
 };
+
+// Admin: Update Payment Status
+exports.updatePaymentStatus = async (req, res) => {
+  const { id } = req.params;
+  const { TrangThaiThanhToan } = req.body;
+
+  try {
+    const order = await DonHang.findByPk(id);
+    if (!order) {
+      return res.status(404).json({ message: 'Không tìm thấy đơn hàng.' });
+    }
+
+    order.TrangThaiThanhToan = TrangThaiThanhToan || 'Đã thanh toán';
+    await order.save();
+
+    return res.json({ message: 'Cập nhật trạng thái thanh toán thành công.', order });
+  } catch (error) {
+    console.error('Update payment status error:', error);
+    return res.status(500).json({ message: 'Lỗi máy chủ khi cập nhật thanh toán.' });
+  }
+};
+
