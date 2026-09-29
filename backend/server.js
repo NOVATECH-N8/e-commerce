@@ -14,6 +14,7 @@ const categoryController = require('./controllers/categoryController');
 const cartController = require('./controllers/cartController');
 const orderController = require('./controllers/orderController');
 const userController = require('./controllers/userController');
+const voucherController = require('./controllers/voucherController');
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -91,6 +92,14 @@ app.post('/api/admin/users', isAdmin, userController.createUser);
 app.put('/api/admin/users/:id', isAdmin, userController.updateUser);
 app.put('/api/admin/users/:id/lock', isAdmin, userController.toggleUserLock);
 app.delete('/api/admin/users/:id', isAdmin, userController.deleteUser);
+
+// 7. Voucher & Promotion Routes
+app.post('/api/vouchers/apply', voucherController.applyVoucher);
+app.get('/api/vouchers', voucherController.getPublicVouchers);
+app.get('/api/admin/vouchers', isAdmin, voucherController.getAdminVouchers);
+app.post('/api/admin/vouchers', isAdmin, voucherController.createVoucher);
+app.put('/api/admin/vouchers/:id', isAdmin, voucherController.updateVoucher);
+app.delete('/api/admin/vouchers/:id', isAdmin, voucherController.deleteVoucher);
 
 // Base route
 app.get('/', (req, res) => {
