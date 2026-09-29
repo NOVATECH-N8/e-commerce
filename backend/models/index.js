@@ -149,14 +149,17 @@ const GioHang = sequelize.define('GioHang', {
 
 // 6. CHITIETGIOHANG
 const ChiTietGioHang = sequelize.define('ChiTietGioHang', {
-  GIOHANGMaGioHang: {
+  id: {
     type: DataTypes.INTEGER,
     primaryKey: true,
+    autoIncrement: true
+  },
+  GIOHANGMaGioHang: {
+    type: DataTypes.INTEGER,
     allowNull: false
   },
   SANPHAMMaSP: {
     type: DataTypes.INTEGER,
-    primaryKey: true,
     allowNull: false
   },
   SoLuong: {
@@ -233,14 +236,17 @@ const DonHang = sequelize.define('DonHang', {
 
 // 8. CHITIETDONHANG
 const ChiTietDonHang = sequelize.define('ChiTietDonHang', {
-  MaDonHang: {
+  id: {
     type: DataTypes.INTEGER,
     primaryKey: true,
+    autoIncrement: true
+  },
+  MaDonHang: {
+    type: DataTypes.INTEGER,
     allowNull: false
   },
   MaSP: {
     type: DataTypes.INTEGER,
-    primaryKey: true,
     allowNull: false
   },
   DongGia: {
@@ -275,13 +281,13 @@ GioHang.belongsTo(NguoiDung, { foreignKey: 'MaKH', as: 'NguoiDung' });
 
 // GIOHANG <-> SANPHAM through CHITIETGIOHANG
 GioHang.belongsToMany(SanPham, {
-  through: ChiTietGioHang,
+  through: { model: ChiTietGioHang, unique: false },
   foreignKey: 'GIOHANGMaGioHang',
   otherKey: 'SANPHAMMaSP',
   as: 'SanPhams'
 });
 SanPham.belongsToMany(GioHang, {
-  through: ChiTietGioHang,
+  through: { model: ChiTietGioHang, unique: false },
   foreignKey: 'SANPHAMMaSP',
   otherKey: 'GIOHANGMaGioHang',
   as: 'GioHangs'
@@ -299,13 +305,13 @@ DonHang.belongsTo(NguoiDung, { foreignKey: 'MaKH', as: 'NguoiDung' });
 
 // DONHANG <-> SANPHAM through CHITIETDONHANG
 DonHang.belongsToMany(SanPham, {
-  through: ChiTietDonHang,
+  through: { model: ChiTietDonHang, unique: false },
   foreignKey: 'MaDonHang',
   otherKey: 'MaSP',
   as: 'SanPhams'
 });
 SanPham.belongsToMany(DonHang, {
-  through: ChiTietDonHang,
+  through: { model: ChiTietDonHang, unique: false },
   foreignKey: 'MaSP',
   otherKey: 'MaDonHang',
   as: 'DonHangs'

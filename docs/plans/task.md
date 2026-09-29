@@ -6,6 +6,6 @@
 | Task 4: Backend Controller & API Reviews | Completed | Tạo reviewController.js, verified purchase check, admin moderation, test đạt 100% |
 | Task 5: Tạo Đơn Hàng & Thanh toán VietQR | Completed | Nâng cấp placeOrder trừ voucher, sinh QR Napas 24/7 động, test đạt 100% |
 | Task 6: Frontend Giỏ hàng & Thanh toán VietQR | Completed | Áp voucher thực tế trong Cart.jsx, chọn VietQR trong Checkout.jsx, build pass 100% |
-| Task 7: Frontend Đánh giá & Bình luận Sản phẩm | Pending | Hiển thị bảng điểm sao, form viết đánh giá kèm upload ảnh |
-| Task 8: Frontend Admin CMS Voucher & Reviews | Pending | Trang VoucherAdmin.jsx, ReviewAdmin.jsx, chọn ảnh Multer |
-| Task 9: Kiểm thử tích hợp toàn diện E2E | Pending | Chạy demo toàn bộ luồng khách hàng và quản trị |
+| Task 7: Frontend Đánh giá & Bình luận Sản phẩm | Completed | Hiển thị bảng điểm sao, form viết đánh giá kèm upload ảnh, build pass 100% |
+| Task 8: Frontend Admin CMS Voucher & Reviews | Completed | Trang VoucherAdmin.jsx, ReviewAdmin.jsx, chọn ảnh Multer, build pass 100% |
+| Task 9: Kiểm thử tích hợp toàn diện E2E | Completed | Đã sửa khóa junction table SQLite và kiểm thử thành công 8/8 bước E2E |
