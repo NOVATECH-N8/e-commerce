@@ -52,3 +52,7 @@ desktop.ini
 *.sln
 *.swp
 *.swo
+
+# Uploaded media
+backend/uploads/*
+!backend/uploads/.gitkeep

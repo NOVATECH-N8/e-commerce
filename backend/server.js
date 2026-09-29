@@ -1,9 +1,11 @@
 const express = require('express');
 const cors = require('cors');
+const path = require('path');
 require('dotenv').config();
 
 const sequelize = require('./config/db');
 const { verifyToken, isAdmin } = require('./middleware/auth');
+const upload = require('./middleware/upload');
 
 // Controllers
 const authController = require('./controllers/authController');
@@ -20,8 +22,30 @@ const PORT = process.env.PORT || 5000;
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 // --- API ROUTES ---
+
+// 0. File Upload Route (Single / Multiple)
+app.post('/api/upload', (req, res) => {
+  upload.single('image')(req, res, (err) => {
+    if (err) {
+      return res.status(400).json({ message: err.message || 'Lỗi khi tải file ảnh lên.' });
+    }
+    if (!req.file) {
+      return res.status(400).json({ message: 'Vui lòng chọn ít nhất 1 file ảnh hợp lệ.' });
+    }
+    const fileUrl = `/uploads/${req.file.filename}`;
+    return res.json({
+      message: 'Tải ảnh lên thành công.',
+      url: fileUrl,
+      filename: req.file.filename,
+      mimetype: req.file.mimetype,
+      size: req.file.size
+    });
+  });
+});
+
 
 // 1. Authentication & Profile Routes
 app.post('/api/auth/register', authController.register);
@@ -214,18 +238,20 @@ async function autoSeedIfEmpty() {
       { DuongDan: 'https://images.unsplash.com/photo-1545454675-3531b543be5d?w=800', KichThuoc: '800x600', MaSP: 8 }
     ]);
 
-    // 4. Users (Passwords: admin123 and customer123)
+    // 4. Users (Passwords: admin123, 123456, and customer123)
     const users = await NguoiDung.bulkCreate([
-      { MaKH: 1, TaiKhoan: 'admin', MatKhau: '$2a$10$tM2eN7hQoUebh4iN5z/3u.b2eXW2X6G1X5/vVpxF9N5d.75Z/7pvi', TenKH: 'Administrator', SDT: '0987654321', Email: 'admin@techshop.com', VaiTro: 'Admin', TrangThai: 'Hoạt động' },
-      { MaKH: 2, TaiKhoan: 'customer', MatKhau: '$2a$10$gPvZ3GfS3eJ4C4bL.eN7heE5d3sP2F3c5g8fV7N.d5b2c75a/4s.G', TenKH: 'Nguyễn Văn A', SDT: '0912345678', Email: 'customer@gmail.com', VaiTro: 'Customer', TrangThai: 'Hoạt động' },
-      { MaKH: 3, TaiKhoan: 'customer2', MatKhau: '$2a$10$gPvZ3GfS3eJ4C4bL.eN7heE5d3sP2F3c5g8fV7N.d5b2c75a/4s.G', TenKH: 'Trần Thị B', SDT: '0909998877', Email: 'customer2@gmail.com', VaiTro: 'Customer', TrangThai: 'Hoạt động' }
+      { MaKH: 1, TaiKhoan: 'admin', MatKhau: '$2a$10$K71PDH06BSLxA.yYhBoyBOMmKVJG3IvBdbel/Fy5/HNHz4cX9qpK2', TenKH: 'Administrator', SDT: '0987654321', Email: 'admin@techshop.com', VaiTro: 'Admin', TrangThai: 'Hoạt động' },
+      { MaKH: 2, TaiKhoan: 'customer', MatKhau: '$2a$10$tsPvNxWKNyeFzhEZORZtVeBIYjO2hea.BRCActD5c3.aOnM.BMba.', TenKH: 'Nguyễn Văn A', SDT: '0912345678', Email: 'customer@gmail.com', VaiTro: 'Customer', TrangThai: 'Hoạt động' },
+      { MaKH: 3, TaiKhoan: 'customer2', MatKhau: '$2a$10$tsPvNxWKNyeFzhEZORZtVeBIYjO2hea.BRCActD5c3.aOnM.BMba.', TenKH: 'Trần Thị B', SDT: '0909998877', Email: 'customer2@gmail.com', VaiTro: 'Customer', TrangThai: 'Hoạt động' },
+      { MaKH: 4, TaiKhoan: 'admin123', MatKhau: '$2a$10$LyUXtyjONi3XDnZh8OgqAOqzXkRQlhbPS91DSLLrKM2sL7mWgDuPy', TenKH: 'CMS Admin 123', SDT: '0999123456', Email: 'admin123@techshop.com', VaiTro: 'Admin', TrangThai: 'Hoạt động' }
     ]);
 
     // 5. Carts for each user
     await GioHang.bulkCreate([
       { MaGioHang: 1, MaKH: 1 },
       { MaGioHang: 2, MaKH: 2 },
-      { MaGioHang: 3, MaKH: 3 }
+      { MaGioHang: 3, MaKH: 3 },
+      { MaGioHang: 4, MaKH: 4 }
     ]);
 
     // 6. Cart details (items)
