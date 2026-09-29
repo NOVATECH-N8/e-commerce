@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Search, Plus, Edit2, Trash2, X, PlusCircle, AlertCircle } from 'lucide-react';
+import { Search, Plus, Edit2, Trash2, X, PlusCircle, AlertCircle, Upload } from 'lucide-react';
 import api from '../../services/api';
 import Toast from '../../components/Toast';
 
@@ -13,6 +13,7 @@ const ProductAdmin = () => {
   const [modalOpen, setModalOpen] = useState(false);
   const [editingProduct, setEditingProduct] = useState(null);
   const [toast, setToast] = useState(null);
+  const [uploadingImg, setUploadingImg] = useState(false);
 
   // Form Fields
   const [formData, setFormData] = useState({
@@ -113,6 +114,28 @@ const ProductAdmin = () => {
       ...formData,
       [e.target.name]: e.target.value
     });
+  };
+
+  const handleUploadFile = async (e) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    const fd = new FormData();
+    fd.append('image', file);
+    setUploadingImg(true);
+    try {
+      const res = await api.post('/upload', fd, {
+        headers: { 'Content-Type': 'multipart/form-data' }
+      });
+      const fileUrl = `http://localhost:5000${res.data.url}`;
+      setFormData(prev => ({ ...prev, AnhMinhHoa: fileUrl }));
+      setToast({ type: 'success', message: 'Tải ảnh sản phẩm lên thành công!' });
+    } catch (err) {
+      console.error('Upload product img err:', err);
+      setToast({ type: 'error', message: err.response?.data?.message || 'Lỗi khi tải ảnh.' });
+    } finally {
+      setUploadingImg(false);
+    }
   };
 
   const handleFormSubmit = async (e) => {
@@ -432,18 +455,40 @@ const ProductAdmin = () => {
                 </div>
               </div>
 
-              {/* Main Image URL */}
-              <div className="space-y-1">
-                <label className="text-xs font-bold text-slate-500 uppercase tracking-wider">Ảnh minh họa (URL) *</label>
-                <input
-                  type="text"
-                  name="AnhMinhHoa"
-                  value={formData.AnhMinhHoa}
-                  onChange={handleFormChange}
-                  placeholder="https://images.unsplash.com/photo-..."
-                  className="w-full border border-slate-200 outline-none focus:border-primary-500 rounded-xl px-4 py-2.5 text-sm text-slate-700"
-                  required
-                />
+              {/* Main Image URL & File Upload */}
+              <div className="space-y-2">
+                <div className="flex items-center justify-between">
+                  <label className="text-xs font-bold text-slate-500 uppercase tracking-wider">Ảnh minh họa *</label>
+                  <label className="inline-flex items-center gap-1.5 px-3 py-1 bg-sky-50 hover:bg-sky-100 text-[#0284c7] rounded-lg text-xs font-bold cursor-pointer transition-colors border border-sky-200">
+                    <Upload className="w-3.5 h-3.5" />
+                    <span>{uploadingImg ? 'Đang tải...' : 'Tải ảnh từ máy'}</span>
+                    <input
+                      type="file"
+                      accept="image/*"
+                      onChange={handleUploadFile}
+                      disabled={uploadingImg}
+                      className="hidden"
+                    />
+                  </label>
+                </div>
+                <div className="flex items-center gap-3">
+                  <input
+                    type="text"
+                    name="AnhMinhHoa"
+                    value={formData.AnhMinhHoa}
+                    onChange={handleFormChange}
+                    placeholder="https://... hoặc bấm nút Tải ảnh từ máy"
+                    className="w-full border border-slate-200 outline-none focus:border-primary-500 rounded-xl px-4 py-2.5 text-sm text-slate-700"
+                    required
+                  />
+                  {formData.AnhMinhHoa && (
+                    <img
+                      src={formData.AnhMinhHoa}
+                      alt="Preview"
+                      className="w-10 h-10 object-contain rounded-lg border border-slate-200 p-0.5 shrink-0 bg-white shadow-xs"
+                    />
+                  )}
+                </div>
               </div>
 
               {/* Description */}

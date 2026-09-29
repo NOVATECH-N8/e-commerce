@@ -2,6 +2,7 @@ import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate, Outlet } from 'react-router-dom';
 
 // Providers
+import { ThemeProvider } from './context/ThemeContext';
 import { AuthProvider } from './context/AuthContext';
 import { CartProvider } from './context/CartContext';
 
@@ -26,11 +27,13 @@ import CategoryAdmin from './pages/admin/CategoryAdmin';
 import OrderAdmin from './pages/admin/OrderAdmin';
 import UserAdmin from './pages/admin/UserAdmin';
 import DashboardAdmin from './pages/admin/DashboardAdmin';
+import VoucherAdmin from './pages/admin/VoucherAdmin';
+import ReviewAdmin from './pages/admin/ReviewAdmin';
 
 // Customer Layout Wrapper
 const CustomerLayout = () => {
   return (
-    <div className="flex flex-col min-h-screen">
+    <div className="flex flex-col min-h-screen transition-colors duration-200">
       <Navbar />
       <div className="flex-grow">
         <Outlet />
@@ -42,9 +45,10 @@ const CustomerLayout = () => {
 
 function App() {
   return (
-    <AuthProvider>
-      <CartProvider>
-        <Router>
+    <ThemeProvider>
+      <AuthProvider>
+        <CartProvider>
+          <Router>
           <Routes>
             {/* Customer & Public Routes */}
             <Route path="/" element={<CustomerLayout />}>
@@ -66,6 +70,8 @@ function App() {
               <Route path="products" element={<ProductAdmin />} />
               <Route path="categories" element={<CategoryAdmin />} />
               <Route path="orders" element={<OrderAdmin />} />
+              <Route path="vouchers" element={<VoucherAdmin />} />
+              <Route path="reviews" element={<ReviewAdmin />} />
               <Route path="users" element={<UserAdmin />} />
             </Route>
 
@@ -77,6 +83,8 @@ function App() {
               <Route path="products" element={<ProductAdmin />} />
               <Route path="categories" element={<CategoryAdmin />} />
               <Route path="orders" element={<OrderAdmin />} />
+              <Route path="vouchers" element={<VoucherAdmin />} />
+              <Route path="reviews" element={<ReviewAdmin />} />
               <Route path="users" element={<UserAdmin />} />
             </Route>
 
@@ -84,8 +92,9 @@ function App() {
             <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
         </Router>
-      </CartProvider>
-    </AuthProvider>
+        </CartProvider>
+      </AuthProvider>
+    </ThemeProvider>
   );
 }
 

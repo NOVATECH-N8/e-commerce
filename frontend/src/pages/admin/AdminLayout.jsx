@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { Link, useNavigate, useLocation, Outlet } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
-import { LayoutDashboard, ShoppingBag, FolderKanban, Receipt, Users, ArrowLeft, LogOut, ShieldAlert } from 'lucide-react';
+import { LayoutDashboard, ShoppingBag, FolderKanban, Receipt, Users, ArrowLeft, LogOut, ShieldAlert, Tag, MessageSquare } from 'lucide-react';
 
 const AdminLayout = () => {
   const { user, loading, isAdmin, logout } = useAuth();
@@ -23,6 +23,8 @@ const AdminLayout = () => {
     { label: 'Sản phẩm', path: `${prefix}/products`, icon: <ShoppingBag className="w-4 h-4" /> },
     { label: 'Danh mục', path: `${prefix}/categories`, icon: <FolderKanban className="w-4 h-4" /> },
     { label: 'Đơn hàng', path: `${prefix}/orders`, icon: <Receipt className="w-4 h-4" /> },
+    { label: 'Mã giảm giá', path: `${prefix}/vouchers`, icon: <Tag className="w-4 h-4" /> },
+    { label: 'Đánh giá', path: `${prefix}/reviews`, icon: <MessageSquare className="w-4 h-4" /> },
     { label: 'Người dùng', path: `${prefix}/users`, icon: <Users className="w-4 h-4" /> },
   ];
 
@@ -74,7 +76,7 @@ const AdminLayout = () => {
           {/* Header branding */}
           <div className="mb-8 border-b border-slate-800 pb-5">
             <Link to="/" className="flex items-center gap-2">
-              <span className="text-xl font-black text-white font-display">{isCmsPrefix ? 'TechShop CMS' : 'TechShop Admin'}</span>
+              <span className="text-xl font-black text-white font-display">{isCmsPrefix ? 'NovaTech CMS' : 'NovaTech Admin'}</span>
             </Link>
             <div className="flex items-center gap-2 mt-3 bg-slate-800/50 p-2 rounded-xl border border-slate-800">
               <div className="w-8 h-8 rounded-full bg-primary-500 text-white flex items-center justify-center font-bold text-xs">
