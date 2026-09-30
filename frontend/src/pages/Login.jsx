@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
-import { Lock, Mail, User, Eye, EyeOff } from 'lucide-react';
+import { Lock, User, Eye, EyeOff, Zap } from 'lucide-react';
 import Toast from '../components/Toast';
 
 const Login = () => {
@@ -26,9 +26,8 @@ const Login = () => {
     setIsSubmitting(false);
 
     if (result.success) {
-      setToast({ type: 'success', message: 'Đăng nhập thành công.' });
+      setToast({ type: 'success', message: 'Đăng nhập thành công!' });
       setTimeout(() => {
-        // Redirect based on role
         if (result.user.VaiTro === 'Admin') {
           navigate('/admin');
         } else {
@@ -40,8 +39,13 @@ const Login = () => {
     }
   };
 
+  const handleQuickFill = (u, p) => {
+    setLoginIdentifier(u);
+    setPassword(p);
+  };
+
   return (
-    <div className="min-h-[70vh] flex items-center justify-center px-4 py-12">
+    <div className="w-full bg-[#f4f8fc] min-h-[75vh] flex items-center justify-center px-4 py-10">
       {toast && (
         <Toast
           message={toast.message}
@@ -50,73 +54,101 @@ const Login = () => {
         />
       )}
 
-      <div className="w-full max-w-md bg-white rounded-2xl shadow-xl border border-slate-100 p-8 animate-fade-in">
-        <div className="text-center mb-8">
-          <h2 className="text-3xl font-extrabold text-slate-800 font-display">Chào mừng trở lại</h2>
-          <p className="text-sm text-slate-500 mt-2">Đăng nhập tài khoản mua sắm TechShop của bạn</p>
+      <div className="w-full max-w-md bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
+        
+        {/* NovaTech Light Blue Header */}
+        <div className="bg-gradient-to-r from-[#0284c7] to-[#0ea5e9] text-white p-6 text-center">
+          <div className="w-10 h-10 rounded-xl bg-white text-[#0284c7] flex items-center justify-center font-black text-xl mx-auto mb-2 shadow-sm">
+            <Zap className="w-5 h-5 fill-[#0284c7]" />
+          </div>
+          <h2 className="text-xl font-black uppercase tracking-tight">Đăng Nhập NovaTech</h2>
+          <p className="text-xs text-sky-100 mt-0.5">Khám phá đỉnh cao công nghệ cùng NovaTech</p>
         </div>
 
-        <form onSubmit={handleSubmit} className="space-y-6">
-          {/* Account/Email input */}
-          <div className="space-y-1.5">
-            <label className="text-xs font-semibold uppercase tracking-wider text-slate-500">Tài khoản hoặc Email</label>
-            <div className="relative">
-              <span className="absolute left-3 top-3.5 text-slate-400">
-                <User className="w-5 h-5" />
-              </span>
-              <input
-                type="text"
-                placeholder="Nhập tên tài khoản hoặc email"
-                value={loginIdentifier}
-                onChange={(e) => setLoginIdentifier(e.target.value)}
-                className="w-full pl-10 pr-4 py-3 rounded-xl border border-slate-200 outline-none focus:border-primary-500 transition-colors text-sm text-slate-700"
-                required
-              />
+        <div className="p-6 space-y-5">
+          <form onSubmit={handleSubmit} className="space-y-4 text-xs">
+            
+            {/* Username/Email */}
+            <div>
+              <label className="font-bold text-slate-700 block mb-1">Tài khoản hoặc Email *</label>
+              <div className="relative">
+                <User className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
+                <input
+                  type="text"
+                  placeholder="Nhập tên tài khoản hoặc email"
+                  value={loginIdentifier}
+                  onChange={(e) => setLoginIdentifier(e.target.value)}
+                  className="w-full pl-9 pr-3 py-2.5 rounded-lg border border-slate-300 text-xs"
+                  required
+                />
+              </div>
             </div>
-          </div>
 
-          {/* Password input */}
-          <div className="space-y-1.5">
-            <div className="flex items-center justify-between">
-              <label className="text-xs font-semibold uppercase tracking-wider text-slate-500">Mật khẩu</label>
+            {/* Password */}
+            <div>
+              <label className="font-bold text-slate-700 block mb-1">Mật khẩu *</label>
+              <div className="relative">
+                <Lock className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
+                <input
+                  type={showPassword ? 'text' : 'password'}
+                  placeholder="Nhập mật khẩu"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  className="w-full pl-9 pr-9 py-2.5 rounded-lg border border-slate-300 text-xs"
+                  required
+                />
+                <button
+                  type="button"
+                  onClick={() => setShowPassword(!showPassword)}
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600"
+                >
+                  {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+                </button>
+              </div>
             </div>
-            <div className="relative">
-              <span className="absolute left-3 top-3.5 text-slate-400">
-                <Lock className="w-5 h-5" />
-              </span>
-              <input
-                type={showPassword ? 'text' : 'password'}
-                placeholder="••••••••"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                className="w-full pl-10 pr-10 py-3 rounded-xl border border-slate-200 outline-none focus:border-primary-500 transition-colors text-sm text-slate-700"
-                required
-              />
+
+            {/* Submit Button */}
+            <button
+              type="submit"
+              disabled={isSubmitting}
+              className="w-full bg-[#0284c7] hover:bg-[#0369a1] text-white font-bold py-2.5 rounded-lg text-xs uppercase tracking-wide transition-colors shadow-sm shadow-sky-100 cursor-pointer disabled:opacity-60"
+            >
+              {isSubmitting ? 'Đang đăng nhập...' : 'ĐĂNG NHẬP'}
+            </button>
+          </form>
+
+          {/* Quick test accounts box */}
+          <div className="p-3 bg-[#f0f9ff] border border-[#bae6fd] rounded-xl text-xs space-y-1.5">
+            <span className="font-bold text-[#0369a1] block text-[11px] uppercase">
+              Tài khoản dùng thử nhanh:
+            </span>
+            <div className="flex flex-wrap gap-2">
               <button
                 type="button"
-                onClick={() => setShowPassword(!showPassword)}
-                className="absolute right-3 top-3.5 text-slate-400 hover:text-slate-600 focus:outline-none"
+                onClick={() => handleQuickFill('admin', 'admin123')}
+                className="px-2.5 py-1 bg-white border border-[#bae6fd] rounded-lg text-[11px] font-bold text-slate-800 hover:bg-sky-50"
               >
-                {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+                Admin (admin / admin123)
+              </button>
+              <button
+                type="button"
+                onClick={() => handleQuickFill('customer', 'customer123')}
+                className="px-2.5 py-1 bg-white border border-[#bae6fd] rounded-lg text-[11px] font-bold text-slate-800 hover:bg-sky-50"
+              >
+                Khách hàng (customer / customer123)
               </button>
             </div>
           </div>
 
-          <button
-            type="submit"
-            disabled={isSubmitting}
-            className="w-full bg-primary-600 hover:bg-primary-700 text-white font-semibold py-3 rounded-xl shadow-lg shadow-primary-200 transition-all hover:scale-[1.01] flex items-center justify-center"
-          >
-            {isSubmitting ? 'Đang xử lý...' : 'Đăng Nhập'}
-          </button>
-        </form>
+          <div className="text-center text-xs text-slate-500 pt-2 border-t border-slate-100">
+            Chưa có tài khoản?{' '}
+            <Link to="/register" className="text-[#0284c7] font-bold hover:underline">
+              Đăng ký tài khoản mới
+            </Link>
+          </div>
 
-        <div className="text-center mt-6 text-sm text-slate-500">
-          Chưa có tài khoản?{' '}
-          <Link to="/register" className="text-primary-600 font-semibold hover:underline">
-            Đăng ký ngay
-          </Link>
         </div>
+
       </div>
     </div>
   );

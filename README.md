@@ -1,6 +1,6 @@
-# 🐠 Nemo Tech - Website Bán Hàng Trực Tuyến Công Nghệ
+# ⚡ NovaTech - Website Bán Hàng Trực Tuyến Thiết Bị Công Nghệ
 
-**Nemo Tech** là một nền tảng thương mại điện tử chuyên cung cấp các thiết bị công nghệ chính hãng (Điện thoại, Máy tính bảng, Laptop, Phụ kiện, Thiết bị thông minh). Website được thiết kế với giao diện hiện đại theo phong cách **Glassmorphism** kết hợp tông màu chủ đạo **Cyan** tươi mát, mang lại trải nghiệm mua sắm mượt mà, cao cấp và trực quan.
+**NovaTech** là nền tảng thương mại điện tử chuyên cung cấp các thiết bị công nghệ chính hãng (Điện thoại, Máy tính bảng, Laptop, Phụ kiện, Thiết bị thông minh). Website được thiết kế với giao diện hiện đại theo tông màu chủ đạo **Xanh dương nhạt & Trắng tinh tế (Sky Blue & Crisp White)**, mang lại trải nghiệm mua sắm mượt mà, cao cấp, thanh lịch và trực quan.
 
 ---
 
