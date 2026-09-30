@@ -444,37 +444,37 @@ const Home = () => {
           </div>
         )}
 
-        {/* ================= 2. BRAND QUICK FILTER CHIPS ================= */}
-        <div className="bg-white rounded-xl p-3 shadow-sm border border-slate-200">
+        {/* ================= 2. BRAND QUICK FILTER CHIPS (TECH TABS) ================= */}
+        <div className="bg-white dark:bg-[#0f1a30] rounded-md p-2.5 shadow-sm border border-slate-200 dark:border-slate-800">
           <div className="flex items-center justify-between gap-2 mb-2">
-            <span className="text-xs font-bold text-slate-700 uppercase tracking-wide flex items-center gap-1.5">
+            <span className="text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wide flex items-center gap-1.5">
               <Sparkles className="w-3.5 h-3.5 text-[#0284c7]" />
               Thương hiệu nổi bật:
             </span>
             {brandFilter && (
               <button
                 onClick={() => handleBrandClick(brandFilter)}
-                className="text-xs text-[#0284c7] hover:underline flex items-center gap-1 font-semibold"
+                className="text-xs text-[#0284c7] hover:underline flex items-center gap-1 font-semibold cursor-pointer"
               >
                 <span>Xóa lọc ({brandFilter})</span>
                 <X className="w-3 h-3" />
               </button>
             )}
           </div>
-          <div className="flex items-center gap-2 overflow-x-auto no-scrollbar py-1">
+          <div className="flex items-center gap-2 overflow-x-auto no-scrollbar py-0.5">
             {BRANDS.map((b) => {
               const isActive = brandFilter.toLowerCase() === b.name.toLowerCase();
               return (
                 <button
                   key={b.name}
                   onClick={() => handleBrandClick(b.name)}
-                  className={`px-3.5 py-1.5 rounded-full border text-xs font-bold transition-all whitespace-nowrap cursor-pointer flex items-center gap-1.5 ${
+                  className={`px-3 py-1.5 rounded border text-xs font-bold transition-all whitespace-nowrap cursor-pointer flex items-center gap-1.5 ${
                     isActive
-                      ? 'border-[#0284c7] bg-[#e0f2fe] text-[#0284c7] shadow-sm'
-                      : 'border-slate-200 hover:border-[#38bdf8] text-slate-700 bg-[#f8fafc] hover:bg-white'
+                      ? 'border-[#0284c7] bg-sky-50 dark:bg-sky-950/60 text-[#0284c7] shadow-xs'
+                      : 'border-slate-200 dark:border-slate-700 hover:border-[#0284c7] text-slate-700 dark:text-slate-300 bg-slate-50 dark:bg-[#0b1325] hover:bg-white'
                   }`}
                 >
-                  <span>{b.logo}</span>
+                  <span className="font-mono text-slate-400">{b.logo}</span>
                   <span>{b.name}</span>
                 </button>
               );
@@ -483,8 +483,8 @@ const Home = () => {
         </div>
 
         {/* ================= 3. PRICE QUICK FILTER ================= */}
-        <div className="flex items-center gap-2 overflow-x-auto no-scrollbar pb-1 text-xs">
-          <span className="font-bold text-slate-500 shrink-0">Chọn mức giá:</span>
+        <div className="flex items-center gap-2 overflow-x-auto no-scrollbar pb-0.5 text-xs">
+          <span className="font-bold text-slate-500 dark:text-slate-400 shrink-0">Chọn mức giá:</span>
           {[
             { id: 'under5m', label: 'Dưới 5 triệu' },
             { id: '5to15m', label: 'Từ 5 - 15 triệu' },
@@ -496,10 +496,10 @@ const Home = () => {
               <button
                 key={r.id}
                 onClick={() => handlePriceClick(r.id)}
-                className={`px-3 py-1.5 rounded-lg border font-semibold whitespace-nowrap transition-colors cursor-pointer ${
+                className={`px-3 py-1.5 rounded border font-semibold whitespace-nowrap transition-colors cursor-pointer ${
                   isSelected
-                    ? 'border-[#0284c7] bg-[#0284c7] text-white font-bold shadow-sm'
-                    : 'border-slate-200 bg-white text-slate-700 hover:border-slate-300'
+                    ? 'border-[#0284c7] bg-[#0284c7] text-white font-bold shadow-xs'
+                    : 'border-slate-200 dark:border-slate-700 bg-white dark:bg-[#0f1a30] text-slate-700 dark:text-slate-300 hover:border-[#0284c7]'
                 }`}
               >
                 {r.label}
@@ -510,45 +510,45 @@ const Home = () => {
           {isFiltering && (
             <button
               onClick={handleClearAllFilters}
-              className="ml-auto px-3 py-1.5 rounded-lg bg-slate-200 hover:bg-slate-300 text-slate-700 font-bold text-xs whitespace-nowrap transition-colors"
+              className="ml-auto px-3 py-1.5 rounded bg-slate-200 hover:bg-slate-300 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 font-bold text-xs whitespace-nowrap transition-colors cursor-pointer"
             >
               Xóa tất cả bộ lọc
             </button>
           )}
         </div>
 
-        {/* ================= 4. FLASH SALE SECTION (NOVATECH ELECTRIC BLUE) ================= */}
+        {/* ================= 4. FLASH SALE SECTION (CELLPHONES STYLE) ================= */}
         {!isFiltering && flashSaleProducts.length > 0 && (
-          <div className="rounded-xl overflow-hidden shadow-sm border border-sky-200 bg-white">
+          <div className="rounded-md overflow-hidden shadow-sm border border-rose-200 dark:border-rose-950/80 bg-white dark:bg-[#0f1a30]">
             
             {/* Flash Sale Banner Header */}
-            <div className="nova-flash-header text-white px-4 py-3 flex flex-wrap items-center justify-between gap-3 shadow-sm">
+            <div className="nova-flash-header text-white px-3.5 py-2.5 flex flex-wrap items-center justify-between gap-2.5 shadow-sm">
               <div className="flex items-center gap-2">
                 <Flame className="w-5 h-5 text-amber-300 animate-pulse" />
-                <h2 className="text-lg sm:text-xl font-black uppercase tracking-tight text-white drop-shadow-sm">
+                <h2 className="text-base sm:text-lg font-black uppercase tracking-tight text-white drop-shadow-sm">
                   GIỜ VÀNG GIÁ SỐC
                 </h2>
               </div>
 
               {/* Countdown Timer */}
               <div className="flex items-center gap-1.5 text-xs font-bold">
-                <span className="text-sky-100">KẾT THÚC TRONG:</span>
-                <span className="bg-slate-900 text-white px-2 py-1 rounded font-mono font-black text-sm">
+                <span className="text-sky-100 text-[11px]">KẾT THÚC TRONG:</span>
+                <span className="bg-slate-950 text-white px-1.5 py-0.5 rounded-[2px] font-mono font-black text-xs border border-slate-700">
                   {String(timeLeft.hours).padStart(2, '0')}
                 </span>
                 <span>:</span>
-                <span className="bg-slate-900 text-white px-2 py-1 rounded font-mono font-black text-sm">
+                <span className="bg-slate-950 text-white px-1.5 py-0.5 rounded-[2px] font-mono font-black text-xs border border-slate-700">
                   {String(timeLeft.minutes).padStart(2, '0')}
                 </span>
                 <span>:</span>
-                <span className="bg-slate-900 text-white px-2 py-1 rounded font-mono font-black text-sm">
+                <span className="bg-slate-950 text-white px-1.5 py-0.5 rounded-[2px] font-mono font-black text-xs border border-slate-700">
                   {String(timeLeft.seconds).padStart(2, '0')}
                 </span>
               </div>
             </div>
 
             {/* Flash Sale Products Grid */}
-            <div className="p-3 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3">
+            <div className="p-2.5 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-2.5">
               {flashSaleProducts.map((product) => {
                 const giaGoc = product.GiaBan * 1.15;
                 const specs = parseSpecs(product.ThongSo);
@@ -557,16 +557,16 @@ const Home = () => {
                   <div
                     key={`flash-${product.MaSP}`}
                     onClick={() => navigate(`/product/${product.MaSP}`)}
-                    className="nova-card p-3 flex flex-col justify-between group cursor-pointer relative"
+                    className="nova-card p-2.5 flex flex-col justify-between group cursor-pointer relative"
                   >
                     {/* Top tags */}
-                    <div className="flex items-center justify-between mb-2">
+                    <div className="flex items-center justify-between mb-1.5">
                       <span className="nova-tag-installment">Trả góp 0%</span>
                       <span className="nova-tag-discount">-15%</span>
                     </div>
 
                     {/* Image */}
-                    <div className="w-full aspect-square overflow-hidden flex items-center justify-center p-2 mb-2">
+                    <div className="w-full aspect-square overflow-hidden flex items-center justify-center p-2 mb-1.5 bg-white dark:bg-[#0b1325] rounded-[2px]">
                       <img
                         src={product.AnhMinhHoa}
                         alt={product.TenSP}
@@ -579,7 +579,7 @@ const Home = () => {
                     {specs.length > 0 && (
                       <div className="flex flex-wrap gap-1 mb-1.5">
                         {specs.map((s, i) => (
-                          <span key={i} className="text-[10px] bg-slate-100 dark:bg-slate-800/80 text-slate-600 dark:text-sky-300 border border-transparent dark:border-slate-700/50 px-1.5 py-0.5 rounded font-medium">
+                          <span key={i} className="nova-spec-chip">
                             {s}
                           </span>
                         ))}
@@ -587,14 +587,14 @@ const Home = () => {
                     )}
 
                     {/* Product Name */}
-                    <h3 className="text-xs sm:text-sm font-bold text-slate-800 line-clamp-2 group-hover:text-[#0284c7] transition-colors mb-2">
+                    <h3 className="text-xs sm:text-[13px] font-bold text-slate-900 dark:text-white line-clamp-2 group-hover:text-[#0284c7] transition-colors mb-1.5 leading-snug">
                       {product.TenSP}
                     </h3>
 
                     {/* Price & Deal Progress */}
-                    <div className="mt-auto pt-2 border-t border-slate-100">
+                    <div className="mt-auto pt-1.5 border-t border-slate-100 dark:border-slate-800">
                       <div className="flex items-baseline gap-1.5 flex-wrap mb-1">
-                        <span className="text-[#0284c7] font-extrabold text-sm sm:text-base">
+                        <span className="text-rose-600 dark:text-rose-400 font-black text-sm sm:text-base">
                           {formatPrice(product.GiaBan)}
                         </span>
                         <span className="text-slate-400 line-through text-[11px]">
@@ -603,20 +603,20 @@ const Home = () => {
                       </div>
 
                       {/* Sold progress bar */}
-                      <div className="w-full bg-sky-100 dark:bg-slate-800 rounded-full h-3.5 relative overflow-hidden mb-2 border border-transparent dark:border-slate-700/60">
+                      <div className="w-full bg-slate-100 dark:bg-slate-800 rounded-[2px] h-3.5 relative overflow-hidden mb-2 border border-slate-200 dark:border-slate-700">
                         <div 
-                          className="bg-gradient-to-r from-[#0ea5e9] to-[#0284c7] h-full rounded-full"
+                          className="bg-gradient-to-r from-rose-500 to-amber-500 h-full rounded-[2px]"
                           style={{ width: `${Math.min(95, 40 + (product.MaSP * 7) % 55)}%` }}
                         />
-                        <span className="absolute inset-0 text-[9px] font-bold text-slate-800 dark:text-white flex items-center justify-center drop-shadow-sm">
-                          ⚡ Đã bán {(product.MaSP * 11) % 40 + 10} suất
+                        <span className="absolute inset-0 text-[9px] font-bold text-slate-900 dark:text-white flex items-center justify-center drop-shadow-xs">
+                          🔥 Đã bán {(product.MaSP * 11) % 40 + 10} suất
                         </span>
                       </div>
 
-                      {/* Add to Cart quick button */}
+                      {/* Add to Cart button */}
                       <button
                         onClick={(e) => handleAddToCart(e, product)}
-                        className="w-full bg-[#0284c7] hover:bg-[#0369a1] text-white font-bold text-xs py-1.5 rounded-lg transition-colors flex items-center justify-center gap-1 shadow-sm"
+                        className="btn-retail-danger w-full text-xs py-1.5 rounded cursor-pointer"
                       >
                         <ShoppingCart className="w-3.5 h-3.5" />
                         <span>Thêm vào giỏ</span>
@@ -633,24 +633,24 @@ const Home = () => {
 
         {/* ================= 5. FILTER RESULTS MODE ================= */}
         {isFiltering ? (
-          <div className="bg-white rounded-xl p-4 shadow-sm border border-slate-200">
-            <div className="flex flex-wrap items-center justify-between gap-3 mb-4 pb-3 border-b border-slate-200">
+          <div className="bg-white dark:bg-[#0f1a30] rounded-md p-3.5 shadow-sm border border-slate-200 dark:border-slate-800">
+            <div className="flex flex-wrap items-center justify-between gap-3 mb-3.5 pb-2.5 border-b border-slate-200 dark:border-slate-800">
               <div>
-                <h2 className="text-base sm:text-lg font-bold text-slate-900">
+                <h2 className="text-sm sm:text-base font-bold text-slate-900 dark:text-white uppercase tracking-tight">
                   Kết quả tìm kiếm ({products.length} sản phẩm)
                 </h2>
                 {searchVal && (
-                  <p className="text-xs text-slate-500">Từ khóa: <strong className="text-slate-900">"{searchVal}"</strong></p>
+                  <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">Từ khóa: <strong className="text-slate-900 dark:text-white">"{searchVal}"</strong></p>
                 )}
               </div>
 
               {/* Sorting */}
               <div className="flex items-center gap-2 text-xs">
-                <span className="text-slate-500 font-medium">Sắp xếp theo:</span>
+                <span className="text-slate-500 dark:text-slate-400 font-medium">Sắp xếp:</span>
                 <select
                   value={sortBy}
                   onChange={(e) => setSortBy(e.target.value)}
-                  className="bg-[#f8fafc] border border-slate-200 rounded-lg px-2.5 py-1.5 text-xs font-semibold text-slate-700"
+                  className="bg-slate-50 dark:bg-[#0b1325] border border-slate-200 dark:border-slate-700 rounded px-2.5 py-1 text-xs font-semibold text-slate-700 dark:text-slate-200 cursor-pointer"
                 >
                   <option value="popular">Nổi bật nhất</option>
                   <option value="priceAsc">Giá thấp đến cao</option>
@@ -661,51 +661,51 @@ const Home = () => {
 
             {loading ? (
               <div className="py-20 text-center text-slate-500 text-sm">
-                <div className="w-8 h-8 border-4 border-[#0284c7] border-t-transparent rounded-full animate-spin mx-auto mb-2" />
+                <div className="w-8 h-8 border-3 border-[#0284c7] border-t-transparent rounded-full animate-spin mx-auto mb-2" />
                 Đang tải dữ liệu sản phẩm...
               </div>
             ) : products.length === 0 ? (
               <div className="py-16 text-center text-slate-500">
-                <AlertCircle className="w-12 h-12 mx-auto mb-3 text-slate-300" />
-                <p className="text-sm font-semibold">Không tìm thấy sản phẩm nào phù hợp.</p>
-                <p className="text-xs mt-1">Vui lòng thử lại với từ khóa hoặc bộ lọc khác.</p>
+                <AlertCircle className="w-12 h-12 mx-auto mb-3 text-slate-300 dark:text-slate-600" />
+                <p className="text-sm font-semibold text-slate-800 dark:text-slate-200">Không tìm thấy sản phẩm nào phù hợp.</p>
+                <p className="text-xs mt-1 text-slate-400">Vui lòng thử lại với từ khóa hoặc bộ lọc khác.</p>
                 <button
                   onClick={handleClearAllFilters}
-                  className="mt-4 px-4 py-2 bg-[#0284c7] text-white font-bold text-xs rounded-lg hover:bg-[#0369a1] transition-colors"
+                  className="mt-4 px-4 py-2 bg-[#0284c7] text-white font-bold text-xs rounded hover:bg-[#0369a1] transition-colors cursor-pointer"
                 >
                   Xem tất cả sản phẩm
                 </button>
               </div>
             ) : (
-              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3">
+              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-2.5">
                 {products.map((product) => renderProductCard(product))}
               </div>
             )}
           </div>
         ) : (
           /* ================= 6. CATEGORY SHOWCASE SECTIONS ================= */
-          <div className="space-y-6">
+          <div className="space-y-4">
             
             {/* Section: Điện thoại nổi bật */}
             {phoneProducts.length > 0 && (
-              <div className="bg-white rounded-xl p-4 shadow-sm border border-slate-200">
-                <div className="flex items-center justify-between mb-3 border-b border-slate-100 pb-2.5">
+              <div className="bg-white dark:bg-[#0f1a30] rounded-md p-3.5 shadow-sm border border-slate-200 dark:border-slate-800">
+                <div className="flex items-center justify-between mb-2.5 border-b border-slate-100 dark:border-slate-800 pb-2">
                   <div className="flex items-center gap-2">
-                    <span className="w-2 h-5 bg-[#0284c7] rounded-full" />
-                    <h2 className="text-base sm:text-lg font-black text-slate-900 uppercase">
+                    <span className="w-1.5 h-4 bg-[#0284c7] rounded-[1px]" />
+                    <h2 className="text-sm sm:text-base font-black text-slate-900 dark:text-white uppercase tracking-tight">
                       ĐIỆN THOẠI NỔI BẬT NHẤT
                     </h2>
                   </div>
                   <button
                     onClick={() => navigate('/?categoryId=1')}
-                    className="text-xs font-bold text-[#0284c7] hover:text-[#0369a1] flex items-center gap-0.5"
+                    className="text-xs font-bold text-[#0284c7] hover:underline flex items-center gap-0.5 cursor-pointer"
                   >
                     <span>Xem tất cả ({phoneProducts.length}+)</span>
-                    <ChevronRight className="w-4 h-4" />
+                    <ChevronRight className="w-3.5 h-3.5" />
                   </button>
                 </div>
 
-                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3">
+                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-2.5">
                   {phoneProducts.map((p) => renderProductCard(p))}
                 </div>
               </div>
@@ -713,24 +713,24 @@ const Home = () => {
 
             {/* Section: Laptop & Máy tính */}
             {laptopProducts.length > 0 && (
-              <div className="bg-white rounded-xl p-4 shadow-sm border border-slate-200">
-                <div className="flex items-center justify-between mb-3 border-b border-slate-100 pb-2.5">
+              <div className="bg-white dark:bg-[#0f1a30] rounded-md p-3.5 shadow-sm border border-slate-200 dark:border-slate-800">
+                <div className="flex items-center justify-between mb-2.5 border-b border-slate-100 dark:border-slate-800 pb-2">
                   <div className="flex items-center gap-2">
-                    <span className="w-2 h-5 bg-[#0ea5e9] rounded-full" />
-                    <h2 className="text-base sm:text-lg font-black text-slate-900 uppercase">
+                    <span className="w-1.5 h-4 bg-[#0ea5e9] rounded-[1px]" />
+                    <h2 className="text-sm sm:text-base font-black text-slate-900 dark:text-white uppercase tracking-tight">
                       LAPTOP &amp; PC GIÁ TỐT
                     </h2>
                   </div>
                   <button
                     onClick={() => navigate('/?categoryId=2')}
-                    className="text-xs font-bold text-[#0284c7] hover:text-[#0369a1] flex items-center gap-0.5"
+                    className="text-xs font-bold text-[#0284c7] hover:underline flex items-center gap-0.5 cursor-pointer"
                   >
                     <span>Xem tất cả ({laptopProducts.length}+)</span>
-                    <ChevronRight className="w-4 h-4" />
+                    <ChevronRight className="w-3.5 h-3.5" />
                   </button>
                 </div>
 
-                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3">
+                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-2.5">
                   {laptopProducts.map((p) => renderProductCard(p))}
                 </div>
               </div>
@@ -738,42 +738,42 @@ const Home = () => {
 
             {/* Section: Phụ kiện & Thiết bị thông minh */}
             {accessoryProducts.length > 0 && (
-              <div className="bg-white rounded-xl p-4 shadow-sm border border-slate-200">
-                <div className="flex items-center justify-between mb-3 border-b border-slate-100 pb-2.5">
+              <div className="bg-white dark:bg-[#0f1a30] rounded-md p-3.5 shadow-sm border border-slate-200 dark:border-slate-800">
+                <div className="flex items-center justify-between mb-2.5 border-b border-slate-100 dark:border-slate-800 pb-2">
                   <div className="flex items-center gap-2">
-                    <span className="w-2 h-5 bg-[#38bdf8] rounded-full" />
-                    <h2 className="text-base sm:text-lg font-black text-slate-900 uppercase">
+                    <span className="w-1.5 h-4 bg-[#38bdf8] rounded-[1px]" />
+                    <h2 className="text-sm sm:text-base font-black text-slate-900 dark:text-white uppercase tracking-tight">
                       PHỤ KIỆN &amp; THIẾT BỊ THÔNG MINH
                     </h2>
                   </div>
                   <button
                     onClick={() => navigate('/?categoryId=3')}
-                    className="text-xs font-bold text-[#0284c7] hover:text-[#0369a1] flex items-center gap-0.5"
+                    className="text-xs font-bold text-[#0284c7] hover:underline flex items-center gap-0.5 cursor-pointer"
                   >
                     <span>Xem tất cả ({accessoryProducts.length}+)</span>
-                    <ChevronRight className="w-4 h-4" />
+                    <ChevronRight className="w-3.5 h-3.5" />
                   </button>
                 </div>
 
-                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3">
+                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-2.5">
                   {accessoryProducts.map((p) => renderProductCard(p))}
                 </div>
               </div>
             )}
 
             {/* Section: Toàn bộ danh mục sản phẩm (Gợi ý hôm nay) */}
-            <div className="bg-white rounded-xl p-4 shadow-sm border border-slate-200">
-              <div className="flex items-center justify-between mb-3 border-b border-slate-100 pb-2.5">
+            <div className="bg-white dark:bg-[#0f1a30] rounded-md p-3.5 shadow-sm border border-slate-200 dark:border-slate-800">
+              <div className="flex items-center justify-between mb-2.5 border-b border-slate-100 dark:border-slate-800 pb-2">
                 <div className="flex items-center gap-2">
-                  <span className="w-2 h-5 bg-slate-700 rounded-full" />
-                  <h2 className="text-base sm:text-lg font-black text-slate-900 uppercase">
+                  <span className="w-1.5 h-4 bg-slate-700 rounded-[1px]" />
+                  <h2 className="text-sm sm:text-base font-black text-slate-900 dark:text-white uppercase tracking-tight">
                     GỢI Ý HÔM NAY CHO BẠN
                   </h2>
                 </div>
-                <span className="text-xs text-slate-500 font-semibold">{products.length} sản phẩm</span>
+                <span className="text-xs text-slate-400 font-semibold">{products.length} sản phẩm</span>
               </div>
 
-              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3">
+              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-2.5">
                 {products.slice(0, 15).map((p) => renderProductCard(p))}
               </div>
             </div>
@@ -785,7 +785,7 @@ const Home = () => {
     </div>
   );
 
-  // Reusable NovaTech Product Card Renderer
+  // Reusable CellphoneS-Style Product Card Renderer
   function renderProductCard(product) {
     const giaGoc = product.GiaBan * 1.12;
     const specs = parseSpecs(product.ThongSo);
@@ -794,7 +794,7 @@ const Home = () => {
       <div
         key={product.MaSP}
         onClick={() => navigate(`/product/${product.MaSP}`)}
-        className="nova-card p-3 flex flex-col justify-between group cursor-pointer relative"
+        className="nova-card p-2.5 flex flex-col justify-between group cursor-pointer relative"
       >
         {/* Top Badges */}
         <div className="flex items-center justify-between mb-1.5">
@@ -803,7 +803,7 @@ const Home = () => {
         </div>
 
         {/* Image Container */}
-        <div className="w-full aspect-square overflow-hidden flex items-center justify-center p-2 mb-2">
+        <div className="w-full aspect-square overflow-hidden flex items-center justify-center p-2 mb-1.5 bg-white dark:bg-[#0b1325] rounded-[2px]">
           <img
             src={product.AnhMinhHoa}
             alt={product.TenSP}
@@ -812,11 +812,11 @@ const Home = () => {
           />
         </div>
 
-        {/* Specs Pills */}
+        {/* Specs Chips */}
         {specs.length > 0 && (
           <div className="flex flex-wrap gap-1 mb-1.5">
             {specs.map((s, i) => (
-              <span key={i} className="text-[10px] bg-[#f0f9ff] dark:bg-slate-800/80 text-[#0369a1] dark:text-sky-300 border border-transparent dark:border-slate-700/50 px-1.5 py-0.5 rounded font-medium truncate max-w-[120px]">
+              <span key={i} className="nova-spec-chip truncate max-w-[110px]">
                 {s}
               </span>
             ))}
@@ -824,14 +824,14 @@ const Home = () => {
         )}
 
         {/* Product Title */}
-        <h3 className="text-xs sm:text-sm font-bold text-slate-800 line-clamp-2 group-hover:text-[#0284c7] transition-colors mb-2">
+        <h3 className="text-xs sm:text-[13px] font-bold text-slate-900 dark:text-white line-clamp-2 group-hover:text-[#0284c7] transition-colors mb-1.5 leading-snug">
           {product.TenSP}
         </h3>
 
         {/* Pricing */}
-        <div className="mt-auto pt-2 border-t border-slate-100">
-          <div className="flex items-baseline gap-1.5 flex-wrap mb-1">
-            <span className="text-[#0284c7] font-extrabold text-sm sm:text-base">
+        <div className="mt-auto pt-1.5 border-t border-slate-100 dark:border-slate-800">
+          <div className="flex items-baseline gap-1.5 flex-wrap mb-0.5">
+            <span className="text-[#0284c7] dark:text-[#38bdf8] font-black text-sm sm:text-base">
               {formatPrice(product.GiaBan)}
             </span>
             <span className="text-slate-400 line-through text-[11px]">
@@ -839,17 +839,22 @@ const Home = () => {
             </span>
           </div>
 
+          {/* Member perk */}
+          <div className="text-[10px] text-amber-600 dark:text-amber-400 font-semibold mb-1 truncate">
+            🎁 NovaMember giảm thêm 1%
+          </div>
+
           {/* Ratings & reviews */}
-          <div className="flex items-center gap-1 text-[11px] text-amber-500 font-semibold mb-2.5">
+          <div className="flex items-center gap-1 text-[11px] text-amber-500 font-semibold mb-2">
             <Star className="w-3.5 h-3.5 fill-amber-400 text-amber-400" />
-            <span className="text-slate-700 font-bold">4.8</span>
+            <span className="text-slate-700 dark:text-slate-300 font-bold">4.8</span>
             <span className="text-slate-400">({(product.MaSP * 17) % 80 + 20})</span>
           </div>
 
           {/* Add to Cart button */}
           <button
             onClick={(e) => handleAddToCart(e, product)}
-            className="w-full bg-[#f0f9ff] hover:bg-[#0284c7] dark:bg-slate-800/80 dark:hover:bg-[#0284c7] text-[#0284c7] hover:text-white dark:text-sky-300 dark:hover:text-white border border-[#bae6fd] hover:border-[#0284c7] dark:border-slate-700 font-bold text-xs py-1.5 rounded-lg transition-colors flex items-center justify-center gap-1 cursor-pointer"
+            className="btn-retail-outline w-full text-xs py-1.5 rounded cursor-pointer"
           >
             <ShoppingCart className="w-3.5 h-3.5" />
             <span>Thêm giỏ hàng</span>
