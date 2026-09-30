@@ -251,7 +251,7 @@ const Home = () => {
   };
 
   return (
-    <div className="w-full bg-[#f4f6fa] dark:bg-[#080d1a] min-h-screen pb-12 transition-colors">
+    <div className="w-full bg-[#f4f6fa] min-h-screen pb-12">
       {toast && (
         <Toast
           message={toast.message}

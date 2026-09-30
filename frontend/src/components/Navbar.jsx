@@ -17,8 +17,6 @@ import {
   Settings,
   LayoutDashboard,
   Sparkles,
-  Sun,
-  Moon,
   Menu,
   PhoneCall,
   Flame,
@@ -26,7 +24,6 @@ import {
 } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 import { useCart } from '../context/CartContext';
-import { useTheme } from '../context/ThemeContext';
 import api from '../services/api';
 
 const PROVINCES = [
@@ -51,7 +48,6 @@ const HOT_KEYWORDS = [
 const Navbar = () => {
   const { user, logout, isAdmin } = useAuth();
   const { cartCount } = useCart();
-  const { isDark, toggleTheme } = useTheme();
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -306,21 +302,6 @@ const Navbar = () => {
           {/* Action Items */}
           <div className="flex items-center gap-1.5 sm:gap-2 shrink-0">
             
-            {/* Night Mode Toggle Button (Crisp rectangular 4px) */}
-            <button
-              id="night-mode-toggle"
-              type="button"
-              onClick={toggleTheme}
-              className="flex items-center justify-center w-8 h-8 rounded bg-black/15 hover:bg-black/25 text-white transition-all border border-white/20 cursor-pointer"
-              title={isDark ? "Chuyển sang Chế độ ban ngày" : "Chuyển sang Chế độ ban đêm (Night Mode)"}
-            >
-              {isDark ? (
-                <Sun className="w-4 h-4 text-amber-300" />
-              ) : (
-                <Moon className="w-4 h-4 text-white" />
-              )}
-            </button>
-
             {/* Tra cứu đơn hàng */}
             <Link
               to="/tracking"

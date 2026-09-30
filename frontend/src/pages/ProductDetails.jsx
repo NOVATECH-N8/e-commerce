@@ -118,7 +118,7 @@ const ProductDetails = () => {
   const giaGoc = product.GiaBan * 1.15;
 
   return (
-    <div className="w-full bg-[#f4f6fa] dark:bg-[#080d1a] min-h-screen py-4 transition-colors">
+    <div className="w-full bg-[#f4f6fa] min-h-screen py-4">
       {toast && (
         <Toast
           message={toast.message}
