@@ -1,9 +1,7 @@
 | Task | Status | Details |
 |---|---|---|
-| Task 1: Design System & Tokens Refactoring | Completed | Chuẩn hóa border-radius (2px-6px), triệt tiêu nút bầu bĩnh, CSS tokens kỹ thuật |
-| Task 2: CellphoneS-Style Header & Navbar | Completed | Header chuẩn sàn bán lẻ, gợi ý từ khóa hot, chọn khu vực, badge giỏ vuông |
-| Task 3: 3-Column Hero Section & Mega Menu | Completed | Cột danh mục dọc bên trái, banner slider ở giữa, side-cards ưu đãi bên phải |
-| Task 4: CellphoneS-Style Product Cards & Flash Sale | Completed | Thẻ vuông góc 4px, nhãn đỏ -X%, chip thông số kỹ thuật chữ nhật, nút mua dứt khoát |
-| Task 5: CellphoneS-Style Product Details Page | Completed | Bảng thông số kỹ thuật chi tiết, hộp quà tặng ưu đãi, nút mua to bản chuẩn CellphoneS |
-| Task 6: CellphoneS-Style Cart & Checkout | Completed | Bố cục 2 cột tinh gọn, chip voucher chữ nhật, nút đặt hàng vuông vức |
-| Task 7: Kiểm thử toàn diện & Tối ưu giao diện | Completed | Build production, kiểm tra responsive & Night Mode trên trình duyệt |
+| Task 1: CellphoneS Color Palette & Typography Tokens in index.css | Completed | Đổi toàn bộ primary palette sang Đỏ CellphoneS (#d70018), cập nhật font chữ Roboto/Inter mật độ cao |
+| Task 2: CellphoneS Signature Red Header & Navbar | Completed | Header nền đỏ chuẩn CellphoneS (#d70018), chữ/icon trắng, ô tìm kiếm sắc nét, Smember & hotline |
+| Task 3: CellphoneS Home, Mega Menu & Flash Sale Alignment | In Progress | Menu danh mục viền đỏ, slider tab đỏ, Flash Sale lửa đỏ, giá tiền đỏ rực #d70018, nút mua CellphoneS |
+| Task 4: CellphoneS Product Details, Cart & Checkout Alignment | Pending | Hộp khuyến mãi viền đỏ, nút MUA NGAY đỏ rực, nút đặt hàng & thanh toán chuẩn CellphoneS |
+| Task 5: Kiểm thử Build & Xác thực giao diện toàn diện | Pending | Chạy npm run build, kiểm tra Light Mode & Dark Mode, đảm bảo 0 lỗi |
