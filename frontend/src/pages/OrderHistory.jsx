@@ -95,22 +95,22 @@ const OrderHistory = () => {
   const getStatusBadge = (status) => {
     switch (status) {
       case 'Chờ xử lý':
-        return <span className="px-2.5 py-1 bg-amber-50 text-amber-700 border border-amber-200 rounded font-bold text-xs flex items-center gap-1"><Clock className="w-3.5 h-3.5" /> Chờ xử lý</span>;
+        return <span className="px-2 py-0.5 bg-amber-50 text-amber-700 border border-amber-200 rounded-[3px] font-bold text-xs flex items-center gap-1"><Clock className="w-3.5 h-3.5" /> Chờ xử lý</span>;
       case 'Đã xác nhận':
-        return <span className="px-2.5 py-1 bg-sky-50 text-[#0284c7] border border-sky-200 rounded font-bold text-xs flex items-center gap-1"><CheckCircle2 className="w-3.5 h-3.5" /> Đã xác nhận</span>;
+        return <span className="px-2 py-0.5 bg-red-50 text-[#d70018] border border-red-200 rounded-[3px] font-bold text-xs flex items-center gap-1"><CheckCircle2 className="w-3.5 h-3.5" /> Đã xác nhận</span>;
       case 'Đang giao':
-        return <span className="px-2.5 py-1 bg-indigo-50 text-indigo-700 border border-indigo-200 rounded font-bold text-xs flex items-center gap-1"><Truck className="w-3.5 h-3.5" /> Đang giao hàng</span>;
+        return <span className="px-2 py-0.5 bg-indigo-50 text-indigo-700 border border-indigo-200 rounded-[3px] font-bold text-xs flex items-center gap-1"><Truck className="w-3.5 h-3.5" /> Đang giao hàng</span>;
       case 'Đã giao':
-        return <span className="px-2.5 py-1 bg-emerald-50 text-emerald-700 border border-emerald-200 rounded font-bold text-xs flex items-center gap-1">✔ Đã giao thành công</span>;
+        return <span className="px-2 py-0.5 bg-emerald-50 text-emerald-700 border border-emerald-200 rounded-[3px] font-bold text-xs flex items-center gap-1">✔ Đã giao thành công</span>;
       case 'Đã hủy':
-        return <span className="px-2.5 py-1 bg-rose-50 text-rose-700 border border-rose-200 rounded font-bold text-xs flex items-center gap-1"><XCircle className="w-3.5 h-3.5" /> Đã hủy</span>;
+        return <span className="px-2 py-0.5 bg-rose-50 text-rose-700 border border-rose-200 rounded-[3px] font-bold text-xs flex items-center gap-1"><XCircle className="w-3.5 h-3.5" /> Đã hủy</span>;
       default:
-        return <span className="px-2.5 py-1 bg-slate-100 text-slate-700 rounded font-bold text-xs">{status}</span>;
+        return <span className="px-2 py-0.5 bg-slate-100 text-slate-700 rounded-[3px] font-bold text-xs">{status}</span>;
     }
   };
 
   return (
-    <div className="w-full bg-[#f4f8fc] min-h-screen py-6">
+    <div className="w-full bg-[#f4f6fa] min-h-screen py-6">
       {toast && (
         <Toast
           message={toast.message}
@@ -122,20 +122,20 @@ const OrderHistory = () => {
       <div className="max-w-4xl mx-auto px-4 space-y-4">
         
         {/* Title Header */}
-        <div className="bg-gradient-to-r from-[#0284c7] to-[#0ea5e9] text-white rounded-xl p-5 shadow-sm">
+        <div className="bg-gradient-to-r from-[#d70018] to-[#be0015] text-white rounded-md p-5 shadow-sm">
           <div className="flex items-center gap-2 mb-1">
             <Zap className="w-5 h-5 fill-white text-white" />
             <h1 className="text-xl sm:text-2xl font-black uppercase tracking-tight">
-              Tra Cứu &amp; Theo Dõi Đơn Hàng NovaTech
+              Tra Cứu &amp; Theo Dõi Đơn Hàng CellphoneS
             </h1>
           </div>
-          <p className="text-xs text-sky-100 font-medium">
+          <p className="text-xs text-rose-100 font-medium">
             Kiểm tra trạng thái đơn hàng nhanh chóng qua số điện thoại hoặc mã đơn
           </p>
         </div>
 
         {/* Public Tracking Search Bar */}
-        <div className="bg-white rounded-xl p-4 shadow-sm border border-slate-200">
+        <div className="bg-white rounded-md p-4 shadow-sm border border-slate-200">
           <form onSubmit={handlePublicSearch} className="flex flex-col sm:flex-row gap-2">
             <div className="relative flex-1">
               <Phone className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
@@ -144,7 +144,7 @@ const OrderHistory = () => {
                 placeholder="Nhập số điện thoại mua hàng..."
                 value={searchPhone}
                 onChange={(e) => setSearchPhone(e.target.value)}
-                className="w-full pl-9 pr-3 py-2 text-xs rounded-lg border border-slate-300"
+                className="w-full pl-9 pr-3 py-2 text-xs rounded-[4px] border border-slate-300 focus:border-[#d70018] outline-none"
               />
             </div>
 
@@ -155,14 +155,14 @@ const OrderHistory = () => {
                 placeholder="Hoặc nhập mã đơn hàng (VD: 1)..."
                 value={searchId}
                 onChange={(e) => setSearchId(e.target.value)}
-                className="w-full pl-9 pr-3 py-2 text-xs rounded-lg border border-slate-300"
+                className="w-full pl-9 pr-3 py-2 text-xs rounded-[4px] border border-slate-300 focus:border-[#d70018] outline-none"
               />
             </div>
 
             <button
               type="submit"
               disabled={loading}
-              className="px-5 py-2 bg-[#0284c7] hover:bg-[#0369a1] text-white font-bold text-xs uppercase tracking-wide rounded-lg transition-colors flex items-center justify-center gap-1.5 cursor-pointer shrink-0 shadow-sm"
+              className="px-5 py-2 bg-[#d70018] hover:bg-[#be0015] text-white font-bold text-xs uppercase tracking-wide rounded-[4px] transition-colors flex items-center justify-center gap-1.5 cursor-pointer shrink-0 shadow-sm"
             >
               <Search className="w-4 h-4" />
               <span>Tra cứu</span>
@@ -180,12 +180,12 @@ const OrderHistory = () => {
           </div>
 
           {loading ? (
-            <div className="bg-white rounded-xl p-12 text-center text-slate-500 border border-slate-200">
-              <div className="w-8 h-8 border-4 border-[#0284c7] border-t-transparent rounded-full animate-spin mx-auto mb-2" />
+            <div className="bg-white rounded-md p-12 text-center text-slate-500 border border-slate-200">
+              <div className="w-8 h-8 border-4 border-[#d70018] border-t-transparent rounded-full animate-spin mx-auto mb-2" />
               <p className="text-xs">Đang tìm kiếm thông tin đơn hàng...</p>
             </div>
           ) : orders.length === 0 ? (
-            <div className="bg-white rounded-xl p-10 text-center text-slate-500 border border-slate-200">
+            <div className="bg-white rounded-md p-10 text-center text-slate-500 border border-slate-200">
               <ShoppingBag className="w-12 h-12 text-slate-300 mx-auto mb-2" />
               <p className="font-bold text-sm text-slate-700">Chưa có đơn hàng nào hiển thị</p>
               <p className="text-xs text-slate-400 mt-1">
@@ -197,7 +197,7 @@ const OrderHistory = () => {
               const isExpanded = expandedOrder === order.MaDonHang;
 
               return (
-                <div key={order.MaDonHang} className="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden text-xs">
+                <div key={order.MaDonHang} className="bg-white rounded-md border border-slate-200 shadow-sm overflow-hidden text-xs">
                   
                   {/* Order Card Header */}
                   <div className="p-4 flex flex-wrap items-center justify-between gap-3 bg-[#f8fafc] border-b border-slate-200">
@@ -214,7 +214,7 @@ const OrderHistory = () => {
 
                     <div className="flex items-center gap-2">
                       {getStatusBadge(order.TrangThai)}
-                      <span className="font-black text-[#0284c7] text-sm sm:text-base">
+                      <span className="font-black text-[#d70018] text-sm sm:text-base">
                         {formatPrice(order.TongTien)}
                       </span>
                     </div>
@@ -226,7 +226,7 @@ const OrderHistory = () => {
                       <strong>Nơi nhận:</strong> {order.DiaChiGiaoHang}
                     </p>
                     {order.GhiChu && (
-                      <p className="text-slate-500 text-[11px] italic bg-[#f0f9ff] p-2 rounded-lg border border-[#bae6fd]">
+                      <p className="text-slate-500 text-[11px] italic bg-red-50/40 p-2 rounded-[4px] border border-red-200">
                         Ghi chú: {order.GhiChu}
                       </p>
                     )}
@@ -235,7 +235,7 @@ const OrderHistory = () => {
                     <div className="flex items-center justify-between pt-2 border-t border-slate-100">
                       <button
                         onClick={() => toggleExpand(order.MaDonHang)}
-                        className="text-[#0284c7] hover:text-[#0369a1] font-bold flex items-center gap-1"
+                        className="text-[#d70018] hover:text-[#be0015] font-bold flex items-center gap-1 cursor-pointer"
                       >
                         <span>{isExpanded ? 'Thu gọn sản phẩm' : `Xem chi tiết sản phẩm (${order.ChiTietDonHangs?.length || 0})`}</span>
                         {isExpanded ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}

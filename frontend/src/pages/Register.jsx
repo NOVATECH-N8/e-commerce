@@ -83,15 +83,15 @@ const Register = () => {
         />
       )}
 
-      <div className="w-full max-w-lg bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
+      <div className="w-full max-w-lg bg-white rounded-md shadow-sm border border-slate-200 overflow-hidden">
         
-        {/* NovaTech Light Blue Header */}
-        <div className="bg-gradient-to-r from-[#0284c7] to-[#0ea5e9] text-white p-6 text-center">
-          <div className="w-10 h-10 rounded-xl bg-white text-[#0284c7] flex items-center justify-center font-black text-xl mx-auto mb-2 shadow-sm">
-            <Zap className="w-5 h-5 fill-[#0284c7]" />
+        {/* CellphoneS Red Header */}
+        <div className="bg-gradient-to-r from-[#d70018] to-[#be0015] text-white p-6 text-center">
+          <div className="w-10 h-10 rounded-md bg-white text-[#d70018] flex items-center justify-center font-black text-xl mx-auto mb-2 shadow-sm">
+            <Zap className="w-5 h-5 fill-[#d70018]" />
           </div>
-          <h2 className="text-xl font-black uppercase tracking-tight">Đăng Ký Thành Viên NovaTech</h2>
-          <p className="text-xs text-sky-100 mt-0.5">Nhận ngay đặc quyền thành viên và ưu đãi giảm giá công nghệ</p>
+          <h2 className="text-xl font-black uppercase tracking-tight">Đăng Ký Thành Viên Smember</h2>
+          <p className="text-xs text-rose-100 mt-0.5">Nhận ngay đặc quyền thành viên và ưu đãi giảm giá công nghệ độc quyền</p>
         </div>
 
         <div className="p-6 space-y-4">
@@ -108,7 +108,7 @@ const Register = () => {
                     placeholder="VD: nguyenvana"
                     value={formData.TaiKhoan}
                     onChange={handleChange}
-                    className="w-full pl-9 pr-3 py-2 rounded-lg border border-slate-300 text-xs"
+                    className="w-full pl-9 pr-3 py-2 rounded-[4px] border border-slate-300 text-xs focus:border-[#d70018] outline-none"
                     required
                   />
                 </div>
@@ -122,7 +122,7 @@ const Register = () => {
                   placeholder="VD: Nguyễn Văn A"
                   value={formData.TenKH}
                   onChange={handleChange}
-                  className="w-full px-3 py-2 rounded-lg border border-slate-300 text-xs"
+                  className="w-full px-3 py-2 rounded-[4px] border border-slate-300 text-xs focus:border-[#d70018] outline-none"
                   required
                 />
               </div>
@@ -139,7 +139,7 @@ const Register = () => {
                     placeholder="email@domain.com"
                     value={formData.Email}
                     onChange={handleChange}
-                    className="w-full pl-9 pr-3 py-2 rounded-lg border border-slate-300 text-xs"
+                    className="w-full pl-9 pr-3 py-2 rounded-[4px] border border-slate-300 text-xs focus:border-[#d70018] outline-none"
                     required
                   />
                 </div>
@@ -155,7 +155,7 @@ const Register = () => {
                     placeholder="0912345678"
                     value={formData.SDT}
                     onChange={handleChange}
-                    className="w-full pl-9 pr-3 py-2 rounded-lg border border-slate-300 text-xs"
+                    className="w-full pl-9 pr-3 py-2 rounded-[4px] border border-slate-300 text-xs focus:border-[#d70018] outline-none"
                     required
                   />
                 </div>
@@ -173,7 +173,7 @@ const Register = () => {
                     placeholder="••••••••"
                     value={formData.MatKhau}
                     onChange={handleChange}
-                    className="w-full pl-9 pr-9 py-2 rounded-lg border border-slate-300 text-xs"
+                    className="w-full pl-9 pr-9 py-2 rounded-[4px] border border-slate-300 text-xs focus:border-[#d70018] outline-none"
                     required
                   />
                   <button
@@ -196,7 +196,7 @@ const Register = () => {
                     placeholder="••••••••"
                     value={formData.confirmPassword}
                     onChange={handleChange}
-                    className="w-full pl-9 pr-3 py-2 rounded-lg border border-slate-300 text-xs"
+                    className="w-full pl-9 pr-3 py-2 rounded-[4px] border border-slate-300 text-xs focus:border-[#d70018] outline-none"
                     required
                   />
                 </div>
@@ -207,15 +207,15 @@ const Register = () => {
             <button
               type="submit"
               disabled={isSubmitting}
-              className="w-full bg-[#0284c7] hover:bg-[#0369a1] text-white font-bold py-2.5 rounded-lg text-xs uppercase tracking-wide transition-colors shadow-sm shadow-sky-100 cursor-pointer disabled:opacity-60 mt-2"
+              className="w-full bg-[#d70018] hover:bg-[#be0015] text-white font-bold py-2.5 rounded-[4px] text-xs uppercase tracking-wide transition-colors shadow-sm cursor-pointer disabled:opacity-60 mt-2"
             >
               {isSubmitting ? 'ĐANG TẠO TÀI KHOẢN...' : 'HOÀN TẤT ĐĂNG KÝ'}
             </button>
           </form>
 
           <div className="text-center text-xs text-slate-500 pt-3 border-t border-slate-100">
-            Đã có tài khoản NovaTech?{' '}
-            <Link to="/login" className="text-[#0284c7] font-bold hover:underline">
+            Đã có tài khoản thành viên?{' '}
+            <Link to="/login" className="text-[#d70018] font-bold hover:underline">
               Đăng nhập ngay
             </Link>
           </div>

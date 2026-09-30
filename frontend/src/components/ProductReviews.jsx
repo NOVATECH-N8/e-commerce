@@ -165,11 +165,11 @@ const ProductReviews = ({ productId, onRatingStatsUpdate }) => {
       <div className="flex items-center justify-between border-b border-slate-100 dark:border-slate-700 pb-4">
         <div>
           <h3 className="text-lg font-black text-slate-900 dark:text-white flex items-center gap-2">
-            <MessageSquare className="w-5 h-5 text-[#0284c7]" />
+            <MessageSquare className="w-5 h-5 text-[#d70018]" />
             Đánh giá & Nhận xét của khách hàng
           </h3>
           <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
-            Nhận xét thực tế từ những người đã mua sản phẩm tại NovaTech
+            Nhận xét thực tế từ những người đã mua sản phẩm tại CellphoneS
           </p>
         </div>
 
@@ -185,14 +185,14 @@ const ProductReviews = ({ productId, onRatingStatsUpdate }) => {
             }
             setShowForm(!showForm);
           }}
-          className="px-4 py-2 bg-[#0284c7] hover:bg-[#0369a1] text-white text-xs font-bold rounded-xl shadow-sm transition-all cursor-pointer hover:shadow-sky-100"
+          className="px-4 py-2 bg-[#d70018] hover:bg-[#be0015] text-white text-xs font-bold rounded-[4px] shadow-sm transition-all cursor-pointer"
         >
           {showForm ? 'Đóng lại' : canReviewInfo.hasReviewed ? 'Sửa đánh giá của bạn' : 'Viết đánh giá ngay'}
         </button>
       </div>
 
       {/* Rating Summary Box */}
-      <div className="grid grid-cols-1 md:grid-cols-12 gap-6 bg-[#f8fafc] dark:bg-slate-900/60 p-5 rounded-2xl border border-slate-150 dark:border-slate-700">
+      <div className="grid grid-cols-1 md:grid-cols-12 gap-6 bg-[#f8fafc] dark:bg-slate-900/60 p-5 rounded-md border border-slate-200 dark:border-slate-700">
         
         {/* Left: Big Average Star */}
         <div className="md:col-span-4 flex flex-col items-center justify-center text-center border-b md:border-b-0 md:border-r border-slate-200 dark:border-slate-700 pb-4 md:pb-0 md:pr-4">
@@ -232,7 +232,7 @@ const ProductReviews = ({ productId, onRatingStatsUpdate }) => {
 
                 <div className="flex-1 bg-slate-200 dark:bg-slate-700 rounded-full h-2 overflow-hidden">
                   <div
-                    className="bg-[#0284c7] h-full rounded-full transition-all duration-500"
+                    className="bg-[#d70018] h-full rounded-full transition-all duration-500"
                     style={{ width: `${pct}%` }}
                   />
                 </div>
@@ -249,9 +249,9 @@ const ProductReviews = ({ productId, onRatingStatsUpdate }) => {
 
       {/* Review Submission Form (Expandable) */}
       {showForm && (
-        <form onSubmit={handleSubmitReview} className="bg-[#f0f9ff] dark:bg-slate-800/90 rounded-2xl p-5 border border-[#bae6fd] dark:border-sky-800 space-y-4 animate-in fade-in duration-200">
+        <form onSubmit={handleSubmitReview} className="bg-red-50/50 dark:bg-slate-800/90 rounded-md p-5 border border-red-200 dark:border-red-900/60 space-y-4 animate-in fade-in duration-200">
           <div className="flex items-center justify-between">
-            <h4 className="font-bold text-sm text-[#0369a1] dark:text-sky-400">
+            <h4 className="font-bold text-sm text-[#d70018] dark:text-rose-400">
               {canReviewInfo.hasReviewed ? 'Cập nhật đánh giá của bạn:' : 'Đánh giá sản phẩm:'}
             </h4>
             <span className="text-[11px] text-slate-500 dark:text-slate-400 flex items-center gap-1">
@@ -303,7 +303,7 @@ const ProductReviews = ({ productId, onRatingStatsUpdate }) => {
               value={commentText}
               onChange={(e) => setCommentText(e.target.value)}
               placeholder="Sản phẩm dùng rất mượt, camera chụp sắc nét, giao hàng siêu nhanh..."
-              className="w-full text-xs p-3 rounded-xl border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 text-slate-900 dark:text-white outline-none focus:ring-2 focus:ring-[#0284c7]"
+              className="w-full text-xs p-3 rounded-[4px] border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 text-slate-900 dark:text-white outline-none focus:border-[#d70018]"
               required
             />
           </div>
@@ -314,8 +314,8 @@ const ProductReviews = ({ productId, onRatingStatsUpdate }) => {
               3. Đính kèm ảnh thực tế (Tùy chọn)
             </label>
             <div className="flex items-center gap-3">
-              <label className="inline-flex items-center gap-2 px-3 py-2 bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-600 rounded-xl text-xs font-semibold text-slate-700 dark:text-slate-300 hover:bg-slate-50 cursor-pointer transition-colors shadow-sm">
-                <Upload className="w-4 h-4 text-[#0284c7]" />
+              <label className="inline-flex items-center gap-2 px-3 py-2 bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-600 rounded-[4px] text-xs font-semibold text-slate-700 dark:text-slate-300 hover:bg-slate-50 cursor-pointer transition-colors shadow-sm">
+                <Upload className="w-4 h-4 text-[#d70018]" />
                 <span>{uploadingImage ? 'Đang tải ảnh...' : 'Chọn ảnh từ máy tính'}</span>
                 <input
                   type="file"
@@ -327,7 +327,7 @@ const ProductReviews = ({ productId, onRatingStatsUpdate }) => {
               </label>
 
               {reviewImage && (
-                <div className="relative inline-block border border-slate-300 dark:border-slate-600 rounded-lg overflow-hidden group">
+                <div className="relative inline-block border border-slate-300 dark:border-slate-600 rounded-[4px] overflow-hidden group">
                   <img
                     src={reviewImage.startsWith('http') ? reviewImage : `http://localhost:5000${reviewImage}`}
                     alt="Preview"
@@ -347,18 +347,18 @@ const ProductReviews = ({ productId, onRatingStatsUpdate }) => {
           </div>
 
           {/* Action buttons */}
-          <div className="flex items-center justify-end gap-2 pt-2 border-t border-[#bae6fd] dark:border-sky-800">
+          <div className="flex items-center justify-end gap-2 pt-2 border-t border-red-200 dark:border-red-900/60">
             <button
               type="button"
               onClick={() => setShowForm(false)}
-              className="px-4 py-2 bg-white dark:bg-slate-700 text-slate-700 dark:text-slate-300 rounded-xl text-xs font-bold hover:bg-slate-100 transition-colors"
+              className="px-4 py-2 bg-white dark:bg-slate-700 text-slate-700 dark:text-slate-300 rounded-[4px] text-xs font-bold hover:bg-slate-100 transition-colors"
             >
               Hủy
             </button>
             <button
               type="submit"
               disabled={isSubmitting || uploadingImage}
-              className="px-5 py-2 bg-[#0284c7] hover:bg-[#0369a1] text-white rounded-xl text-xs font-bold transition-all shadow-md disabled:opacity-50 cursor-pointer"
+              className="px-5 py-2 bg-[#d70018] hover:bg-[#be0015] text-white rounded-[4px] text-xs font-bold transition-all shadow-md disabled:opacity-50 cursor-pointer"
             >
               {isSubmitting ? 'Đang gửi...' : 'Gửi nhận xét ngay'}
             </button>
@@ -372,9 +372,9 @@ const ProductReviews = ({ productId, onRatingStatsUpdate }) => {
 
         <button
           onClick={() => setActiveFilter('ALL')}
-          className={`px-3 py-1.5 rounded-lg font-bold transition-colors cursor-pointer ${
+          className={`px-3 py-1.5 rounded-[4px] font-bold transition-colors cursor-pointer ${
             activeFilter === 'ALL'
-              ? 'bg-[#0284c7] text-white'
+              ? 'bg-[#d70018] text-white'
               : 'bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-300 hover:bg-slate-200'
           }`}
         >
@@ -383,9 +383,9 @@ const ProductReviews = ({ productId, onRatingStatsUpdate }) => {
 
         <button
           onClick={() => setActiveFilter('WITH_IMAGE')}
-          className={`px-3 py-1.5 rounded-lg font-bold flex items-center gap-1 transition-colors cursor-pointer ${
+          className={`px-3 py-1.5 rounded-[4px] font-bold flex items-center gap-1 transition-colors cursor-pointer ${
             activeFilter === 'WITH_IMAGE'
-              ? 'bg-[#0284c7] text-white'
+              ? 'bg-[#d70018] text-white'
               : 'bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-300 hover:bg-slate-200'
           }`}
         >
@@ -396,9 +396,9 @@ const ProductReviews = ({ productId, onRatingStatsUpdate }) => {
           <button
             key={s}
             onClick={() => setActiveFilter(s)}
-            className={`px-3 py-1.5 rounded-lg font-bold flex items-center gap-1 transition-colors cursor-pointer ${
+            className={`px-3 py-1.5 rounded-[4px] font-bold flex items-center gap-1 transition-colors cursor-pointer ${
               activeFilter === s
-                ? 'bg-[#0284c7] text-white'
+                ? 'bg-[#d70018] text-white'
                 : 'bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-300 hover:bg-slate-200'
             }`}
           >
@@ -410,7 +410,7 @@ const ProductReviews = ({ productId, onRatingStatsUpdate }) => {
       {/* Reviews List */}
       <div className="space-y-4 pt-2">
         {filteredReviews.length === 0 ? (
-          <div className="text-center py-10 bg-slate-50 dark:bg-slate-900/40 rounded-xl border border-dashed border-slate-200 dark:border-slate-700">
+          <div className="text-center py-10 bg-slate-50 dark:bg-slate-900/40 rounded-md border border-dashed border-slate-200 dark:border-slate-700">
             <MessageSquare className="w-10 h-10 text-slate-400 mx-auto mb-2 opacity-50" />
             <p className="text-xs font-bold text-slate-700 dark:text-slate-300">Chưa có đánh giá nào phù hợp bộ lọc.</p>
             <p className="text-[11px] text-slate-500 dark:text-slate-400 mt-1">Hãy là người đầu tiên trải nghiệm và chia sẻ nhận xét!</p>
@@ -424,19 +424,19 @@ const ProductReviews = ({ productId, onRatingStatsUpdate }) => {
             return (
               <div
                 key={rev.MaDanhGia}
-                className="p-4 bg-slate-50 dark:bg-slate-900/50 rounded-xl border border-slate-150 dark:border-slate-700/80 space-y-2 text-xs"
+                className="p-4 bg-slate-50 dark:bg-slate-900/50 rounded-md border border-slate-200 dark:border-slate-700/80 space-y-2 text-xs"
               >
                 {/* User & Date Header */}
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-2">
-                    <div className="w-7 h-7 rounded-full bg-[#0284c7] text-white font-bold flex items-center justify-center text-xs uppercase shadow-sm">
+                    <div className="w-7 h-7 rounded-full bg-[#d70018] text-white font-bold flex items-center justify-center text-xs uppercase shadow-sm">
                       {(rev.NguoiDung?.TenKH || 'K')[0]}
                     </div>
                     <div>
                       <p className="font-bold text-slate-900 dark:text-white flex items-center gap-1.5">
-                        {rev.NguoiDung?.TenKH || rev.NguoiDung?.TaiKhoan || 'Khách hàng NovaTech'}
+                        {rev.NguoiDung?.TenKH || rev.NguoiDung?.TaiKhoan || 'Khách hàng CellphoneS'}
                         <span className="inline-flex items-center gap-0.5 text-[10px] font-normal text-emerald-700 bg-emerald-100 dark:bg-emerald-950 dark:text-emerald-400 px-1.5 py-0.2 rounded-full">
-                          <CheckCircle2 className="w-3 h-3" /> Đã mua tại NovaTech
+                          <CheckCircle2 className="w-3 h-3" /> Đã mua tại CellphoneS
                         </span>
                       </p>
                     </div>

@@ -54,15 +54,15 @@ const Login = () => {
         />
       )}
 
-      <div className="w-full max-w-md bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
+      <div className="w-full max-w-md bg-white rounded-md shadow-sm border border-slate-200 overflow-hidden">
         
-        {/* NovaTech Light Blue Header */}
-        <div className="bg-gradient-to-r from-[#0284c7] to-[#0ea5e9] text-white p-6 text-center">
-          <div className="w-10 h-10 rounded-xl bg-white text-[#0284c7] flex items-center justify-center font-black text-xl mx-auto mb-2 shadow-sm">
-            <Zap className="w-5 h-5 fill-[#0284c7]" />
+        {/* CellphoneS Red Header */}
+        <div className="bg-gradient-to-r from-[#d70018] to-[#be0015] text-white p-6 text-center">
+          <div className="w-10 h-10 rounded-md bg-white text-[#d70018] flex items-center justify-center font-black text-xl mx-auto mb-2 shadow-sm">
+            <Zap className="w-5 h-5 fill-[#d70018]" />
           </div>
-          <h2 className="text-xl font-black uppercase tracking-tight">Đăng Nhập NovaTech</h2>
-          <p className="text-xs text-sky-100 mt-0.5">Khám phá đỉnh cao công nghệ cùng NovaTech</p>
+          <h2 className="text-xl font-black uppercase tracking-tight">Đăng Nhập Thành Viên</h2>
+          <p className="text-xs text-rose-100 mt-0.5">Khám phá quyền lợi Smember & ưu đãi công nghệ đỉnh cao</p>
         </div>
 
         <div className="p-6 space-y-5">
@@ -78,7 +78,7 @@ const Login = () => {
                   placeholder="Nhập tên tài khoản hoặc email"
                   value={loginIdentifier}
                   onChange={(e) => setLoginIdentifier(e.target.value)}
-                  className="w-full pl-9 pr-3 py-2.5 rounded-lg border border-slate-300 text-xs"
+                  className="w-full pl-9 pr-3 py-2.5 rounded-[4px] border border-slate-300 text-xs focus:border-[#d70018] outline-none"
                   required
                 />
               </div>
@@ -94,7 +94,7 @@ const Login = () => {
                   placeholder="Nhập mật khẩu"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  className="w-full pl-9 pr-9 py-2.5 rounded-lg border border-slate-300 text-xs"
+                  className="w-full pl-9 pr-9 py-2.5 rounded-[4px] border border-slate-300 text-xs focus:border-[#d70018] outline-none"
                   required
                 />
                 <button
@@ -111,29 +111,29 @@ const Login = () => {
             <button
               type="submit"
               disabled={isSubmitting}
-              className="w-full bg-[#0284c7] hover:bg-[#0369a1] text-white font-bold py-2.5 rounded-lg text-xs uppercase tracking-wide transition-colors shadow-sm shadow-sky-100 cursor-pointer disabled:opacity-60"
+              className="w-full bg-[#d70018] hover:bg-[#be0015] text-white font-bold py-2.5 rounded-[4px] text-xs uppercase tracking-wide transition-colors shadow-sm cursor-pointer disabled:opacity-60"
             >
               {isSubmitting ? 'Đang đăng nhập...' : 'ĐĂNG NHẬP'}
             </button>
           </form>
 
           {/* Quick test accounts box */}
-          <div className="p-3 bg-[#f0f9ff] border border-[#bae6fd] rounded-xl text-xs space-y-1.5">
-            <span className="font-bold text-[#0369a1] block text-[11px] uppercase">
+          <div className="p-3 bg-red-50/50 border border-red-200 rounded-[4px] text-xs space-y-1.5">
+            <span className="font-bold text-[#d70018] block text-[11px] uppercase">
               Tài khoản dùng thử nhanh:
             </span>
             <div className="flex flex-wrap gap-2">
               <button
                 type="button"
                 onClick={() => handleQuickFill('admin', 'admin123')}
-                className="px-2.5 py-1 bg-white border border-[#bae6fd] rounded-lg text-[11px] font-bold text-slate-800 hover:bg-sky-50"
+                className="px-2.5 py-1 bg-white border border-red-200 rounded-[3px] text-[11px] font-bold text-slate-800 hover:bg-red-50 hover:text-[#d70018]"
               >
                 Admin (admin / admin123)
               </button>
               <button
                 type="button"
                 onClick={() => handleQuickFill('customer', 'customer123')}
-                className="px-2.5 py-1 bg-white border border-[#bae6fd] rounded-lg text-[11px] font-bold text-slate-800 hover:bg-sky-50"
+                className="px-2.5 py-1 bg-white border border-red-200 rounded-[3px] text-[11px] font-bold text-slate-800 hover:bg-red-50 hover:text-[#d70018]"
               >
                 Khách hàng (customer / customer123)
               </button>
@@ -142,7 +142,7 @@ const Login = () => {
 
           <div className="text-center text-xs text-slate-500 pt-2 border-t border-slate-100">
             Chưa có tài khoản?{' '}
-            <Link to="/register" className="text-[#0284c7] font-bold hover:underline">
+            <Link to="/register" className="text-[#d70018] font-bold hover:underline">
               Đăng ký tài khoản mới
             </Link>
           </div>

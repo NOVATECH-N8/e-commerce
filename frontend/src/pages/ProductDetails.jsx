@@ -96,7 +96,7 @@ const ProductDetails = () => {
   if (loading) {
     return (
       <div className="flex flex-col items-center justify-center min-h-[50vh] gap-3">
-        <div className="w-10 h-10 rounded-full border-4 border-[#0284c7] border-t-transparent animate-spin" />
+        <div className="w-10 h-10 rounded-full border-4 border-[#d70018] border-t-transparent animate-spin" />
         <p className="text-sm text-slate-500 font-medium">Đang tải thông tin sản phẩm...</p>
       </div>
     );
@@ -108,7 +108,7 @@ const ProductDetails = () => {
         <AlertTriangle className="w-12 h-12 text-rose-500 mx-auto mb-4" />
         <h3 className="text-lg font-bold text-slate-800">Không tìm thấy sản phẩm</h3>
         <p className="text-slate-500 text-sm mt-1">Sản phẩm có thể đã bị xóa hoặc không tồn tại.</p>
-        <Link to="/" className="mt-6 inline-flex items-center gap-2 text-[#0284c7] font-bold hover:underline">
+        <Link to="/" className="mt-6 inline-flex items-center gap-2 text-[#d70018] font-bold hover:underline">
           <ArrowLeft className="w-4 h-4" /> Quay lại trang chủ
         </Link>
       </div>
@@ -132,9 +132,9 @@ const ProductDetails = () => {
         {/* Breadcrumb navigation */}
         <div className="flex items-center justify-between text-xs text-slate-500 dark:text-slate-400">
           <div className="flex items-center gap-1.5 flex-wrap">
-            <Link to="/" className="hover:text-[#0284c7] transition-colors">Trang chủ</Link>
+            <Link to="/" className="hover:text-[#d70018] transition-colors">Trang chủ</Link>
             <ChevronRight className="w-3.5 h-3.5" />
-            <Link to={`/?categoryId=${product.MaDM}`} className="hover:text-[#0284c7] transition-colors">
+            <Link to={`/?categoryId=${product.MaDM}`} className="hover:text-[#d70018] transition-colors">
               {product.DanhMuc?.TenDM || 'Danh mục sản phẩm'}
             </Link>
             <ChevronRight className="w-3.5 h-3.5" />
@@ -148,7 +148,7 @@ const ProductDetails = () => {
               navigator.clipboard?.writeText(window.location.href);
               setToast({ type: 'success', message: 'Đã sao chép đường dẫn sản phẩm!' });
             }}
-            className="flex items-center gap-1 text-slate-600 dark:text-slate-300 hover:text-[#0284c7] transition-colors cursor-pointer"
+            className="flex items-center gap-1 text-slate-600 dark:text-slate-300 hover:text-[#d70018] transition-colors cursor-pointer"
           >
             <Share2 className="w-3.5 h-3.5" />
             <span className="hidden sm:inline">Chia sẻ</span>
@@ -156,7 +156,7 @@ const ProductDetails = () => {
         </div>
 
         {/* Product Title & Ratings Header */}
-        <div className="bg-white dark:bg-[#0f1a30] rounded-md p-3.5 sm:p-4 shadow-sm border border-slate-200 dark:border-slate-800">
+        <div className="bg-white dark:bg-[#111827] rounded-md p-3.5 sm:p-4 shadow-sm border border-slate-200 dark:border-slate-800">
           <div className="flex flex-wrap items-center justify-between gap-2 border-b border-slate-100 dark:border-slate-800 pb-2.5">
             <h1 className="text-base sm:text-xl font-black text-slate-900 dark:text-white uppercase tracking-tight">
               {product.TenSP}
@@ -194,7 +194,7 @@ const ProductDetails = () => {
                   onClick={() => setActiveImage(product.AnhMinhHoa)}
                   className={`w-14 h-14 bg-white dark:bg-[#0b1325] rounded border p-1 shrink-0 transition-all cursor-pointer ${
                     activeImage === product.AnhMinhHoa
-                      ? 'border-[#0284c7] ring-2 ring-sky-300 dark:ring-sky-800'
+                      ? 'border-[#d70018] ring-2 ring-red-300 dark:ring-red-900'
                       : 'border-slate-200 dark:border-slate-700 hover:border-slate-400'
                   }`}
                 >
@@ -207,7 +207,7 @@ const ProductDetails = () => {
                     onClick={() => setActiveImage(img.DuongDan)}
                     className={`w-14 h-14 bg-white dark:bg-[#0b1325] rounded border p-1 shrink-0 transition-all cursor-pointer ${
                       activeImage === img.DuongDan
-                        ? 'border-[#0284c7] ring-2 ring-sky-300 dark:ring-sky-800'
+                        ? 'border-[#d70018] ring-2 ring-red-300 dark:ring-red-900'
                         : 'border-slate-200 dark:border-slate-700 hover:border-slate-400'
                     }`}
                   >
@@ -216,15 +216,15 @@ const ProductDetails = () => {
                 ))}
               </div>
 
-              {/* NovaTech Warranty & Service Policy Box */}
-              <div className="bg-sky-50/70 dark:bg-sky-950/40 rounded-md p-3 border border-sky-200 dark:border-sky-900/60 text-xs space-y-2">
-                <h4 className="font-bold text-[#0284c7] dark:text-sky-300 text-[11px] uppercase tracking-wider flex items-center gap-1.5">
-                  <ShieldCheck className="w-4 h-4 text-[#0284c7]" />
-                  <span>Chính sách đặc quyền NovaCare</span>
+              {/* Warranty & Service Policy Box */}
+              <div className="bg-red-50/60 dark:bg-red-950/30 rounded-md p-3 border border-red-200 dark:border-red-900/60 text-xs space-y-2">
+                <h4 className="font-bold text-[#d70018] dark:text-red-300 text-[11px] uppercase tracking-wider flex items-center gap-1.5">
+                  <ShieldCheck className="w-4 h-4 text-[#d70018]" />
+                  <span>Chính sách đặc quyền bảo hành</span>
                 </h4>
                 <div className="space-y-1.5 text-slate-700 dark:text-slate-300 text-[11px]">
                   <p className="flex items-start gap-1.5">
-                    <RefreshCw className="w-3.5 h-3.5 text-[#0284c7] shrink-0 mt-0.5" />
+                    <RefreshCw className="w-3.5 h-3.5 text-[#d70018] shrink-0 mt-0.5" />
                     <span><strong>Lỗi 1 đổi 1 trong 30 ngày</strong> nếu phát sinh lỗi phần cứng nhà sản xuất.</span>
                   </p>
                   <p className="flex items-start gap-1.5">
@@ -232,7 +232,7 @@ const ProductDetails = () => {
                     <span><strong>Bảo hành chính hãng 12 tháng</strong> tại các trung tâm bảo hành ủy quyền.</span>
                   </p>
                   <p className="flex items-start gap-1.5">
-                    <Truck className="w-3.5 h-3.5 text-[#0284c7] shrink-0 mt-0.5" />
+                    <Truck className="w-3.5 h-3.5 text-[#d70018] shrink-0 mt-0.5" />
                     <span><strong>Giao siêu tốc 2 giờ</strong> miễn phí cho đơn hàng từ 500.000đ.</span>
                   </p>
                 </div>
@@ -256,8 +256,8 @@ const ProductDetails = () => {
                       onClick={() => setSelectedStorage(storage)}
                       className={`px-3 py-1.5 rounded border text-xs font-bold transition-all cursor-pointer ${
                         selectedStorage === storage
-                          ? 'border-[#0284c7] bg-sky-50 dark:bg-sky-950/60 text-[#0284c7] shadow-xs'
-                          : 'border-slate-200 dark:border-slate-700 bg-white dark:bg-[#0b1325] text-slate-700 dark:text-slate-300 hover:border-[#0284c7]'
+                          ? 'border-[#d70018] bg-red-50 dark:bg-red-950/60 text-[#d70018] shadow-xs'
+                          : 'border-slate-200 dark:border-slate-700 bg-white dark:bg-[#0b1325] text-slate-700 dark:text-slate-300 hover:border-[#d70018]'
                       }`}
                     >
                       {storage}
@@ -269,7 +269,7 @@ const ProductDetails = () => {
               {/* Pricing Box */}
               <div className="bg-slate-50 dark:bg-[#0b1325] rounded-md p-3.5 border border-slate-200 dark:border-slate-800">
                 <div className="flex items-baseline gap-2.5 flex-wrap">
-                  <span className="text-2xl sm:text-3xl font-black text-[#0284c7] dark:text-[#38bdf8]">
+                  <span className="text-2xl sm:text-3xl font-black text-[#d70018] dark:text-rose-400">
                     {formatPrice(product.GiaBan)}
                   </span>
                   <span className="text-slate-400 line-through text-xs sm:text-sm">
@@ -283,10 +283,10 @@ const ProductDetails = () => {
                 <div className="mt-2 text-xs">
                   {product.SoLuongTon > 0 ? (
                     <span className="text-emerald-700 dark:text-emerald-400 font-bold flex items-center gap-1 text-[11px]">
-                      <Check className="w-3.5 h-3.5" /> Còn hàng (Sẵn sàng giao ngay tại kho NovaTech)
+                      <Check className="w-3.5 h-3.5" /> Còn hàng (Sẵn sàng giao ngay tại cửa hàng)
                     </span>
                   ) : (
-                    <span className="text-rose-600 dark:text-rose-400 font-bold flex items-center gap-1 text-[11px]">
+                    <span className="text-[#d70018] dark:text-rose-400 font-bold flex items-center gap-1 text-[11px]">
                       <AlertTriangle className="w-3.5 h-3.5" /> Tạm thời hết hàng
                     </span>
                   )}
@@ -294,22 +294,22 @@ const ProductDetails = () => {
               </div>
 
               {/* Exclusive Promotion Box (CellphoneS Red Accent) */}
-              <div className="rounded-md border border-rose-200 dark:border-rose-900/60 overflow-hidden bg-white dark:bg-[#0f1a30]">
-                <div className="bg-rose-600 text-white px-3 py-1.5 flex items-center gap-1.5 text-xs font-bold uppercase tracking-tight">
+              <div className="rounded-md border border-red-300 dark:border-red-900/60 overflow-hidden bg-white dark:bg-[#111827]">
+                <div className="bg-[#d70018] text-white px-3 py-1.5 flex items-center gap-1.5 text-xs font-bold uppercase tracking-tight">
                   <Gift className="w-4 h-4 text-white" />
-                  <span>Ưu đãi đặc quyền NovaTech (Trị giá đến 1.500.000đ)</span>
+                  <span>Ưu đãi đặc quyền Smember (Trị giá đến 1.500.000đ)</span>
                 </div>
                 <div className="p-3 text-[11.5px] space-y-1.5 text-slate-700 dark:text-slate-300">
                   <div className="flex items-start gap-2">
-                    <span className="w-4 h-4 rounded-[2px] bg-rose-100 dark:bg-rose-950 text-rose-700 dark:text-rose-300 flex items-center justify-center font-bold text-[10px] shrink-0 mt-0.5">1</span>
+                    <span className="w-4 h-4 rounded-[2px] bg-red-100 dark:bg-red-950 text-[#d70018] dark:text-red-300 flex items-center justify-center font-bold text-[10px] shrink-0 mt-0.5">1</span>
                     <span>Tặng voucher <strong>200.000đ</strong> khi mua kèm phụ kiện sạc nhanh hoặc tai nghe chính hãng.</span>
                   </div>
                   <div className="flex items-start gap-2">
-                    <span className="w-4 h-4 rounded-[2px] bg-rose-100 dark:bg-rose-950 text-rose-700 dark:text-rose-300 flex items-center justify-center font-bold text-[10px] shrink-0 mt-0.5">2</span>
+                    <span className="w-4 h-4 rounded-[2px] bg-red-100 dark:bg-red-950 text-[#d70018] dark:text-red-300 flex items-center justify-center font-bold text-[10px] shrink-0 mt-0.5">2</span>
                     <span>Giảm thêm <strong>500.000đ</strong> khi chuyển khoản qua Napas 24/7 hoặc VietQR.</span>
                   </div>
                   <div className="flex items-start gap-2">
-                    <span className="w-4 h-4 rounded-[2px] bg-rose-100 dark:bg-rose-950 text-rose-700 dark:text-rose-300 flex items-center justify-center font-bold text-[10px] shrink-0 mt-0.5">3</span>
+                    <span className="w-4 h-4 rounded-[2px] bg-red-100 dark:bg-red-950 text-[#d70018] dark:text-red-300 flex items-center justify-center font-bold text-[10px] shrink-0 mt-0.5">3</span>
                     <span>Thu cũ đổi mới: Trợ giá thêm đến <strong>2.000.000đ</strong> khi lên đời máy mới.</span>
                   </div>
                 </div>
@@ -345,22 +345,22 @@ const ProductDetails = () => {
                 </div>
               </div>
 
-              {/* Action Buttons (Crisp & High-Impact) */}
+              {/* Action Buttons (Crisp & High-Impact CellphoneS Style) */}
               <div className="space-y-2 pt-1">
                 
                 {/* Primary Button: MUA NGAY */}
                 <button
                   onClick={() => handleAddToCart(true)}
                   disabled={product.SoLuongTon === 0}
-                  className={`w-full py-2.5 px-4 rounded font-black text-center transition-all cursor-pointer shadow-xs ${
+                  className={`w-full py-2.5 px-4 rounded font-black text-center transition-all cursor-pointer shadow-sm ${
                     product.SoLuongTon === 0
                       ? 'bg-slate-200 dark:bg-slate-800 text-slate-400 cursor-not-allowed'
-                      : 'bg-[#0284c7] hover:bg-[#0369a1] text-white'
+                      : 'bg-[#d70018] hover:bg-[#be0015] text-white shadow-md shadow-red-200/50'
                   }`}
                 >
                   <div className="text-sm sm:text-base uppercase tracking-wider font-display">MUA NGAY</div>
-                  <div className="text-[10.5px] font-normal text-sky-100">
-                    (Giao tận nơi siêu tốc 2h hoặc nhận tại showroom NovaTech)
+                  <div className="text-[10.5px] font-normal text-red-100">
+                    (Giao tận nơi siêu tốc 2h hoặc nhận tại showroom)
                   </div>
                 </button>
 
@@ -369,7 +369,7 @@ const ProductDetails = () => {
                   <button
                     onClick={() => handleAddToCart(true)}
                     disabled={product.SoLuongTon === 0}
-                    className="bg-sky-50 hover:bg-sky-100 dark:bg-sky-950/60 dark:hover:bg-sky-900/80 text-[#0284c7] dark:text-sky-300 border border-sky-300 dark:border-sky-800 font-bold py-2 px-3 rounded text-center transition-colors cursor-pointer"
+                    className="bg-red-50 hover:bg-red-100 dark:bg-red-950/60 dark:hover:bg-red-900/80 text-[#d70018] dark:text-red-300 border border-red-300 dark:border-red-800 font-bold py-2 px-3 rounded text-center transition-colors cursor-pointer"
                   >
                     <div className="text-xs font-black uppercase">MUA TRẢ GÓP 0%</div>
                     <div className="text-[10px] text-slate-500 dark:text-slate-400 font-normal">Duyệt hồ sơ online 3 phút</div>
@@ -378,9 +378,9 @@ const ProductDetails = () => {
                   <button
                     onClick={() => handleAddToCart(false)}
                     disabled={product.SoLuongTon === 0}
-                    className="bg-white dark:bg-[#0f1a30] hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-800 dark:text-slate-100 font-bold py-2 px-3 rounded text-center transition-colors border border-slate-300 dark:border-slate-700 flex items-center justify-center gap-1.5 cursor-pointer"
+                    className="bg-white dark:bg-[#111827] hover:bg-red-50/50 dark:hover:bg-slate-800 text-slate-800 dark:text-slate-100 font-bold py-2 px-3 rounded text-center transition-colors border border-slate-300 dark:border-slate-700 flex items-center justify-center gap-1.5 cursor-pointer"
                   >
-                    <ShoppingCart className="w-4 h-4 text-[#0284c7]" />
+                    <ShoppingCart className="w-4 h-4 text-[#d70018]" />
                     <span className="text-xs font-black">THÊM VÀO GIỎ</span>
                   </button>
                 </div>
@@ -396,7 +396,7 @@ const ProductDetails = () => {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-3.5">
           
           {/* Specs Table */}
-          <div className="lg:col-span-7 bg-white dark:bg-[#0f1a30] rounded-md p-4 shadow-sm border border-slate-200 dark:border-slate-800 space-y-2.5">
+          <div className="lg:col-span-7 bg-white dark:bg-[#111827] rounded-md p-4 shadow-sm border border-slate-200 dark:border-slate-800 space-y-2.5">
             <h3 className="font-bold text-sm sm:text-base text-slate-900 dark:text-white uppercase tracking-tight border-b border-slate-100 dark:border-slate-800 pb-2">
               Thông số kỹ thuật {product.TenSP}
             </h3>
@@ -407,7 +407,7 @@ const ProductDetails = () => {
                   <div 
                     key={key} 
                     className={`grid grid-cols-3 py-2 px-3 ${
-                      idx % 2 === 0 ? 'bg-slate-50 dark:bg-[#0b1325]' : 'bg-white dark:bg-[#0f1a30]'
+                      idx % 2 === 0 ? 'bg-slate-50 dark:bg-[#0b1325]' : 'bg-white dark:bg-[#111827]'
                     }`}
                   >
                     <span className="col-span-1 text-slate-500 dark:text-slate-400 font-bold">{key}</span>
@@ -421,14 +421,14 @@ const ProductDetails = () => {
           </div>
 
           {/* Highlights Box */}
-          <div className="lg:col-span-5 bg-white dark:bg-[#0f1a30] rounded-md p-4 shadow-sm border border-slate-200 dark:border-slate-800 space-y-2.5">
+          <div className="lg:col-span-5 bg-white dark:bg-[#111827] rounded-md p-4 shadow-sm border border-slate-200 dark:border-slate-800 space-y-2.5">
             <h3 className="font-bold text-sm sm:text-base text-slate-900 dark:text-white uppercase tracking-tight border-b border-slate-100 dark:border-slate-800 pb-2">
               Đặc điểm nổi bật
             </h3>
             <div className="text-xs text-slate-600 dark:text-slate-300 leading-relaxed space-y-2 font-normal">
               <p>{product.MoTa}</p>
-              <div className="p-3 bg-sky-50 dark:bg-sky-950/40 rounded border border-sky-200 dark:border-sky-900 text-[#0284c7] dark:text-sky-300 font-medium text-[11.5px]">
-                💡 Sản phẩm được cam kết chính hãng 100%, bảo hành chính hãng 12 tháng tại hệ thống NovaTech toàn quốc.
+              <div className="p-3 bg-red-50 dark:bg-red-950/40 rounded border border-red-200 dark:border-red-900 text-[#d70018] dark:text-red-300 font-medium text-[11.5px]">
+                💡 Sản phẩm được cam kết chính hãng 100%, bảo hành chính hãng 12 tháng tại hệ thống toàn quốc.
               </div>
             </div>
           </div>

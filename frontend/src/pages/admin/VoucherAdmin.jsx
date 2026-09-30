@@ -135,21 +135,21 @@ const VoucherAdmin = () => {
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-200 pb-4">
         <div>
           <h2 className="text-xl sm:text-2xl font-black text-slate-800 flex items-center gap-2">
-            <Tag className="w-6 h-6 text-[#0284c7]" /> Quản Lý Mã Giảm Giá
+            <Tag className="w-6 h-6 text-[#d70018]" /> Quản Lý Mã Giảm Giá
           </h2>
           <p className="text-slate-400 text-xs mt-1">Cấu hình các chương trình ưu đãi, coupon khuyến mãi cho khách hàng</p>
         </div>
 
         <button
           onClick={openCreateModal}
-          className="inline-flex items-center gap-2 bg-[#0284c7] hover:bg-[#0369a1] text-white font-bold py-2.5 px-4 rounded-xl text-xs shadow-md shadow-sky-100 transition-all cursor-pointer"
+          className="inline-flex items-center gap-2 bg-[#d70018] hover:bg-[#be0015] text-white font-bold py-2.5 px-4 rounded-[4px] text-xs shadow-sm transition-all cursor-pointer"
         >
           <Plus className="w-4 h-4" /> Thêm Mã Mới
         </button>
       </div>
 
       {/* Filter and Search */}
-      <div className="flex flex-col sm:flex-row items-center justify-between gap-3 bg-white p-3 rounded-2xl border border-slate-200 shadow-sm">
+      <div className="flex flex-col sm:flex-row items-center justify-between gap-3 bg-white p-3 rounded-md border border-slate-200 shadow-sm">
         <div className="relative w-full sm:w-80">
           <Search className="w-4 h-4 text-slate-400 absolute left-3 top-2.5" />
           <input
@@ -157,23 +157,23 @@ const VoucherAdmin = () => {
             placeholder="Tìm theo mã hoặc mô tả..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className="w-full text-xs pl-9 pr-3 py-2 rounded-xl border border-slate-200 focus:outline-none focus:ring-1 focus:ring-[#0284c7]"
+            className="w-full text-xs pl-9 pr-3 py-2 rounded-[4px] border border-slate-200 focus:outline-none focus:border-[#d70018]"
           />
         </div>
 
         <button
           onClick={fetchVouchers}
-          className="p-2 text-slate-600 hover:text-[#0284c7] hover:bg-slate-50 rounded-xl border border-slate-200 text-xs flex items-center gap-1.5 transition-colors self-end sm:self-auto cursor-pointer"
+          className="p-2 text-slate-600 hover:text-[#d70018] hover:bg-slate-50 rounded-[4px] border border-slate-200 text-xs flex items-center gap-1.5 transition-colors self-end sm:self-auto cursor-pointer"
         >
           <RefreshCw className="w-3.5 h-3.5" /> Làm mới
         </button>
       </div>
 
       {/* Vouchers Table */}
-      <div className="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
+      <div className="bg-white rounded-md border border-slate-200 shadow-sm overflow-hidden">
         {loading ? (
           <div className="flex flex-col items-center justify-center p-12 gap-3">
-            <div className="w-8 h-8 rounded-full border-4 border-slate-200 border-t-[#0284c7] animate-spin" />
+            <div className="w-8 h-8 rounded-full border-4 border-slate-200 border-t-[#d70018] animate-spin" />
             <p className="text-xs text-slate-400 font-medium">Đang tải danh sách voucher...</p>
           </div>
         ) : filteredVouchers.length === 0 ? (
@@ -199,7 +199,7 @@ const VoucherAdmin = () => {
               <tbody className="divide-y divide-slate-100 font-medium text-slate-700">
                 {filteredVouchers.map((v) => (
                   <tr key={v.MaVoucher} className="hover:bg-slate-50/80 transition-colors">
-                    <td className="py-3 px-4 font-mono font-black text-[#0284c7]">
+                    <td className="py-3 px-4 font-mono font-black text-[#d70018]">
                       {v.MaCode}
                     </td>
                     <td className="py-3 px-4 text-slate-600 max-w-xs truncate" title={v.MoTa}>
@@ -217,8 +217,8 @@ const VoucherAdmin = () => {
                       {v.DonToiThieu > 0 ? formatPrice(v.DonToiThieu) : 'Không giới hạn'}
                     </td>
                     <td className="py-3 px-4">
-                      <span className={`px-2 py-0.5 rounded-full text-[11px] font-bold ${
-                        v.SoLuong > 10 ? 'bg-sky-50 text-[#0284c7]' : 'bg-rose-50 text-rose-600'
+                      <span className={`px-2 py-0.5 rounded-[3px] text-[11px] font-bold ${
+                        v.SoLuong > 10 ? 'bg-red-50 text-[#d70018]' : 'bg-rose-50 text-rose-600'
                       }`}>
                         {v.SoLuong} lượt
                       </span>
@@ -239,7 +239,7 @@ const VoucherAdmin = () => {
                     <td className="py-3 px-4 text-right space-x-1 whitespace-nowrap">
                       <button
                         onClick={() => openEditModal(v)}
-                        className="p-1.5 hover:bg-slate-100 text-slate-600 hover:text-[#0284c7] rounded-lg transition-colors cursor-pointer"
+                        className="p-1.5 hover:bg-slate-100 text-slate-600 hover:text-[#d70018] rounded-lg transition-colors cursor-pointer"
                         title="Chỉnh sửa"
                       >
                         <Edit className="w-4 h-4" />
@@ -281,10 +281,10 @@ const VoucherAdmin = () => {
                 <label className="font-bold text-slate-700 block mb-1">Mã Code (viết liền, in hoa) *</label>
                 <input
                   type="text"
-                  placeholder="VD: NOVATECH50"
+                  placeholder="VD: CELLPHONES50"
                   value={formData.MaCode}
                   onChange={(e) => setFormData({ ...formData, MaCode: e.target.value.toUpperCase().replace(/\s+/g, '') })}
-                  className="w-full p-2.5 rounded-xl border border-slate-300 font-mono font-bold uppercase focus:ring-1 focus:ring-[#0284c7] outline-none"
+                  className="w-full p-2.5 rounded-[4px] border border-slate-300 font-mono font-bold uppercase focus:border-[#d70018] outline-none"
                   required
                 />
               </div>
@@ -296,7 +296,7 @@ const VoucherAdmin = () => {
                   placeholder="VD: Giảm 50.000đ cho đơn hàng từ 500.000đ"
                   value={formData.MoTa}
                   onChange={(e) => setFormData({ ...formData, MoTa: e.target.value })}
-                  className="w-full p-2.5 rounded-xl border border-slate-300 focus:ring-1 focus:ring-[#0284c7] outline-none"
+                  className="w-full p-2.5 rounded-[4px] border border-slate-300 focus:border-[#d70018] outline-none"
                 />
               </div>
 
@@ -306,7 +306,7 @@ const VoucherAdmin = () => {
                   <select
                     value={formData.LoaiGiam}
                     onChange={(e) => setFormData({ ...formData, LoaiGiam: e.target.value })}
-                    className="w-full p-2.5 rounded-xl border border-slate-300 font-semibold focus:ring-1 focus:ring-[#0284c7] outline-none"
+                    className="w-full p-2.5 rounded-[4px] border border-slate-300 font-semibold focus:border-[#d70018] outline-none"
                   >
                     <option value="TIEN_MAT">Tiền mặt cố định (VND)</option>
                     <option value="PHAN_TRAM">Phần trăm (%)</option>
@@ -322,7 +322,7 @@ const VoucherAdmin = () => {
                     placeholder={formData.LoaiGiam === 'PHAN_TRAM' ? '10' : '50000'}
                     value={formData.GiaTriGiam}
                     onChange={(e) => setFormData({ ...formData, GiaTriGiam: e.target.value })}
-                    className="w-full p-2.5 rounded-xl border border-slate-300 font-bold focus:ring-1 focus:ring-[#0284c7] outline-none"
+                    className="w-full p-2.5 rounded-[4px] border border-slate-300 font-bold focus:border-[#d70018] outline-none"
                     required
                   />
                 </div>
@@ -336,7 +336,7 @@ const VoucherAdmin = () => {
                     placeholder="VD: 200000"
                     value={formData.GiaTriToiDa}
                     onChange={(e) => setFormData({ ...formData, GiaTriToiDa: e.target.value })}
-                    className="w-full p-2.5 rounded-xl border border-slate-300 focus:ring-1 focus:ring-[#0284c7] outline-none"
+                    className="w-full p-2.5 rounded-[4px] border border-slate-300 focus:border-[#d70018] outline-none"
                   />
                 </div>
               )}
@@ -348,7 +348,7 @@ const VoucherAdmin = () => {
                     type="number"
                     value={formData.DonToiThieu}
                     onChange={(e) => setFormData({ ...formData, DonToiThieu: e.target.value })}
-                    className="w-full p-2.5 rounded-xl border border-slate-300 focus:ring-1 focus:ring-[#0284c7] outline-none"
+                    className="w-full p-2.5 rounded-[4px] border border-slate-300 focus:border-[#d70018] outline-none"
                   />
                 </div>
 
@@ -358,7 +358,7 @@ const VoucherAdmin = () => {
                     type="number"
                     value={formData.SoLuong}
                     onChange={(e) => setFormData({ ...formData, SoLuong: e.target.value })}
-                    className="w-full p-2.5 rounded-xl border border-slate-300 focus:ring-1 focus:ring-[#0284c7] outline-none"
+                    className="w-full p-2.5 rounded-[4px] border border-slate-300 focus:border-[#d70018] outline-none"
                   />
                 </div>
               </div>
@@ -370,7 +370,7 @@ const VoucherAdmin = () => {
                     type="date"
                     value={formData.NgayBatDau}
                     onChange={(e) => setFormData({ ...formData, NgayBatDau: e.target.value })}
-                    className="w-full p-2.5 rounded-xl border border-slate-300 focus:ring-1 focus:ring-[#0284c7] outline-none"
+                    className="w-full p-2.5 rounded-[4px] border border-slate-300 focus:border-[#d70018] outline-none"
                   />
                 </div>
 
@@ -380,7 +380,7 @@ const VoucherAdmin = () => {
                     type="date"
                     value={formData.NgayHetHan}
                     onChange={(e) => setFormData({ ...formData, NgayHetHan: e.target.value })}
-                    className="w-full p-2.5 rounded-xl border border-slate-300 focus:ring-1 focus:ring-[#0284c7] outline-none"
+                    className="w-full p-2.5 rounded-[4px] border border-slate-300 focus:border-[#d70018] outline-none"
                   />
                 </div>
               </div>
@@ -390,7 +390,7 @@ const VoucherAdmin = () => {
                 <select
                   value={formData.TrangThai}
                   onChange={(e) => setFormData({ ...formData, TrangThai: e.target.value })}
-                  className="w-full p-2.5 rounded-xl border border-slate-300 font-semibold focus:ring-1 focus:ring-[#0284c7] outline-none"
+                  className="w-full p-2.5 rounded-[4px] border border-slate-300 font-semibold focus:border-[#d70018] outline-none"
                 >
                   <option value="Hoạt động">Hoạt động</option>
                   <option value="Tạm khóa">Tạm khóa</option>
@@ -401,13 +401,13 @@ const VoucherAdmin = () => {
                 <button
                   type="button"
                   onClick={() => setIsModalOpen(false)}
-                  className="px-4 py-2 border border-slate-200 text-slate-600 rounded-xl hover:bg-slate-50 font-bold"
+                  className="px-4 py-2 border border-slate-200 text-slate-600 rounded-[4px] hover:bg-slate-50 font-bold"
                 >
                   Hủy
                 </button>
                 <button
                   type="submit"
-                  className="px-5 py-2 bg-[#0284c7] hover:bg-[#0369a1] text-white rounded-xl font-bold transition-all shadow-md shadow-sky-100"
+                  className="px-5 py-2 bg-[#d70018] hover:bg-[#be0015] text-white rounded-[4px] font-bold transition-all shadow-sm"
                 >
                   {editingVoucher ? 'Lưu Thay Đổi' : 'Tạo Voucher Mới'}
                 </button>

@@ -459,7 +459,7 @@ const ProductAdmin = () => {
               <div className="space-y-2">
                 <div className="flex items-center justify-between">
                   <label className="text-xs font-bold text-slate-500 uppercase tracking-wider">Ảnh minh họa *</label>
-                  <label className="inline-flex items-center gap-1.5 px-3 py-1 bg-sky-50 hover:bg-sky-100 text-[#0284c7] rounded-lg text-xs font-bold cursor-pointer transition-colors border border-sky-200">
+                  <label className="inline-flex items-center gap-1.5 px-3 py-1 bg-red-50 hover:bg-red-100 text-[#d70018] rounded-[4px] text-xs font-bold cursor-pointer transition-colors border border-red-200">
                     <Upload className="w-3.5 h-3.5" />
                     <span>{uploadingImg ? 'Đang tải...' : 'Tải ảnh từ máy'}</span>
                     <input

@@ -87,21 +87,21 @@ const ReviewAdmin = () => {
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-200 pb-4">
         <div>
           <h2 className="text-xl sm:text-2xl font-black text-slate-800 flex items-center gap-2">
-            <MessageSquare className="w-6 h-6 text-[#0284c7]" /> Quản Lý Đánh Giá & Nhận Xét
+            <MessageSquare className="w-6 h-6 text-[#d70018]" /> Quản Lý Đánh Giá & Nhận Xét
           </h2>
           <p className="text-slate-400 text-xs mt-1">Kiểm duyệt và quản lý các đánh giá, phản hồi thực tế từ khách hàng</p>
         </div>
 
         <button
           onClick={fetchReviews}
-          className="p-2 text-slate-600 hover:text-[#0284c7] hover:bg-slate-50 rounded-xl border border-slate-200 text-xs flex items-center gap-1.5 transition-colors self-end sm:self-auto cursor-pointer"
+          className="p-2 text-slate-600 hover:text-[#d70018] hover:bg-slate-50 rounded-[4px] border border-slate-200 text-xs flex items-center gap-1.5 transition-colors self-end sm:self-auto cursor-pointer"
         >
           <RefreshCw className="w-3.5 h-3.5" /> Làm mới
         </button>
       </div>
 
       {/* Filter and Search */}
-      <div className="flex flex-col sm:flex-row items-center justify-between gap-3 bg-white p-3 rounded-2xl border border-slate-200 shadow-sm text-xs">
+      <div className="flex flex-col sm:flex-row items-center justify-between gap-3 bg-white p-3 rounded-md border border-slate-200 shadow-sm text-xs">
         <div className="relative w-full sm:w-80">
           <Search className="w-4 h-4 text-slate-400 absolute left-3 top-2.5" />
           <input
@@ -109,7 +109,7 @@ const ReviewAdmin = () => {
             placeholder="Tìm theo sản phẩm, khách hàng, nội dung..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className="w-full text-xs pl-9 pr-3 py-2 rounded-xl border border-slate-200 focus:outline-none focus:ring-1 focus:ring-[#0284c7]"
+            className="w-full text-xs pl-9 pr-3 py-2 rounded-[4px] border border-slate-200 focus:outline-none focus:border-[#d70018]"
           />
         </div>
 
@@ -118,7 +118,7 @@ const ReviewAdmin = () => {
           <select
             value={statusFilter}
             onChange={(e) => setStatusFilter(e.target.value)}
-            className="p-2 rounded-xl border border-slate-200 font-semibold focus:outline-none focus:ring-1 focus:ring-[#0284c7]"
+            className="p-2 rounded-[4px] border border-slate-200 font-semibold focus:outline-none focus:border-[#d70018]"
           >
             <option value="ALL">Tất cả ({reviews.length})</option>
             <option value="Hiển thị">Đang hiển thị</option>
@@ -128,10 +128,10 @@ const ReviewAdmin = () => {
       </div>
 
       {/* Reviews Table */}
-      <div className="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
+      <div className="bg-white rounded-md border border-slate-200 shadow-sm overflow-hidden">
         {loading ? (
           <div className="flex flex-col items-center justify-center p-12 gap-3">
-            <div className="w-8 h-8 rounded-full border-4 border-slate-200 border-t-[#0284c7] animate-spin" />
+            <div className="w-8 h-8 rounded-full border-4 border-slate-200 border-t-[#d70018] animate-spin" />
             <p className="text-xs text-slate-400 font-medium">Đang tải danh sách đánh giá...</p>
           </div>
         ) : filteredReviews.length === 0 ? (

@@ -103,7 +103,7 @@ const Cart = () => {
   if (cart.length === 0) {
     return (
       <div className="max-w-xl mx-auto px-4 py-20 text-center">
-        <div className="w-16 h-16 bg-sky-50 dark:bg-slate-900 text-[#0284c7] dark:text-sky-400 rounded-md flex items-center justify-center mx-auto mb-4 border border-sky-200 dark:border-slate-800">
+        <div className="w-16 h-16 bg-red-50 dark:bg-slate-900 text-[#d70018] dark:text-rose-400 rounded-md flex items-center justify-center mx-auto mb-4 border border-red-200 dark:border-slate-800">
           <ShoppingBag className="w-8 h-8" />
         </div>
         <h2 className="text-xl sm:text-2xl font-bold text-slate-800 dark:text-slate-100">Giỏ hàng của bạn đang trống</h2>
@@ -134,11 +134,11 @@ const Cart = () => {
         
         {/* Step Indicator */}
         <div className="flex items-center justify-between text-xs font-semibold border-b border-slate-200 dark:border-slate-800 pb-3">
-          <Link to="/" className="text-[#0284c7] dark:text-sky-400 hover:underline flex items-center gap-1">
+          <Link to="/" className="text-[#d70018] dark:text-rose-400 hover:underline flex items-center gap-1">
             <ArrowLeft className="w-3.5 h-3.5" /> Mua thêm sản phẩm khác
           </Link>
           <div className="flex items-center gap-2">
-            <span className="text-[#0284c7] dark:text-sky-400 font-bold">1. Giỏ hàng</span>
+            <span className="text-[#d70018] dark:text-rose-400 font-bold">1. Giỏ hàng</span>
             <span className="text-slate-400">→</span>
             <span className="text-slate-500 dark:text-slate-400">2. Điền thông tin đặt hàng</span>
             <span className="text-slate-400">→</span>
@@ -147,9 +147,9 @@ const Cart = () => {
         </div>
 
         {/* Free Shipping Notification Banner */}
-        <div className="bg-[#f0f9ff] dark:bg-sky-950/40 border border-[#bae6fd] dark:border-sky-900 rounded-[4px] p-3 flex items-center gap-2.5 text-xs text-[#0369a1] dark:text-sky-300 font-medium">
-          <Truck className="w-4 h-4 text-[#0284c7] dark:text-sky-400 shrink-0" />
-          <span>Đơn hàng của bạn được áp dụng chính sách <strong>Miễn phí giao hàng nhanh NovaExpress trong 2 giờ</strong>!</span>
+        <div className="bg-red-50/70 dark:bg-red-950/40 border border-red-200 dark:border-red-900/60 rounded-[4px] p-3 flex items-center gap-2.5 text-xs text-[#d70018] dark:text-rose-300 font-medium">
+          <Truck className="w-4 h-4 text-[#d70018] dark:text-rose-400 shrink-0" />
+          <span>Đơn hàng của bạn được áp dụng chính sách <strong>Miễn phí giao hàng nhanh trong 2 giờ</strong>!</span>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-5">
@@ -174,7 +174,7 @@ const Cart = () => {
                     <div className="flex items-start justify-between gap-2">
                       <Link 
                         to={`/product/${item.MaSP}`}
-                        className="text-xs sm:text-sm font-bold text-slate-800 dark:text-slate-100 hover:text-[#0284c7] dark:hover:text-sky-400 line-clamp-2"
+                        className="text-xs sm:text-sm font-bold text-slate-800 dark:text-slate-100 hover:text-[#d70018] dark:hover:text-rose-400 line-clamp-2"
                       >
                         {item.TenSP}
                       </Link>
@@ -188,7 +188,7 @@ const Cart = () => {
                     </div>
 
                     <div className="flex items-baseline gap-2 mt-1">
-                      <span className="text-[#0284c7] dark:text-sky-400 font-extrabold text-sm sm:text-base">
+                      <span className="text-[#d70018] dark:text-rose-400 font-extrabold text-sm sm:text-base">
                         {formatPrice(item.GiaBan)}
                       </span>
                     </div>
@@ -227,7 +227,7 @@ const Cart = () => {
             <div className="bg-white dark:bg-slate-900 rounded-md p-3.5 shadow-sm border border-slate-200 dark:border-slate-800 text-xs space-y-3">
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
                 <span className="font-bold text-slate-700 dark:text-slate-200 flex items-center gap-1.5 shrink-0">
-                  <Tag className="w-3.5 h-3.5 text-[#0284c7] dark:text-sky-400" /> Mã giảm giá:
+                  <Tag className="w-3.5 h-3.5 text-[#d70018] dark:text-rose-400" /> Mã giảm giá:
                 </span>
                 <form onSubmit={(e) => handleApplyVoucher(e)} className="flex flex-1 max-w-sm gap-2">
                   <input
@@ -235,7 +235,7 @@ const Cart = () => {
                     placeholder="Nhập mã (VD: NOVATECH50)"
                     value={voucher}
                     onChange={(e) => setVoucher(e.target.value)}
-                    className="w-full text-xs rounded-[4px] border border-slate-300 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-100 px-3 py-1.5 font-mono uppercase focus:border-[#0284c7] outline-none"
+                    className="w-full text-xs rounded-[4px] border border-slate-300 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-100 px-3 py-1.5 font-mono uppercase focus:border-[#d70018] outline-none"
                   />
                   <button
                     type="submit"
@@ -277,7 +277,7 @@ const Cart = () => {
                         key={v.MaVoucher}
                         type="button"
                         onClick={() => handleApplyVoucher(null, v.MaCode)}
-                        className="inline-flex items-center gap-1.5 px-2.5 py-1 bg-[#f0f9ff] dark:bg-slate-800 hover:bg-[#e0f2fe] dark:hover:bg-slate-700 text-[#0284c7] dark:text-sky-400 border border-[#bae6fd] dark:border-slate-700 rounded-[3px] text-[11px] font-bold transition-all cursor-pointer"
+                        className="inline-flex items-center gap-1.5 px-2.5 py-1 bg-red-50 dark:bg-slate-800 hover:bg-red-100 dark:hover:bg-slate-700 text-[#d70018] dark:text-rose-400 border border-red-200 dark:border-slate-700 rounded-[3px] text-[11px] font-bold transition-all cursor-pointer"
                       >
                         <Tag className="w-3 h-3" />
                         <span>{v.MaCode}</span>
@@ -311,7 +311,7 @@ const Cart = () => {
                 </div>
 
                 {appliedVoucher && (
-                  <div className="flex justify-between text-[#0284c7] dark:text-sky-400 font-bold">
+                  <div className="flex justify-between text-[#d70018] dark:text-rose-400 font-bold">
                     <span>Ưu đãi ({appliedVoucher.voucher.MaCode}):</span>
                     <span>-{formatPrice(discountAmount)}</span>
                   </div>
@@ -320,12 +320,12 @@ const Cart = () => {
 
               <div className="border-t border-slate-200 dark:border-slate-800 pt-3 flex justify-between items-baseline">
                 <span className="font-bold text-slate-900 dark:text-slate-100 text-sm">Cần thanh toán:</span>
-                <span className="text-xl font-black text-[#0284c7] dark:text-sky-400">{formatPrice(finalTotal)}</span>
+                <span className="text-xl font-black text-[#d70018] dark:text-rose-400">{formatPrice(finalTotal)}</span>
               </div>
 
               <button
                 onClick={handleCheckoutRedirect}
-                className="w-full bg-[#0284c7] hover:bg-[#0369a1] text-white font-black py-3 rounded-[4px] text-sm uppercase tracking-wide transition-all shadow-sm cursor-pointer block text-center active:scale-[0.99]"
+                className="w-full bg-[#d70018] hover:bg-[#be0015] text-white font-black py-3 rounded-[4px] text-sm uppercase tracking-wide transition-all shadow-sm cursor-pointer block text-center active:scale-[0.99]"
               >
                 TIẾN HÀNH ĐẶT HÀNG
               </button>
@@ -337,7 +337,7 @@ const Cart = () => {
 
             <div className="bg-white dark:bg-slate-900 rounded-md p-3 border border-slate-200 dark:border-slate-800 text-[11px] text-slate-600 dark:text-slate-400 space-y-1.5">
               <p className="flex items-center gap-1.5 font-bold text-slate-800 dark:text-slate-100">
-                <ShieldCheck className="w-4 h-4 text-[#0284c7] dark:text-sky-400" />
+                <ShieldCheck className="w-4 h-4 text-[#d70018] dark:text-rose-400" />
                 Cam kết tại NovaTech:
               </p>
               <p>✔ 100% hàng chính hãng, nguyên seal mới</p>

@@ -107,7 +107,7 @@ const Checkout = () => {
     return (
       <div className="w-full bg-[#f4f6fa] dark:bg-slate-950 min-h-screen py-10 px-4 transition-colors">
         <div className="max-w-lg mx-auto bg-white dark:bg-slate-900 rounded-md shadow-sm border border-slate-200 dark:border-slate-800 p-6 text-center space-y-4">
-          <div className="w-14 h-14 bg-sky-50 dark:bg-slate-800 text-[#0284c7] dark:text-sky-400 rounded-md flex items-center justify-center mx-auto border border-sky-200 dark:border-slate-700">
+          <div className="w-14 h-14 bg-red-50 dark:bg-slate-800 text-[#d70018] dark:text-rose-400 rounded-md flex items-center justify-center mx-auto border border-red-200 dark:border-slate-700">
             <CheckCircle className="w-8 h-8" />
           </div>
           
@@ -116,21 +116,21 @@ const Checkout = () => {
             Cảm ơn quý khách đã tin tưởng mua sắm tại <strong>NovaTech</strong>. Chúng tôi sẽ liên hệ xác nhận đơn hàng trong vòng 15 phút.
           </p>
 
-          <div className="bg-[#f0f9ff] dark:bg-sky-950/30 rounded-[4px] p-4 text-left text-xs space-y-2 border border-[#bae6fd] dark:border-sky-900/60 text-slate-700 dark:text-slate-300">
-            <p><strong>Mã đơn hàng:</strong> <span className="text-[#0284c7] dark:text-sky-400 font-bold">#{successOrder.MaDonHang}</span></p>
+          <div className="bg-red-50/40 dark:bg-red-950/30 rounded-[4px] p-4 text-left text-xs space-y-2 border border-red-200 dark:border-red-900/60 text-slate-700 dark:text-slate-300">
+            <p><strong>Mã đơn hàng:</strong> <span className="text-[#d70018] dark:text-rose-400 font-bold">#{successOrder.MaDonHang}</span></p>
             <p><strong>Người nhận:</strong> {fullName} ({successOrder.SDTNhanHang})</p>
             <p><strong>Nơi nhận hàng:</strong> {successOrder.DiaChiGiaoHang}</p>
             {successOrder.TienGiamGia > 0 && (
               <p><strong>Ưu đãi giảm giá:</strong> <span className="text-emerald-600 dark:text-emerald-400 font-bold">-{formatPrice(successOrder.TienGiamGia)}</span></p>
             )}
-            <p><strong>Tổng tiền:</strong> <span className="text-[#0284c7] dark:text-sky-400 font-black text-sm">{formatPrice(successOrder.TongTien)}</span></p>
+            <p><strong>Tổng tiền:</strong> <span className="text-[#d70018] dark:text-rose-400 font-black text-sm">{formatPrice(successOrder.TongTien)}</span></p>
             <p><strong>Hình thức:</strong> {successOrder.PhuongThucThanhToan === 'VIETQR' ? 'Chuyển khoản VietQR Napas 24/7' : 'Thanh toán khi nhận hàng (COD)'}</p>
           </div>
 
           {/* VietQR Payment Card if applicable */}
           {vietQrInfo && (
-            <div className="bg-white dark:bg-slate-900 rounded-md p-4 text-left text-xs space-y-3 border-2 border-[#0284c7] shadow-sm">
-              <div className="flex items-center gap-2 text-[#0284c7] dark:text-sky-400 font-bold text-sm uppercase border-b border-sky-100 dark:border-slate-800 pb-2">
+            <div className="bg-white dark:bg-slate-900 rounded-md p-4 text-left text-xs space-y-3 border-2 border-[#d70018] shadow-sm">
+              <div className="flex items-center gap-2 text-[#d70018] dark:text-rose-400 font-bold text-sm uppercase border-b border-red-100 dark:border-slate-800 pb-2">
                 <QrCode className="w-5 h-5" />
                 <span>Mã QR Thanh Toán Tự Động</span>
               </div>
@@ -157,7 +157,7 @@ const Checkout = () => {
                     <button
                       type="button"
                       onClick={() => copyToClipboard(vietQrInfo.accountNo, 'acc')}
-                      className="p-1 hover:bg-slate-200 dark:hover:bg-slate-700 rounded-[2px] text-[#0284c7] dark:text-sky-400 transition-colors"
+                      className="p-1 hover:bg-slate-200 dark:hover:bg-slate-700 rounded-[2px] text-[#d70018] dark:text-rose-400 transition-colors"
                       title="Sao chép STK"
                     >
                       {copiedField === 'acc' ? <Check className="w-3.5 h-3.5 text-emerald-600" /> : <Copy className="w-3.5 h-3.5" />}
@@ -172,19 +172,19 @@ const Checkout = () => {
 
                 <div className="flex justify-between items-center">
                   <span>Số tiền:</span>
-                  <span className="font-black text-[#0284c7] dark:text-sky-400 text-sm">{formatPrice(vietQrInfo.amount)}</span>
+                  <span className="font-black text-[#d70018] dark:text-rose-400 text-sm">{formatPrice(vietQrInfo.amount)}</span>
                 </div>
 
                 <div className="flex justify-between items-center">
                   <span>Nội dung chuyển khoản:</span>
                   <div className="flex items-center gap-1.5">
-                    <span className="font-mono font-bold text-[#0284c7] dark:text-sky-400 bg-sky-50 dark:bg-sky-950/60 px-1.5 py-0.5 rounded-[2px] border border-sky-200 dark:border-sky-800">
+                    <span className="font-mono font-bold text-[#d70018] dark:text-rose-400 bg-red-50 dark:bg-red-950/60 px-1.5 py-0.5 rounded-[2px] border border-red-200 dark:border-red-800">
                       {vietQrInfo.memo}
                     </span>
                     <button
                       type="button"
                       onClick={() => copyToClipboard(vietQrInfo.memo, 'memo')}
-                      className="p-1 hover:bg-slate-200 dark:hover:bg-slate-700 rounded-[2px] text-[#0284c7] dark:text-sky-400 transition-colors"
+                      className="p-1 hover:bg-slate-200 dark:hover:bg-slate-700 rounded-[2px] text-[#d70018] dark:text-rose-400 transition-colors"
                       title="Sao chép nội dung"
                     >
                       {copiedField === 'memo' ? <Check className="w-3.5 h-3.5 text-emerald-600" /> : <Copy className="w-3.5 h-3.5" />}
@@ -232,13 +232,13 @@ const Checkout = () => {
         
         {/* Step Indicator */}
         <div className="flex items-center justify-between text-xs font-semibold border-b border-slate-200 dark:border-slate-800 pb-3">
-          <Link to="/cart" className="text-[#0284c7] dark:text-sky-400 hover:underline flex items-center gap-1">
+          <Link to="/cart" className="text-[#d70018] dark:text-rose-400 hover:underline flex items-center gap-1">
             <ArrowLeft className="w-3.5 h-3.5" /> Quay lại giỏ hàng
           </Link>
           <div className="flex items-center gap-2">
             <span className="text-slate-500 dark:text-slate-400">1. Giỏ hàng</span>
             <span className="text-slate-400">→</span>
-            <span className="text-[#0284c7] dark:text-sky-400 font-bold">2. Điền thông tin đặt hàng</span>
+            <span className="text-[#d70018] dark:text-rose-400 font-bold">2. Điền thông tin đặt hàng</span>
             <span className="text-slate-400">→</span>
             <span className="text-slate-500 dark:text-slate-400">3. Hoàn tất</span>
           </div>
@@ -259,7 +259,7 @@ const Checkout = () => {
                   onClick={() => setDeliveryType('home')}
                   className={`p-2.5 rounded-[4px] border text-xs font-bold flex items-center justify-center gap-2 transition-all cursor-pointer ${
                     deliveryType === 'home'
-                      ? 'border-[#0284c7] bg-sky-50 dark:bg-sky-950/40 text-[#0284c7] dark:text-sky-400 ring-1 ring-[#0284c7]'
+                      ? 'border-[#d70018] bg-red-50 dark:bg-red-950/40 text-[#d70018] dark:text-rose-400 ring-1 ring-[#d70018]'
                       : 'border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800'
                   }`}
                 >
@@ -272,7 +272,7 @@ const Checkout = () => {
                   onClick={() => setDeliveryType('store')}
                   className={`p-2.5 rounded-[4px] border text-xs font-bold flex items-center justify-center gap-2 transition-all cursor-pointer ${
                     deliveryType === 'store'
-                      ? 'border-[#0284c7] bg-sky-50 dark:bg-sky-950/40 text-[#0284c7] dark:text-sky-400 ring-1 ring-[#0284c7]'
+                      ? 'border-[#d70018] bg-red-50 dark:bg-red-950/40 text-[#d70018] dark:text-rose-400 ring-1 ring-[#d70018]'
                       : 'border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800'
                   }`}
                 >
@@ -294,7 +294,7 @@ const Checkout = () => {
                     placeholder="Ví dụ: Nguyễn Văn A"
                     value={fullName}
                     onChange={(e) => setFullName(e.target.value)}
-                    className="w-full p-2.5 rounded-[4px] border border-slate-300 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-100 text-xs focus:border-[#0284c7] outline-none"
+                    className="w-full p-2.5 rounded-[4px] border border-slate-300 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-100 text-xs focus:border-[#d70018] outline-none"
                     required
                   />
                 </div>
@@ -306,7 +306,7 @@ const Checkout = () => {
                     placeholder="Ví dụ: 0912345678"
                     value={phone}
                     onChange={(e) => setPhone(e.target.value)}
-                    className="w-full p-2.5 rounded-[4px] border border-slate-300 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-100 text-xs focus:border-[#0284c7] outline-none"
+                    className="w-full p-2.5 rounded-[4px] border border-slate-300 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-100 text-xs focus:border-[#d70018] outline-none"
                     required
                   />
                 </div>
@@ -319,7 +319,7 @@ const Checkout = () => {
                   placeholder="Ví dụ: email@gmail.com"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="w-full p-2.5 rounded-[4px] border border-slate-300 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-100 text-xs focus:border-[#0284c7] outline-none"
+                  className="w-full p-2.5 rounded-[4px] border border-slate-300 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-100 text-xs focus:border-[#d70018] outline-none"
                 />
               </div>
 
@@ -329,7 +329,7 @@ const Checkout = () => {
                   <select
                     value={city}
                     onChange={(e) => setCity(e.target.value)}
-                    className="w-full p-2.5 rounded-[4px] border border-slate-300 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-100 text-xs font-semibold focus:border-[#0284c7] outline-none"
+                    className="w-full p-2.5 rounded-[4px] border border-slate-300 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-100 text-xs font-semibold focus:border-[#d70018] outline-none"
                   >
                     <option value="Hồ Chí Minh">Hồ Chí Minh</option>
                     <option value="Hà Nội">Hà Nội</option>
@@ -349,13 +349,13 @@ const Checkout = () => {
                       placeholder="Ví dụ: Tòa nhà NovaTech, Đường Lê Lợi, Quận 1"
                       value={address}
                       onChange={(e) => setAddress(e.target.value)}
-                      className="w-full p-2.5 rounded-[4px] border border-slate-300 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-100 text-xs focus:border-[#0284c7] outline-none"
+                      className="w-full p-2.5 rounded-[4px] border border-slate-300 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-100 text-xs focus:border-[#d70018] outline-none"
                       required
                     />
                   </div>
                 ) : (
-                  <div className="p-3 bg-[#f0f9ff] dark:bg-sky-950/40 rounded-[4px] border border-[#bae6fd] dark:border-sky-900 text-slate-800 dark:text-slate-200">
-                    <p className="font-bold text-[#0369a1] dark:text-sky-300">Địa chỉ Showroom NovaTech:</p>
+                  <div className="p-3 bg-red-50/50 dark:bg-red-950/40 rounded-[4px] border border-red-200 dark:border-red-900 text-slate-800 dark:text-slate-200">
+                    <p className="font-bold text-[#d70018] dark:text-rose-300">Địa chỉ Showroom NovaTech:</p>
                     <p className="mt-1 text-slate-600 dark:text-slate-400">Showroom NovaTech trung tâm tại {city}. Nhân viên tư vấn sẽ liên hệ để quý khách đến trải nghiệm và nhận máy.</p>
                   </div>
                 )}
@@ -367,7 +367,7 @@ const Checkout = () => {
                     placeholder="Ví dụ: Giao giờ hành chính, gọi trước khi đến..."
                     value={note}
                     onChange={(e) => setNote(e.target.value)}
-                    className="w-full p-2.5 rounded-[4px] border border-slate-300 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-100 text-xs focus:border-[#0284c7] outline-none"
+                    className="w-full p-2.5 rounded-[4px] border border-slate-300 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-100 text-xs focus:border-[#d70018] outline-none"
                   />
                 </div>
               </div>
@@ -381,7 +381,7 @@ const Checkout = () => {
               <div className="space-y-2 text-xs">
                 <label className={`flex items-center gap-2.5 p-3 rounded-[4px] border cursor-pointer transition-all ${
                   paymentMethod === 'cod'
-                    ? 'border-[#0284c7] bg-sky-50/60 dark:bg-sky-950/30 ring-1 ring-[#0284c7]'
+                    ? 'border-[#d70018] bg-red-50/60 dark:bg-red-950/30 ring-1 ring-[#d70018]'
                     : 'border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800'
                 }`}>
                   <input
@@ -390,7 +390,7 @@ const Checkout = () => {
                     value="cod"
                     checked={paymentMethod === 'cod'}
                     onChange={() => setPaymentMethod('cod')}
-                    className="text-[#0284c7]"
+                    className="text-[#d70018] accent-[#d70018]"
                   />
                   <div className="flex-1">
                     <span className="font-bold text-slate-900 dark:text-slate-100 block">Thanh toán khi nhận hàng (COD)</span>
@@ -400,7 +400,7 @@ const Checkout = () => {
 
                 <label className={`flex items-center gap-2.5 p-3 rounded-[4px] border cursor-pointer transition-all ${
                   paymentMethod === 'online'
-                    ? 'border-[#0284c7] bg-sky-50/60 dark:bg-sky-950/30 ring-1 ring-[#0284c7]'
+                    ? 'border-[#d70018] bg-red-50/60 dark:bg-red-950/30 ring-1 ring-[#d70018]'
                     : 'border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800'
                 }`}>
                   <input
@@ -409,7 +409,7 @@ const Checkout = () => {
                     value="online"
                     checked={paymentMethod === 'online'}
                     onChange={() => setPaymentMethod('online')}
-                    className="text-[#0284c7]"
+                    className="text-[#d70018] accent-[#d70018]"
                   />
                   <div className="flex-1">
                     <span className="font-bold text-slate-900 dark:text-slate-100 block">Chuyển khoản VietQR Napas 24/7 (Khuyên dùng)</span>
@@ -464,13 +464,13 @@ const Checkout = () => {
 
               <div className="border-t border-slate-200 dark:border-slate-800 pt-3 flex justify-between items-baseline">
                 <span className="font-bold text-slate-900 dark:text-slate-100 text-sm">Tổng thanh toán:</span>
-                <span className="text-xl font-black text-[#0284c7] dark:text-sky-400">{formatPrice(finalCheckoutTotal)}</span>
+                <span className="text-xl font-black text-[#d70018] dark:text-rose-400">{formatPrice(finalCheckoutTotal)}</span>
               </div>
 
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="w-full bg-[#0284c7] hover:bg-[#0369a1] text-white font-black py-3 rounded-[4px] text-sm uppercase tracking-wide transition-all shadow-sm cursor-pointer block text-center disabled:opacity-60 active:scale-[0.99]"
+                className="w-full bg-[#d70018] hover:bg-[#be0015] text-white font-black py-3 rounded-[4px] text-sm uppercase tracking-wide transition-all shadow-sm cursor-pointer block text-center disabled:opacity-60 active:scale-[0.99]"
               >
                 {isSubmitting ? 'ĐANG XỬ LÝ...' : 'XÁC NHẬN ĐẶT HÀNG'}
               </button>
