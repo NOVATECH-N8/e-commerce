@@ -200,13 +200,13 @@ const Navbar = () => {
 
             {/* Category Dropdown Menu */}
             {showCategoryMenu && (
-              <div className="absolute left-0 mt-2 w-60 bg-white dark:bg-[#111827] text-slate-800 dark:text-slate-100 rounded-md shadow-2xl border border-slate-200 dark:border-slate-800 py-1.5 z-50 animate-fade-in text-xs">
-                <div className="px-3 py-1 text-[11px] font-bold uppercase tracking-wider text-slate-400 border-b border-slate-100 dark:border-slate-800">
+              <div className="absolute left-0 mt-2 w-60 bg-white text-slate-800 rounded-md shadow-2xl border border-slate-200 py-1.5 z-50 animate-fade-in text-xs">
+                <div className="px-3 py-1 text-[11px] font-bold uppercase tracking-wider text-slate-400 border-b border-slate-100">
                   Tất cả ngành hàng
                 </div>
                 <button
                   onClick={() => handleCategorySelect('')}
-                  className="w-full text-left px-3 py-2 hover:bg-red-50 dark:hover:bg-slate-800 hover:text-[#d70018] flex items-center gap-2 font-semibold transition-colors"
+                  className="w-full text-left px-3 py-2 hover:bg-red-50 hover:text-[#d70018] flex items-center gap-2 font-semibold transition-colors"
                 >
                   <Sparkles className="w-4 h-4 text-[#d70018]" />
                   <span>Tất cả sản phẩm</span>
@@ -215,7 +215,7 @@ const Navbar = () => {
                   <button
                     key={cat.MaDM}
                     onClick={() => handleCategorySelect(cat.MaDM)}
-                    className="w-full text-left px-3 py-2 hover:bg-red-50 dark:hover:bg-slate-800 hover:text-[#d70018] flex items-center gap-2 font-semibold transition-colors"
+                    className="w-full text-left px-3 py-2 hover:bg-red-50 hover:text-[#d70018] flex items-center gap-2 font-semibold transition-colors"
                   >
                     {getCategoryIcon(cat.TenDM)}
                     <span>{cat.TenDM}</span>
@@ -242,8 +242,8 @@ const Navbar = () => {
             </button>
 
             {showLocationModal && (
-              <div className="absolute left-0 mt-2 w-48 bg-white dark:bg-[#111827] text-slate-800 dark:text-slate-100 rounded shadow-2xl border border-slate-200 dark:border-slate-800 py-1 z-50 animate-fade-in text-xs">
-                <div className="px-3 py-1.5 font-bold border-b border-slate-100 dark:border-slate-800 text-slate-400">
+              <div className="absolute left-0 mt-2 w-48 bg-white text-slate-800 rounded shadow-2xl border border-slate-200 py-1 z-50 animate-fade-in text-xs">
+                <div className="px-3 py-1.5 font-bold border-b border-slate-100 text-slate-400">
                   Chọn tỉnh, thành phố:
                 </div>
                 {PROVINCES.map((p) => (
@@ -253,8 +253,8 @@ const Navbar = () => {
                       setSelectedProvince(p);
                       setShowLocationModal(false);
                     }}
-                    className={`w-full text-left px-3 py-1.5 hover:bg-red-50 dark:hover:bg-slate-800 transition-colors ${
-                      selectedProvince === p ? 'font-bold text-[#d70018] bg-red-50 dark:bg-slate-800' : ''
+                    className={`w-full text-left px-3 py-1.5 hover:bg-red-50 transition-colors ${
+                      selectedProvince === p ? 'font-bold text-[#d70018] bg-red-50' : ''
                     }`}
                   >
                     {p}
@@ -346,11 +346,11 @@ const Navbar = () => {
                 </button>
 
                 {dropdownOpen && (
-                  <div className="absolute right-0 mt-2 w-56 rounded bg-white dark:bg-[#111827] border border-slate-200 dark:border-slate-800 shadow-2xl py-1.5 z-50 animate-fade-in text-slate-800 dark:text-slate-100">
-                    <div className="px-3 py-2 border-b border-slate-100 dark:border-slate-800 text-xs">
+                  <div className="absolute right-0 mt-2 w-56 rounded bg-white border border-slate-200 shadow-2xl py-1.5 z-50 animate-fade-in text-slate-800">
+                    <div className="px-3 py-2 border-b border-slate-100 text-xs">
                       <p className="text-slate-400 font-normal">Tài khoản thành viên:</p>
-                      <p className="font-bold text-slate-900 dark:text-white truncate">{user.TenKH}</p>
-                      <span className="inline-block mt-1 text-[10px] px-1.5 py-0.5 bg-red-100 dark:bg-red-950 text-[#d70018] dark:text-red-300 rounded-[2px] font-bold">
+                      <p className="font-bold text-slate-900 truncate">{user.TenKH}</p>
+                      <span className="inline-block mt-1 text-[10px] px-1.5 py-0.5 bg-red-100 text-[#d70018] rounded-[2px] font-bold">
                         {user.VaiTro === 'Admin' ? 'Quản trị viên' : 'Smember VIP'}
                       </span>
                     </div>
@@ -358,7 +358,7 @@ const Navbar = () => {
                     <Link
                       to="/profile"
                       onClick={() => setDropdownOpen(false)}
-                      className="flex items-center gap-2.5 px-3 py-2 text-xs hover:bg-red-50 dark:hover:bg-slate-800 hover:text-[#d70018] transition-colors font-medium text-slate-700 dark:text-slate-200"
+                      className="flex items-center gap-2.5 px-3 py-2 text-xs hover:bg-red-50 hover:text-[#d70018] transition-colors font-medium text-slate-700"
                     >
                       <User className="w-4 h-4 text-slate-400" />
                       <span>Thông tin tài khoản</span>
@@ -367,18 +367,18 @@ const Navbar = () => {
                     <Link
                       to="/tracking"
                       onClick={() => setDropdownOpen(false)}
-                      className="flex items-center gap-2.5 px-3 py-2 text-xs hover:bg-red-50 dark:hover:bg-slate-800 hover:text-[#d70018] transition-colors font-medium text-slate-700 dark:text-slate-200"
+                      className="flex items-center gap-2.5 px-3 py-2 text-xs hover:bg-red-50 hover:text-[#d70018] transition-colors font-medium text-slate-700"
                     >
                       <ClipboardList className="w-4 h-4 text-slate-400" />
                       <span>Lịch sử mua hàng</span>
                     </Link>
 
                     {isAdmin && (
-                      <div className="border-t border-slate-100 dark:border-slate-800 my-1 pt-1">
+                      <div className="border-t border-slate-100 my-1 pt-1">
                         <Link
                           to="/admin"
                           onClick={() => setDropdownOpen(false)}
-                          className="flex items-center gap-2.5 px-3 py-2 text-xs text-[#d70018] hover:bg-red-50 dark:hover:bg-slate-800 transition-colors font-bold"
+                          className="flex items-center gap-2.5 px-3 py-2 text-xs text-[#d70018] hover:bg-red-50 transition-colors font-bold"
                         >
                           <Settings className="w-4 h-4 text-[#d70018]" />
                           <span>Quản trị viên (/admin)</span>
@@ -386,7 +386,7 @@ const Navbar = () => {
                         <Link
                           to="/cms"
                           onClick={() => setDropdownOpen(false)}
-                          className="flex items-center gap-2.5 px-3 py-2 text-xs text-red-700 hover:bg-red-50 dark:hover:bg-slate-800 transition-colors font-bold"
+                          className="flex items-center gap-2.5 px-3 py-2 text-xs text-red-700 hover:bg-red-50 transition-colors font-bold"
                         >
                           <LayoutDashboard className="w-4 h-4 text-red-600" />
                           <span>CMS Dashboard (/cms)</span>
@@ -396,7 +396,7 @@ const Navbar = () => {
 
                     <button
                       onClick={handleLogout}
-                      className="w-full flex items-center gap-2.5 px-3 py-2 text-xs text-rose-600 hover:bg-rose-50 dark:hover:bg-rose-950/40 transition-colors text-left border-t border-slate-100 dark:border-slate-800 mt-1 font-semibold cursor-pointer"
+                      className="w-full flex items-center gap-2.5 px-3 py-2 text-xs text-rose-600 hover:bg-rose-50 transition-colors text-left border-t border-slate-100 mt-1 font-semibold cursor-pointer"
                     >
                       <LogOut className="w-4 h-4 text-rose-500" />
                       <span>Đăng xuất</span>

@@ -31,7 +31,7 @@ const HERO_BANNERS = [
   {
     id: 1,
     title: 'Samsung Galaxy S24 Ultra',
-    subtitle: 'Galaxy AI Quyền Năng - Ưu đãi độc quyền NovaTech đến 5 triệu',
+    subtitle: 'Galaxy AI Quyền Năng - Ưu đãi độc quyền CellphoneS đến 5 triệu',
     image: 'https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?w=1000&auto=format&fit=crop&q=80',
     link: '/?search=Samsung',
     tag: 'Galaxy AI'
@@ -47,7 +47,7 @@ const HERO_BANNERS = [
   {
     id: 3,
     title: 'Laptop Gaming & Doanh Nhân',
-    subtitle: 'Hiệu năng đỉnh cao - Giảm đến 4 triệu cho thành viên NovaTech',
+    subtitle: 'Hiệu năng đỉnh cao - Giảm đến 4 triệu cho thành viên Smember',
     image: 'https://images.unsplash.com/photo-1603302576837-37561b2e2302?w=1000&auto=format&fit=crop&q=80',
     link: '/?categoryId=2',
     tag: 'Laptop Giá Sốc'
@@ -268,9 +268,9 @@ const Home = () => {
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-2.5 items-stretch">
             
             {/* Column 1: Left Vertical Category Mega Menu (3 cols) */}
-            <div className="hidden lg:flex lg:col-span-3 bg-white dark:bg-[#111827] rounded-md border border-slate-200 dark:border-slate-800 shadow-sm p-2 flex-col justify-between text-xs">
+            <div className="hidden lg:flex lg:col-span-3 bg-white rounded-md border border-slate-200 shadow-sm p-2 flex-col justify-between text-xs">
               <div className="space-y-0.5">
-                <div className="px-2.5 py-1 text-[11px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider flex items-center gap-1.5 border-b border-slate-100 dark:border-slate-800 mb-1">
+                <div className="px-2.5 py-1 text-[11px] font-bold text-slate-400 uppercase tracking-wider flex items-center gap-1.5 border-b border-slate-100 mb-1">
                   <SlidersHorizontal className="w-3 h-3 text-[#d70018]" />
                   <span>Danh Mục Sản Phẩm</span>
                 </div>
@@ -279,8 +279,8 @@ const Home = () => {
                   onClick={() => updateFilter('categoryId', '')}
                   className={`w-full flex items-center justify-between px-2.5 py-2 rounded text-left transition-colors cursor-pointer ${
                     !selectedCategory
-                      ? 'bg-red-50 dark:bg-red-950/40 text-[#d70018] font-bold border-l-2 border-[#d70018]'
-                      : 'text-slate-700 dark:text-slate-300 hover:bg-red-50/60 dark:hover:bg-slate-800/80 hover:text-[#d70018]'
+                      ? 'bg-red-50 text-[#d70018] font-bold border-l-2 border-[#d70018]'
+                      : 'text-slate-700 hover:bg-red-50/60 hover:text-[#d70018]'
                   }`}
                 >
                   <div className="flex items-center gap-2">
@@ -298,8 +298,8 @@ const Home = () => {
                       onClick={() => updateFilter('categoryId', String(cat.MaDM))}
                       className={`w-full flex items-center justify-between px-2.5 py-2 rounded text-left transition-colors cursor-pointer ${
                         isSelected
-                          ? 'bg-red-50 dark:bg-red-950/40 text-[#d70018] font-bold border-l-2 border-[#d70018]'
-                          : 'text-slate-700 dark:text-slate-300 hover:bg-red-50/60 dark:hover:bg-slate-800/80 hover:text-[#d70018]'
+                          ? 'bg-red-50 text-[#d70018] font-bold border-l-2 border-[#d70018]'
+                          : 'text-slate-700 hover:bg-red-50/60 hover:text-[#d70018]'
                       }`}
                     >
                       <div className="flex items-center gap-2">
@@ -313,7 +313,7 @@ const Home = () => {
 
                 <button
                   onClick={() => handleBrandClick('Apple')}
-                  className="w-full flex items-center justify-between px-2.5 py-2 rounded text-left text-slate-700 dark:text-slate-300 hover:bg-red-50/60 dark:hover:bg-slate-800/80 hover:text-[#d70018] transition-colors cursor-pointer"
+                  className="w-full flex items-center justify-between px-2.5 py-2 rounded text-left text-slate-700 hover:bg-red-50/60 hover:text-[#d70018] transition-colors cursor-pointer"
                 >
                   <div className="flex items-center gap-2">
                     <span className="text-sm font-serif"></span>
@@ -324,7 +324,7 @@ const Home = () => {
 
                 <Link
                   to="/tracking"
-                  className="w-full flex items-center justify-between px-2.5 py-2 rounded text-left text-slate-700 dark:text-slate-300 hover:bg-red-50/60 dark:hover:bg-slate-800/80 hover:text-[#d70018] transition-colors"
+                  className="w-full flex items-center justify-between px-2.5 py-2 rounded text-left text-slate-700 hover:bg-red-50/60 hover:text-[#d70018] transition-colors"
                 >
                   <div className="flex items-center gap-2">
                     <RefreshCw className="w-4 h-4 text-emerald-500" />
@@ -347,14 +347,14 @@ const Home = () => {
             </div>
 
             {/* Column 2: Center Main Carousel (6 cols) */}
-            <div className="lg:col-span-6 bg-white dark:bg-[#111827] rounded-md overflow-hidden shadow-sm border border-slate-200 dark:border-slate-800 flex flex-col justify-between">
-              <div className="relative h-56 sm:h-64 md:h-72 lg:h-80 w-full overflow-hidden bg-slate-900 group">
+            <div className="lg:col-span-6 bg-white rounded-md overflow-hidden shadow-sm border border-slate-200 flex flex-col justify-between">
+              <div className="relative h-56 sm:h-64 md:h-72 lg:h-80 w-full overflow-hidden bg-slate-100 group">
                 <img
                   src={HERO_BANNERS[activeBanner].image}
                   alt={HERO_BANNERS[activeBanner].title}
                   className="w-full h-full object-cover object-center transition-all duration-700 group-hover:scale-105"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-slate-900/30 to-transparent flex flex-col justify-end p-4 text-white">
+                <div className="absolute inset-0 bg-gradient-to-t from-slate-950/85 via-slate-900/25 to-transparent flex flex-col justify-end p-4 text-white">
                   <span className="inline-block self-start px-2 py-0.5 bg-[#d70018] text-white font-bold text-[10px] rounded mb-1 uppercase shadow-sm">
                     {HERO_BANNERS[activeBanner].tag}
                   </span>
@@ -364,15 +364,15 @@ const Home = () => {
               </div>
 
               {/* Banner Tab bar (4 tabs) */}
-              <div className="grid grid-cols-4 border-t border-slate-200 dark:border-slate-800 bg-white dark:bg-[#111827] text-[11px] font-semibold text-center divide-x divide-slate-100 dark:divide-slate-800">
+              <div className="grid grid-cols-4 border-t border-slate-200 bg-white text-[11px] font-semibold text-center divide-x divide-slate-100">
                 {HERO_BANNERS.map((b, idx) => (
                   <button
                     key={b.id}
                     onClick={() => setActiveBanner(idx)}
                     className={`py-2 px-1 transition-colors leading-tight cursor-pointer ${
                       activeBanner === idx
-                        ? 'border-b-2 border-[#d70018] font-bold text-[#d70018] bg-red-50/70 dark:bg-red-950/40'
-                        : 'text-slate-600 dark:text-slate-400 hover:text-[#d70018] dark:hover:text-white hover:bg-slate-50 dark:hover:bg-slate-800'
+                        ? 'border-b-2 border-[#d70018] font-bold text-[#d70018] bg-red-50/70'
+                        : 'text-slate-600 hover:text-[#d70018] hover:bg-slate-50'
                     }`}
                   >
                     <span className="line-clamp-2">{b.title}</span>
@@ -385,18 +385,18 @@ const Home = () => {
             <div className="lg:col-span-3 flex flex-col sm:flex-row lg:flex-col gap-2.5">
               <div 
                 onClick={() => navigate('/?brand=Apple')}
-                className="flex-1 bg-gradient-to-br from-slate-900 via-slate-800 to-red-950 rounded-md p-3.5 text-white shadow-sm cursor-pointer hover:border-red-500 border border-slate-700/60 transition-all flex flex-col justify-between min-h-[110px]"
+                className="flex-1 bg-gradient-to-br from-red-50 via-white to-red-100/60 rounded-md p-3.5 text-slate-800 shadow-sm cursor-pointer hover:border-[#d70018] border border-red-200 transition-all flex flex-col justify-between min-h-[110px]"
               >
                 <div>
-                  <span className="text-[9.5px] font-bold uppercase tracking-wider bg-white/10 px-1.5 py-0.5 rounded text-red-300">
+                  <span className="text-[9.5px] font-bold uppercase tracking-wider bg-red-100 text-[#d70018] px-1.5 py-0.5 rounded border border-red-200">
                     Độc quyền CellphoneS
                   </span>
-                  <h3 className="text-sm font-black mt-1.5">THU CŨ ĐỔI MỚI</h3>
-                  <p className="text-[11px] text-slate-300 mt-0.5 leading-snug">
+                  <h3 className="text-sm font-black text-slate-900 mt-1.5">THU CŨ ĐỔI MỚI</h3>
+                  <p className="text-[11px] text-slate-600 mt-0.5 leading-snug">
                     Trợ giá lên đến 2.500.000đ khi lên đời máy tại hệ thống
                   </p>
                 </div>
-                <div className="flex items-center gap-1 text-[11px] text-red-400 font-bold mt-2">
+                <div className="flex items-center gap-1 text-[11px] text-[#d70018] font-bold mt-2">
                   <span>Khám phá ngay</span>
                   <ChevronRight className="w-3.5 h-3.5" />
                 </div>
@@ -404,7 +404,7 @@ const Home = () => {
 
               <div 
                 onClick={() => navigate('/?priceRange=under5m')}
-                className="flex-1 bg-gradient-to-br from-[#7f000d] to-[#d70018] rounded-md p-3.5 text-white shadow-sm cursor-pointer hover:border-red-300 border border-red-800/60 transition-all flex flex-col justify-between min-h-[110px]"
+                className="flex-1 bg-gradient-to-br from-[#d70018] to-[#be0015] rounded-md p-3.5 text-white shadow-sm cursor-pointer hover:shadow-md border border-transparent transition-all flex flex-col justify-between min-h-[110px]"
               >
                 <div>
                   <span className="text-[9.5px] font-bold uppercase tracking-wider bg-white/20 px-1.5 py-0.5 rounded text-white">
@@ -423,18 +423,18 @@ const Home = () => {
 
               <div 
                 onClick={() => navigate('/?brand=Samsung')}
-                className="hidden xl:flex flex-1 bg-gradient-to-br from-red-950 via-slate-900 to-black rounded-md p-3.5 text-white shadow-sm cursor-pointer hover:border-red-500 border border-red-900/60 transition-all flex flex-col justify-between min-h-[100px]"
+                className="hidden xl:flex flex-1 bg-gradient-to-br from-amber-50 via-white to-orange-50 rounded-md p-3.5 text-slate-800 shadow-sm cursor-pointer hover:border-[#d70018] border border-amber-200 transition-all flex flex-col justify-between min-h-[100px]"
               >
                 <div>
-                  <span className="text-[9.5px] font-bold uppercase tracking-wider bg-amber-400 text-slate-950 px-1.5 py-0.5 rounded">
+                  <span className="text-[9.5px] font-bold uppercase tracking-wider bg-amber-400 text-slate-950 px-1.5 py-0.5 rounded font-bold">
                     Galaxy AI
                   </span>
-                  <h3 className="text-sm font-black mt-1.5">SAMSUNG GALAXY</h3>
-                  <p className="text-[11px] text-red-200 mt-0.5 leading-snug">
+                  <h3 className="text-sm font-black text-slate-900 mt-1.5">SAMSUNG GALAXY</h3>
+                  <p className="text-[11px] text-slate-600 mt-0.5 leading-snug">
                     Tặng gói bảo hành Samsung Care+ 1 năm miễn phí
                   </p>
                 </div>
-                <div className="flex items-center gap-1 text-[11px] text-amber-300 font-bold mt-1.5">
+                <div className="flex items-center gap-1 text-[11px] text-[#d70018] font-bold mt-1.5">
                   <span>Nhận ưu đãi</span>
                   <ChevronRight className="w-3.5 h-3.5" />
                 </div>
@@ -445,9 +445,9 @@ const Home = () => {
         )}
 
         {/* ================= 2. BRAND QUICK FILTER CHIPS (TECH TABS) ================= */}
-        <div className="bg-white dark:bg-[#111827] rounded-md p-2.5 shadow-sm border border-slate-200 dark:border-slate-800">
+        <div className="bg-white rounded-md p-2.5 shadow-sm border border-slate-200">
           <div className="flex items-center justify-between gap-2 mb-2">
-            <span className="text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wide flex items-center gap-1.5">
+            <span className="text-xs font-bold text-slate-700 uppercase tracking-wide flex items-center gap-1.5">
               <Sparkles className="w-3.5 h-3.5 text-[#d70018]" />
               Thương hiệu nổi bật:
             </span>
@@ -470,8 +470,8 @@ const Home = () => {
                   onClick={() => handleBrandClick(b.name)}
                   className={`px-3 py-1.5 rounded border text-xs font-bold transition-all whitespace-nowrap cursor-pointer flex items-center gap-1.5 ${
                     isActive
-                      ? 'border-[#d70018] bg-red-50 dark:bg-red-950/60 text-[#d70018] shadow-xs'
-                      : 'border-slate-200 dark:border-slate-700 hover:border-[#d70018] text-slate-700 dark:text-slate-300 bg-slate-50 dark:bg-[#1f2937] hover:bg-white'
+                      ? 'border-[#d70018] bg-red-50 text-[#d70018] shadow-xs'
+                      : 'border-slate-200 hover:border-[#d70018] text-slate-700 bg-slate-50 hover:bg-white'
                   }`}
                 >
                   <span className="font-mono text-slate-400">{b.logo}</span>
@@ -484,7 +484,7 @@ const Home = () => {
 
         {/* ================= 3. PRICE QUICK FILTER ================= */}
         <div className="flex items-center gap-2 overflow-x-auto no-scrollbar pb-0.5 text-xs">
-          <span className="font-bold text-slate-500 dark:text-slate-400 shrink-0">Chọn mức giá:</span>
+          <span className="font-bold text-slate-500 shrink-0">Chọn mức giá:</span>
           {[
             { id: 'under5m', label: 'Dưới 5 triệu' },
             { id: '5to15m', label: 'Từ 5 - 15 triệu' },
@@ -499,7 +499,7 @@ const Home = () => {
                 className={`px-3 py-1.5 rounded border font-semibold whitespace-nowrap transition-colors cursor-pointer ${
                   isSelected
                     ? 'border-[#d70018] bg-[#d70018] text-white font-bold shadow-xs'
-                    : 'border-slate-200 dark:border-slate-700 bg-white dark:bg-[#111827] text-slate-700 dark:text-slate-300 hover:border-[#d70018]'
+                    : 'border-slate-200 bg-white text-slate-700 hover:border-[#d70018]'
                 }`}
               >
                 {r.label}
@@ -510,7 +510,7 @@ const Home = () => {
           {isFiltering && (
             <button
               onClick={handleClearAllFilters}
-              className="ml-auto px-3 py-1.5 rounded bg-slate-200 hover:bg-slate-300 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 font-bold text-xs whitespace-nowrap transition-colors cursor-pointer"
+              className="ml-auto px-3 py-1.5 rounded bg-slate-200 hover:bg-slate-300 text-slate-700 font-bold text-xs whitespace-nowrap transition-colors cursor-pointer"
             >
               Xóa tất cả bộ lọc
             </button>
@@ -519,7 +519,7 @@ const Home = () => {
 
         {/* ================= 4. FLASH SALE SECTION (CELLPHONES STYLE) ================= */}
         {!isFiltering && flashSaleProducts.length > 0 && (
-          <div className="rounded-md overflow-hidden shadow-sm border border-rose-200 dark:border-rose-950/80 bg-white dark:bg-[#0f1a30]">
+          <div className="rounded-md overflow-hidden shadow-sm border border-red-200 bg-white">
             
             {/* Flash Sale Banner Header */}
             <div className="nova-flash-header text-white px-3.5 py-2.5 flex flex-wrap items-center justify-between gap-2.5 shadow-sm">
@@ -533,15 +533,15 @@ const Home = () => {
               {/* Countdown Timer */}
               <div className="flex items-center gap-1.5 text-xs font-bold">
                 <span className="text-red-100 text-[11px]">KẾT THÚC TRONG:</span>
-                <span className="bg-slate-950 text-white px-1.5 py-0.5 rounded-[2px] font-mono font-black text-xs border border-slate-700">
+                <span className="bg-[#9b0010] text-white px-1.5 py-0.5 rounded-[2px] font-mono font-black text-xs border border-red-400/30">
                   {String(timeLeft.hours).padStart(2, '0')}
                 </span>
                 <span>:</span>
-                <span className="bg-slate-950 text-white px-1.5 py-0.5 rounded-[2px] font-mono font-black text-xs border border-slate-700">
+                <span className="bg-[#9b0010] text-white px-1.5 py-0.5 rounded-[2px] font-mono font-black text-xs border border-red-400/30">
                   {String(timeLeft.minutes).padStart(2, '0')}
                 </span>
                 <span>:</span>
-                <span className="bg-slate-950 text-white px-1.5 py-0.5 rounded-[2px] font-mono font-black text-xs border border-slate-700">
+                <span className="bg-[#9b0010] text-white px-1.5 py-0.5 rounded-[2px] font-mono font-black text-xs border border-red-400/30">
                   {String(timeLeft.seconds).padStart(2, '0')}
                 </span>
               </div>
@@ -566,7 +566,7 @@ const Home = () => {
                     </div>
 
                     {/* Image */}
-                    <div className="w-full aspect-square overflow-hidden flex items-center justify-center p-2 mb-1.5 bg-white dark:bg-[#0b1325] rounded-[2px]">
+                    <div className="w-full aspect-square overflow-hidden flex items-center justify-center p-2 mb-1.5 bg-white rounded-[2px]">
                       <img
                         src={product.AnhMinhHoa}
                         alt={product.TenSP}
@@ -587,14 +587,14 @@ const Home = () => {
                     )}
 
                     {/* Product Name */}
-                    <h3 className="text-xs sm:text-[13px] font-bold text-slate-900 dark:text-white line-clamp-2 group-hover:text-[#d70018] transition-colors mb-1.5 leading-snug">
+                    <h3 className="text-xs sm:text-[13px] font-bold text-slate-900 line-clamp-2 group-hover:text-[#d70018] transition-colors mb-1.5 leading-snug">
                       {product.TenSP}
                     </h3>
 
                     {/* Price & Deal Progress */}
-                    <div className="mt-auto pt-1.5 border-t border-slate-100 dark:border-slate-800">
+                    <div className="mt-auto pt-1.5 border-t border-slate-100">
                       <div className="flex items-baseline gap-1.5 flex-wrap mb-1">
-                        <span className="text-[#d70018] dark:text-rose-400 font-black text-sm sm:text-base">
+                        <span className="text-[#d70018] font-black text-sm sm:text-base">
                           {formatPrice(product.GiaBan)}
                         </span>
                         <span className="text-slate-400 line-through text-[11px]">
@@ -603,12 +603,12 @@ const Home = () => {
                       </div>
 
                       {/* Sold progress bar */}
-                      <div className="w-full bg-slate-100 dark:bg-slate-800 rounded-[2px] h-3.5 relative overflow-hidden mb-2 border border-slate-200 dark:border-slate-700">
+                      <div className="w-full bg-slate-100 rounded-[2px] h-3.5 relative overflow-hidden mb-2 border border-slate-200">
                         <div 
                           className="bg-gradient-to-r from-[#d70018] to-amber-500 h-full rounded-[2px]"
                           style={{ width: `${Math.min(95, 40 + (product.MaSP * 7) % 55)}%` }}
                         />
-                        <span className="absolute inset-0 text-[9px] font-bold text-slate-900 dark:text-white flex items-center justify-center drop-shadow-xs">
+                        <span className="absolute inset-0 text-[9px] font-bold text-slate-800 flex items-center justify-center drop-shadow-xs">
                           🔥 Đã bán {(product.MaSP * 11) % 40 + 10} suất
                         </span>
                       </div>
@@ -633,24 +633,24 @@ const Home = () => {
 
         {/* ================= 5. FILTER RESULTS MODE ================= */}
         {isFiltering ? (
-          <div className="bg-white dark:bg-[#111827] rounded-md p-3.5 shadow-sm border border-slate-200 dark:border-slate-800">
-            <div className="flex flex-wrap items-center justify-between gap-3 mb-3.5 pb-2.5 border-b border-slate-200 dark:border-slate-800">
+          <div className="bg-white rounded-md p-3.5 shadow-sm border border-slate-200">
+            <div className="flex flex-wrap items-center justify-between gap-3 mb-3.5 pb-2.5 border-b border-slate-200">
               <div>
-                <h2 className="text-sm sm:text-base font-bold text-slate-900 dark:text-white uppercase tracking-tight">
+                <h2 className="text-sm sm:text-base font-bold text-slate-900 uppercase tracking-tight">
                   Kết quả tìm kiếm ({products.length} sản phẩm)
                 </h2>
                 {searchVal && (
-                  <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">Từ khóa: <strong className="text-slate-900 dark:text-white">"{searchVal}"</strong></p>
+                  <p className="text-xs text-slate-500 mt-0.5">Từ khóa: <strong className="text-slate-900">"{searchVal}"</strong></p>
                 )}
               </div>
 
               {/* Sorting */}
               <div className="flex items-center gap-2 text-xs">
-                <span className="text-slate-500 dark:text-slate-400 font-medium">Sắp xếp:</span>
+                <span className="text-slate-500 font-medium">Sắp xếp:</span>
                 <select
                   value={sortBy}
                   onChange={(e) => setSortBy(e.target.value)}
-                  className="bg-slate-50 dark:bg-[#0b1325] border border-slate-200 dark:border-slate-700 rounded px-2.5 py-1 text-xs font-semibold text-slate-700 dark:text-slate-200 cursor-pointer"
+                  className="bg-slate-50 border border-slate-200 rounded px-2.5 py-1 text-xs font-semibold text-slate-700 cursor-pointer"
                 >
                   <option value="popular">Nổi bật nhất</option>
                   <option value="priceAsc">Giá thấp đến cao</option>
@@ -666,8 +666,8 @@ const Home = () => {
               </div>
             ) : products.length === 0 ? (
               <div className="py-16 text-center text-slate-500">
-                <AlertCircle className="w-12 h-12 mx-auto mb-3 text-slate-300 dark:text-slate-600" />
-                <p className="text-sm font-semibold text-slate-800 dark:text-slate-200">Không tìm thấy sản phẩm nào phù hợp.</p>
+                <AlertCircle className="w-12 h-12 mx-auto mb-3 text-slate-300" />
+                <p className="text-sm font-semibold text-slate-800">Không tìm thấy sản phẩm nào phù hợp.</p>
                 <p className="text-xs mt-1 text-slate-400">Vui lòng thử lại với từ khóa hoặc bộ lọc khác.</p>
                 <button
                   onClick={handleClearAllFilters}
@@ -688,11 +688,11 @@ const Home = () => {
             
             {/* Section: Điện thoại nổi bật */}
             {phoneProducts.length > 0 && (
-              <div className="bg-white dark:bg-[#111827] rounded-md p-3.5 shadow-sm border border-slate-200 dark:border-slate-800">
-                <div className="flex items-center justify-between mb-2.5 border-b border-slate-100 dark:border-slate-800 pb-2">
+              <div className="bg-white rounded-md p-3.5 shadow-sm border border-slate-200">
+                <div className="flex items-center justify-between mb-2.5 border-b border-slate-100 pb-2">
                   <div className="flex items-center gap-2">
                     <span className="w-1.5 h-4 bg-[#d70018] rounded-[1px]" />
-                    <h2 className="text-sm sm:text-base font-black text-slate-900 dark:text-white uppercase tracking-tight">
+                    <h2 className="text-sm sm:text-base font-black text-slate-900 uppercase tracking-tight">
                       ĐIỆN THOẠI NỔI BẬT NHẤT
                     </h2>
                   </div>
@@ -713,11 +713,11 @@ const Home = () => {
 
             {/* Section: Laptop & Máy tính */}
             {laptopProducts.length > 0 && (
-              <div className="bg-white dark:bg-[#111827] rounded-md p-3.5 shadow-sm border border-slate-200 dark:border-slate-800">
-                <div className="flex items-center justify-between mb-2.5 border-b border-slate-100 dark:border-slate-800 pb-2">
+              <div className="bg-white rounded-md p-3.5 shadow-sm border border-slate-200">
+                <div className="flex items-center justify-between mb-2.5 border-b border-slate-100 pb-2">
                   <div className="flex items-center gap-2">
                     <span className="w-1.5 h-4 bg-[#d70018] rounded-[1px]" />
-                    <h2 className="text-sm sm:text-base font-black text-slate-900 dark:text-white uppercase tracking-tight">
+                    <h2 className="text-sm sm:text-base font-black text-slate-900 uppercase tracking-tight">
                       LAPTOP &amp; PC GIÁ TỐT
                     </h2>
                   </div>
@@ -738,11 +738,11 @@ const Home = () => {
 
             {/* Section: Phụ kiện & Thiết bị thông minh */}
             {accessoryProducts.length > 0 && (
-              <div className="bg-white dark:bg-[#111827] rounded-md p-3.5 shadow-sm border border-slate-200 dark:border-slate-800">
-                <div className="flex items-center justify-between mb-2.5 border-b border-slate-100 dark:border-slate-800 pb-2">
+              <div className="bg-white rounded-md p-3.5 shadow-sm border border-slate-200">
+                <div className="flex items-center justify-between mb-2.5 border-b border-slate-100 pb-2">
                   <div className="flex items-center gap-2">
                     <span className="w-1.5 h-4 bg-[#d70018] rounded-[1px]" />
-                    <h2 className="text-sm sm:text-base font-black text-slate-900 dark:text-white uppercase tracking-tight">
+                    <h2 className="text-sm sm:text-base font-black text-slate-900 uppercase tracking-tight">
                       PHỤ KIỆN &amp; THIẾT BỊ THÔNG MINH
                     </h2>
                   </div>
@@ -762,11 +762,11 @@ const Home = () => {
             )}
 
             {/* Section: Toàn bộ danh mục sản phẩm (Gợi ý hôm nay) */}
-            <div className="bg-white dark:bg-[#111827] rounded-md p-3.5 shadow-sm border border-slate-200 dark:border-slate-800">
-              <div className="flex items-center justify-between mb-2.5 border-b border-slate-100 dark:border-slate-800 pb-2">
+            <div className="bg-white rounded-md p-3.5 shadow-sm border border-slate-200">
+              <div className="flex items-center justify-between mb-2.5 border-b border-slate-100 pb-2">
                 <div className="flex items-center gap-2">
                   <span className="w-1.5 h-4 bg-[#d70018] rounded-[1px]" />
-                  <h2 className="text-sm sm:text-base font-black text-slate-900 dark:text-white uppercase tracking-tight">
+                  <h2 className="text-sm sm:text-base font-black text-slate-900 uppercase tracking-tight">
                     GỢI Ý HÔM NAY CHO BẠN
                   </h2>
                 </div>
@@ -803,7 +803,7 @@ const Home = () => {
         </div>
 
         {/* Image Container */}
-        <div className="w-full aspect-square overflow-hidden flex items-center justify-center p-2 mb-1.5 bg-white dark:bg-[#0b1325] rounded-[2px]">
+        <div className="w-full aspect-square overflow-hidden flex items-center justify-center p-2 mb-1.5 bg-white rounded-[2px]">
           <img
             src={product.AnhMinhHoa}
             alt={product.TenSP}
@@ -824,14 +824,14 @@ const Home = () => {
         )}
 
         {/* Product Title */}
-        <h3 className="text-xs sm:text-[13px] font-bold text-slate-900 dark:text-white line-clamp-2 group-hover:text-[#d70018] transition-colors mb-1.5 leading-snug">
+        <h3 className="text-xs sm:text-[13px] font-bold text-slate-900 line-clamp-2 group-hover:text-[#d70018] transition-colors mb-1.5 leading-snug">
           {product.TenSP}
         </h3>
 
         {/* Pricing */}
-        <div className="mt-auto pt-1.5 border-t border-slate-100 dark:border-slate-800">
+        <div className="mt-auto pt-1.5 border-t border-slate-100">
           <div className="flex items-baseline gap-1.5 flex-wrap mb-0.5">
-            <span className="text-[#d70018] dark:text-rose-400 font-black text-sm sm:text-base">
+            <span className="text-[#d70018] font-black text-sm sm:text-base">
               {formatPrice(product.GiaBan)}
             </span>
             <span className="text-slate-400 line-through text-[11px]">
@@ -840,14 +840,14 @@ const Home = () => {
           </div>
 
           {/* Member perk */}
-          <div className="text-[10px] text-amber-600 dark:text-amber-400 font-semibold mb-1 truncate">
+          <div className="text-[10px] text-amber-600 font-semibold mb-1 truncate">
             🎁 Smember giảm thêm 1%
           </div>
 
           {/* Ratings & reviews */}
           <div className="flex items-center gap-1 text-[11px] text-amber-500 font-semibold mb-2">
             <Star className="w-3.5 h-3.5 fill-amber-400 text-amber-400" />
-            <span className="text-slate-700 dark:text-slate-300 font-bold">4.8</span>
+            <span className="text-slate-700 font-bold">4.8</span>
             <span className="text-slate-400">({(product.MaSP * 17) % 80 + 20})</span>
           </div>
 

@@ -103,12 +103,12 @@ const Cart = () => {
   if (cart.length === 0) {
     return (
       <div className="max-w-xl mx-auto px-4 py-20 text-center">
-        <div className="w-16 h-16 bg-red-50 dark:bg-slate-900 text-[#d70018] dark:text-rose-400 rounded-md flex items-center justify-center mx-auto mb-4 border border-red-200 dark:border-slate-800">
+        <div className="w-16 h-16 bg-red-50 text-[#d70018] rounded-md flex items-center justify-center mx-auto mb-4 border border-red-200">
           <ShoppingBag className="w-8 h-8" />
         </div>
-        <h2 className="text-xl sm:text-2xl font-bold text-slate-800 dark:text-slate-100">Giỏ hàng của bạn đang trống</h2>
-        <p className="text-slate-500 dark:text-slate-400 text-xs mt-2 max-w-sm mx-auto">
-          Hãy khám phá hàng ngàn thiết bị công nghệ chính hãng với ưu đãi đặc quyền tại NovaTech.
+        <h2 className="text-xl sm:text-2xl font-bold text-slate-800">Giỏ hàng của bạn đang trống</h2>
+        <p className="text-slate-500 text-xs mt-2 max-w-sm mx-auto">
+          Hãy khám phá hàng ngàn thiết bị công nghệ chính hãng với ưu đãi đặc quyền tại CellphoneS.
         </p>
         <Link
           to="/"
@@ -121,7 +121,7 @@ const Cart = () => {
   }
 
   return (
-    <div className="w-full bg-[#f4f6fa] dark:bg-slate-950 min-h-screen py-6 transition-colors">
+    <div className="w-full bg-[#f4f6fa] min-h-screen py-6">
       {toast && (
         <Toast
           message={toast.message}
@@ -133,22 +133,22 @@ const Cart = () => {
       <div className="max-w-4xl mx-auto px-4 space-y-4">
         
         {/* Step Indicator */}
-        <div className="flex items-center justify-between text-xs font-semibold border-b border-slate-200 dark:border-slate-800 pb-3">
-          <Link to="/" className="text-[#d70018] dark:text-rose-400 hover:underline flex items-center gap-1">
+        <div className="flex items-center justify-between text-xs font-semibold border-b border-slate-200 pb-3">
+          <Link to="/" className="text-[#d70018] hover:underline flex items-center gap-1">
             <ArrowLeft className="w-3.5 h-3.5" /> Mua thêm sản phẩm khác
           </Link>
           <div className="flex items-center gap-2">
-            <span className="text-[#d70018] dark:text-rose-400 font-bold">1. Giỏ hàng</span>
+            <span className="text-[#d70018] font-bold">1. Giỏ hàng</span>
             <span className="text-slate-400">→</span>
-            <span className="text-slate-500 dark:text-slate-400">2. Điền thông tin đặt hàng</span>
+            <span className="text-slate-500">2. Điền thông tin đặt hàng</span>
             <span className="text-slate-400">→</span>
-            <span className="text-slate-500 dark:text-slate-400">3. Hoàn tất</span>
+            <span className="text-slate-500">3. Hoàn tất</span>
           </div>
         </div>
 
         {/* Free Shipping Notification Banner */}
-        <div className="bg-red-50/70 dark:bg-red-950/40 border border-red-200 dark:border-red-900/60 rounded-[4px] p-3 flex items-center gap-2.5 text-xs text-[#d70018] dark:text-rose-300 font-medium">
-          <Truck className="w-4 h-4 text-[#d70018] dark:text-rose-400 shrink-0" />
+        <div className="bg-red-50/70 border border-red-200 rounded-[4px] p-3 flex items-center gap-2.5 text-xs text-[#d70018] font-medium">
+          <Truck className="w-4 h-4 text-[#d70018] shrink-0" />
           <span>Đơn hàng của bạn được áp dụng chính sách <strong>Miễn phí giao hàng nhanh trong 2 giờ</strong>!</span>
         </div>
 
@@ -156,12 +156,12 @@ const Cart = () => {
           
           {/* Left: Items list (8 cols) */}
           <div className="lg:col-span-8 space-y-3">
-            <div className="bg-white dark:bg-slate-900 rounded-md p-4 shadow-sm border border-slate-200 dark:border-slate-800 divide-y divide-slate-100 dark:divide-slate-800">
+            <div className="bg-white rounded-md p-4 shadow-sm border border-slate-200 divide-y divide-slate-100">
               {cart.map((item) => (
                 <div key={item.MaSP} className="py-4 first:pt-0 last:pb-0 flex gap-4 items-start">
                   
                   {/* Thumbnail */}
-                  <div className="w-20 h-20 bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700 rounded-[4px] p-1.5 shrink-0 flex items-center justify-center">
+                  <div className="w-20 h-20 bg-slate-50 border border-slate-200 rounded-[4px] p-1.5 shrink-0 flex items-center justify-center">
                     <img
                       src={item.AnhMinhHoa}
                       alt={item.TenSP}
@@ -174,13 +174,13 @@ const Cart = () => {
                     <div className="flex items-start justify-between gap-2">
                       <Link 
                         to={`/product/${item.MaSP}`}
-                        className="text-xs sm:text-sm font-bold text-slate-800 dark:text-slate-100 hover:text-[#d70018] dark:hover:text-rose-400 line-clamp-2"
+                        className="text-xs sm:text-sm font-bold text-slate-800 hover:text-[#d70018] line-clamp-2"
                       >
                         {item.TenSP}
                       </Link>
                       <button
                         onClick={() => handleRemove(item.MaSP, item.TenSP)}
-                        className="text-slate-400 hover:text-rose-600 dark:hover:text-rose-400 p-1 transition-colors"
+                        className="text-slate-400 hover:text-rose-600 p-1 transition-colors"
                         title="Xóa khỏi giỏ hàng"
                       >
                         <Trash2 className="w-4 h-4" />
@@ -188,29 +188,29 @@ const Cart = () => {
                     </div>
 
                     <div className="flex items-baseline gap-2 mt-1">
-                      <span className="text-[#d70018] dark:text-rose-400 font-extrabold text-sm sm:text-base">
+                      <span className="text-[#d70018] font-extrabold text-sm sm:text-base">
                         {formatPrice(item.GiaBan)}
                       </span>
                     </div>
 
                     {/* Quantity Stepper */}
                     <div className="flex items-center gap-2 mt-3">
-                      <span className="text-[11px] text-slate-500 dark:text-slate-400 font-medium">Số lượng:</span>
-                      <div className="flex items-center border border-slate-300 dark:border-slate-700 rounded-[3px] bg-white dark:bg-slate-800 overflow-hidden">
+                      <span className="text-[11px] text-slate-500 font-medium">Số lượng:</span>
+                      <div className="flex items-center border border-slate-300 rounded-[3px] bg-white overflow-hidden">
                         <button
                           type="button"
                           onClick={() => handleQtyChange(item.MaSP, item.SoLuong - 1, item.TenSP)}
-                          className="px-2.5 py-1 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700 font-bold text-xs"
+                          className="px-2.5 py-1 text-slate-600 hover:bg-slate-100 font-bold text-xs"
                         >
                           -
                         </button>
-                        <span className="w-8 text-center text-xs font-bold text-slate-800 dark:text-slate-200">
+                        <span className="w-8 text-center text-xs font-bold text-slate-800">
                           {item.SoLuong}
                         </span>
                         <button
                           type="button"
                           onClick={() => handleQtyChange(item.MaSP, item.SoLuong + 1, item.TenSP)}
-                          className="px-2.5 py-1 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700 font-bold text-xs"
+                          className="px-2.5 py-1 text-slate-600 hover:bg-slate-100 font-bold text-xs"
                         >
                           +
                         </button>
@@ -224,18 +224,18 @@ const Cart = () => {
             </div>
 
             {/* Voucher form & Available Vouchers List */}
-            <div className="bg-white dark:bg-slate-900 rounded-md p-3.5 shadow-sm border border-slate-200 dark:border-slate-800 text-xs space-y-3">
+            <div className="bg-white rounded-md p-3.5 shadow-sm border border-slate-200 text-xs space-y-3">
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
-                <span className="font-bold text-slate-700 dark:text-slate-200 flex items-center gap-1.5 shrink-0">
-                  <Tag className="w-3.5 h-3.5 text-[#d70018] dark:text-rose-400" /> Mã giảm giá:
+                <span className="font-bold text-slate-700 flex items-center gap-1.5 shrink-0">
+                  <Tag className="w-3.5 h-3.5 text-[#d70018]" /> Mã giảm giá:
                 </span>
                 <form onSubmit={(e) => handleApplyVoucher(e)} className="flex flex-1 max-w-sm gap-2">
                   <input
                     type="text"
-                    placeholder="Nhập mã (VD: NOVATECH50)"
+                    placeholder="Nhập mã (VD: CELLPHONES50)"
                     value={voucher}
                     onChange={(e) => setVoucher(e.target.value)}
-                    className="w-full text-xs rounded-[4px] border border-slate-300 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-100 px-3 py-1.5 font-mono uppercase focus:border-[#d70018] outline-none"
+                    className="w-full text-xs rounded-[4px] border border-slate-300 bg-white text-slate-800 px-3 py-1.5 font-mono uppercase focus:border-[#d70018] outline-none"
                   />
                   <button
                     type="submit"
@@ -249,17 +249,17 @@ const Cart = () => {
 
               {/* Applied Voucher Pill */}
               {appliedVoucher && (
-                <div className="flex items-center justify-between p-2.5 bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-200 dark:border-emerald-800 rounded-[4px] text-emerald-800 dark:text-emerald-300">
+                <div className="flex items-center justify-between p-2.5 bg-emerald-50 border border-emerald-200 rounded-[4px] text-emerald-800">
                   <div className="flex items-center gap-2">
-                    <CheckCircle className="w-4 h-4 text-emerald-600 dark:text-emerald-400 shrink-0" />
+                    <CheckCircle className="w-4 h-4 text-emerald-600 shrink-0" />
                     <div>
                       <p className="font-bold">{appliedVoucher.voucher.MaCode}: Giảm {formatPrice(appliedVoucher.discountAmount)}</p>
-                      <p className="text-[10px] text-emerald-600 dark:text-emerald-400">{appliedVoucher.voucher.MoTa}</p>
+                      <p className="text-[10px] text-emerald-600">{appliedVoucher.voucher.MoTa}</p>
                     </div>
                   </div>
                   <button
                     onClick={handleRemoveVoucher}
-                    className="p-1 hover:bg-emerald-100 dark:hover:bg-emerald-900 rounded-[2px] text-emerald-700 dark:text-emerald-300 transition-colors"
+                    className="p-1 hover:bg-emerald-100 rounded-[2px] text-emerald-700 transition-colors"
                     title="Hủy mã này"
                   >
                     <X className="w-3.5 h-3.5" />
@@ -269,19 +269,19 @@ const Cart = () => {
 
               {/* Quick Suggestion Chips */}
               {availableVouchers.length > 0 && !appliedVoucher && (
-                <div className="pt-2 border-t border-slate-100 dark:border-slate-800 space-y-1.5">
-                  <p className="text-[11px] text-slate-500 dark:text-slate-400 font-medium">Mã ưu đãi có thể dùng:</p>
+                <div className="pt-2 border-t border-slate-100 space-y-1.5">
+                  <p className="text-[11px] text-slate-500 font-medium">Mã ưu đãi có thể dùng:</p>
                   <div className="flex flex-wrap gap-1.5">
                     {availableVouchers.map((v) => (
                       <button
                         key={v.MaVoucher}
                         type="button"
                         onClick={() => handleApplyVoucher(null, v.MaCode)}
-                        className="inline-flex items-center gap-1.5 px-2.5 py-1 bg-red-50 dark:bg-slate-800 hover:bg-red-100 dark:hover:bg-slate-700 text-[#d70018] dark:text-rose-400 border border-red-200 dark:border-slate-700 rounded-[3px] text-[11px] font-bold transition-all cursor-pointer"
+                        className="inline-flex items-center gap-1.5 px-2.5 py-1 bg-red-50 hover:bg-red-100 text-[#d70018] border border-red-200 rounded-[3px] text-[11px] font-bold transition-all cursor-pointer"
                       >
                         <Tag className="w-3 h-3" />
                         <span>{v.MaCode}</span>
-                        <span className="font-normal text-slate-500 dark:text-slate-400 text-[10px]">
+                        <span className="font-normal text-slate-500 text-[10px]">
                           ({v.LoaiGiam === 'PHAN_TRAM' ? `-${v.GiaTriGiam}%` : `-${formatPrice(v.GiaTriGiam)}`})
                         </span>
                       </button>
@@ -294,33 +294,33 @@ const Cart = () => {
 
           {/* Right: Summary Box */}
           <div className="lg:col-span-4 space-y-3">
-            <div className="bg-white dark:bg-slate-900 rounded-md p-4 shadow-sm border border-slate-200 dark:border-slate-800 text-xs space-y-3">
-              <h3 className="font-bold text-sm text-slate-900 dark:text-slate-100 border-b border-slate-100 dark:border-slate-800 pb-2">
+            <div className="bg-white rounded-md p-4 shadow-sm border border-slate-200 text-xs space-y-3">
+              <h3 className="font-bold text-sm text-slate-900 border-b border-slate-100 pb-2">
                 Tóm tắt đơn hàng
               </h3>
 
-              <div className="space-y-2 text-slate-600 dark:text-slate-400">
+              <div className="space-y-2 text-slate-600">
                 <div className="flex justify-between">
                   <span>Tổng tiền hàng:</span>
-                  <span className="font-bold text-slate-800 dark:text-slate-200">{formatPrice(cartTotal)}</span>
+                  <span className="font-bold text-slate-800">{formatPrice(cartTotal)}</span>
                 </div>
 
                 <div className="flex justify-between">
                   <span>Vận chuyển NovaExpress:</span>
-                  <span className="font-bold text-emerald-600 dark:text-emerald-400">MIỄN PHÍ</span>
+                  <span className="font-bold text-emerald-600">MIỄN PHÍ</span>
                 </div>
 
                 {appliedVoucher && (
-                  <div className="flex justify-between text-[#d70018] dark:text-rose-400 font-bold">
+                  <div className="flex justify-between text-[#d70018] font-bold">
                     <span>Ưu đãi ({appliedVoucher.voucher.MaCode}):</span>
                     <span>-{formatPrice(discountAmount)}</span>
                   </div>
                 )}
               </div>
 
-              <div className="border-t border-slate-200 dark:border-slate-800 pt-3 flex justify-between items-baseline">
-                <span className="font-bold text-slate-900 dark:text-slate-100 text-sm">Cần thanh toán:</span>
-                <span className="text-xl font-black text-[#d70018] dark:text-rose-400">{formatPrice(finalTotal)}</span>
+              <div className="border-t border-slate-200 pt-3 flex justify-between items-baseline">
+                <span className="font-bold text-slate-900 text-sm">Cần thanh toán:</span>
+                <span className="text-xl font-black text-[#d70018]">{formatPrice(finalTotal)}</span>
               </div>
 
               <button
@@ -335,10 +335,10 @@ const Cart = () => {
               </p>
             </div>
 
-            <div className="bg-white dark:bg-slate-900 rounded-md p-3 border border-slate-200 dark:border-slate-800 text-[11px] text-slate-600 dark:text-slate-400 space-y-1.5">
-              <p className="flex items-center gap-1.5 font-bold text-slate-800 dark:text-slate-100">
-                <ShieldCheck className="w-4 h-4 text-[#d70018] dark:text-rose-400" />
-                Cam kết tại NovaTech:
+            <div className="bg-white rounded-md p-3 border border-slate-200 text-[11px] text-slate-600 space-y-1.5">
+              <p className="flex items-center gap-1.5 font-bold text-slate-800">
+                <ShieldCheck className="w-4 h-4 text-[#d70018]" />
+                Cam kết tại CellphoneS:
               </p>
               <p>✔ 100% hàng chính hãng, nguyên seal mới</p>
               <p>✔ Hỗ trợ đổi trả miễn phí trong 30 ngày nếu lỗi NSX</p>

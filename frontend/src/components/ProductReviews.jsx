@@ -152,7 +152,7 @@ const ProductReviews = ({ productId, onRatingStatsUpdate }) => {
   };
 
   return (
-    <div className="bg-white dark:bg-slate-800 rounded-2xl p-6 shadow-sm border border-slate-200 dark:border-slate-700 transition-colors space-y-6">
+    <div className="bg-white rounded-md p-6 shadow-sm border border-slate-200 space-y-6">
       {toast && (
         <Toast
           message={toast.message}
@@ -162,13 +162,13 @@ const ProductReviews = ({ productId, onRatingStatsUpdate }) => {
       )}
 
       {/* Header */}
-      <div className="flex items-center justify-between border-b border-slate-100 dark:border-slate-700 pb-4">
+      <div className="flex items-center justify-between border-b border-slate-100 pb-4">
         <div>
-          <h3 className="text-lg font-black text-slate-900 dark:text-white flex items-center gap-2">
+          <h3 className="text-lg font-black text-slate-900 flex items-center gap-2">
             <MessageSquare className="w-5 h-5 text-[#d70018]" />
             Đánh giá & Nhận xét của khách hàng
           </h3>
-          <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
+          <p className="text-xs text-slate-500 mt-0.5">
             Nhận xét thực tế từ những người đã mua sản phẩm tại CellphoneS
           </p>
         </div>
@@ -192,11 +192,11 @@ const ProductReviews = ({ productId, onRatingStatsUpdate }) => {
       </div>
 
       {/* Rating Summary Box */}
-      <div className="grid grid-cols-1 md:grid-cols-12 gap-6 bg-[#f8fafc] dark:bg-slate-900/60 p-5 rounded-md border border-slate-200 dark:border-slate-700">
+      <div className="grid grid-cols-1 md:grid-cols-12 gap-6 bg-[#f8fafc] p-5 rounded-md border border-slate-200">
         
         {/* Left: Big Average Star */}
-        <div className="md:col-span-4 flex flex-col items-center justify-center text-center border-b md:border-b-0 md:border-r border-slate-200 dark:border-slate-700 pb-4 md:pb-0 md:pr-4">
-          <div className="text-5xl font-black text-slate-900 dark:text-white tracking-tight">
+        <div className="md:col-span-4 flex flex-col items-center justify-center text-center border-b md:border-b-0 md:border-r border-slate-200 pb-4 md:pb-0 md:pr-4">
+          <div className="text-5xl font-black text-slate-900 tracking-tight">
             {reviewsData.averageRating || '5.0'}
             <span className="text-lg text-slate-400 font-normal">/5</span>
           </div>
@@ -208,13 +208,13 @@ const ProductReviews = ({ productId, onRatingStatsUpdate }) => {
                 className={`w-5 h-5 ${
                   star <= Math.round(reviewsData.averageRating || 5)
                     ? 'text-amber-400 fill-amber-400'
-                    : 'text-slate-300 dark:text-slate-600'
+                    : 'text-slate-300'
                 }`}
               />
             ))}
           </div>
 
-          <p className="text-xs text-slate-500 dark:text-slate-400 font-medium">
+          <p className="text-xs text-slate-500 font-medium">
             Dựa trên <strong>{reviewsData.totalReviews}</strong> lượt đánh giá thực tế
           </p>
         </div>
@@ -226,18 +226,18 @@ const ProductReviews = ({ productId, onRatingStatsUpdate }) => {
             const pct = getPercentage(count);
             return (
               <div key={star} className="flex items-center gap-3 text-xs">
-                <span className="w-12 font-bold text-slate-700 dark:text-slate-300 flex items-center gap-1">
+                <span className="w-12 font-bold text-slate-700 flex items-center gap-1">
                   {star} <Star className="w-3.5 h-3.5 text-amber-400 fill-amber-400" />
                 </span>
 
-                <div className="flex-1 bg-slate-200 dark:bg-slate-700 rounded-full h-2 overflow-hidden">
+                <div className="flex-1 bg-slate-200 rounded-full h-2 overflow-hidden">
                   <div
                     className="bg-[#d70018] h-full rounded-full transition-all duration-500"
                     style={{ width: `${pct}%` }}
                   />
                 </div>
 
-                <span className="w-16 text-right text-slate-500 dark:text-slate-400 text-[11px]">
+                <span className="w-16 text-right text-slate-500 text-[11px]">
                   {count} ({pct}%)
                 </span>
               </div>
@@ -249,19 +249,19 @@ const ProductReviews = ({ productId, onRatingStatsUpdate }) => {
 
       {/* Review Submission Form (Expandable) */}
       {showForm && (
-        <form onSubmit={handleSubmitReview} className="bg-red-50/50 dark:bg-slate-800/90 rounded-md p-5 border border-red-200 dark:border-red-900/60 space-y-4 animate-in fade-in duration-200">
+        <form onSubmit={handleSubmitReview} className="bg-red-50/50 rounded-md p-5 border border-red-200 space-y-4 animate-in fade-in duration-200">
           <div className="flex items-center justify-between">
-            <h4 className="font-bold text-sm text-[#d70018] dark:text-rose-400">
+            <h4 className="font-bold text-sm text-[#d70018]">
               {canReviewInfo.hasReviewed ? 'Cập nhật đánh giá của bạn:' : 'Đánh giá sản phẩm:'}
             </h4>
-            <span className="text-[11px] text-slate-500 dark:text-slate-400 flex items-center gap-1">
+            <span className="text-[11px] text-slate-500 flex items-center gap-1">
               <ShieldCheck className="w-4 h-4 text-emerald-600" /> Đã xác thực mua hàng
             </span>
           </div>
 
           {/* Star selector */}
           <div className="space-y-1">
-            <label className="text-xs font-bold text-slate-700 dark:text-slate-300 block">
+            <label className="text-xs font-bold text-slate-700 block">
               1. Bạn cảm thấy sản phẩm này như thế nào? *
             </label>
             <div className="flex items-center gap-2 pt-1">
@@ -278,12 +278,12 @@ const ProductReviews = ({ productId, onRatingStatsUpdate }) => {
                     className={`w-7 h-7 ${
                       star <= (hoverStar || selectedStar)
                         ? 'text-amber-400 fill-amber-400'
-                        : 'text-slate-300 dark:text-slate-600'
+                        : 'text-slate-300'
                     }`}
                   />
                 </button>
               ))}
-              <span className="text-xs font-bold text-amber-600 dark:text-amber-400 ml-2">
+              <span className="text-xs font-bold text-amber-600 ml-2">
                 {selectedStar === 5 && 'Tuyệt vời, rất hài lòng!'}
                 {selectedStar === 4 && 'Hài lòng'}
                 {selectedStar === 3 && 'Bình thường'}
@@ -295,7 +295,7 @@ const ProductReviews = ({ productId, onRatingStatsUpdate }) => {
 
           {/* Comment text */}
           <div className="space-y-1">
-            <label className="text-xs font-bold text-slate-700 dark:text-slate-300 block">
+            <label className="text-xs font-bold text-slate-700 block">
               2. Chia sẻ nhận xét chi tiết (chất lượng, độ bền, trải nghiệm dùng) *
             </label>
             <textarea
@@ -303,18 +303,18 @@ const ProductReviews = ({ productId, onRatingStatsUpdate }) => {
               value={commentText}
               onChange={(e) => setCommentText(e.target.value)}
               placeholder="Sản phẩm dùng rất mượt, camera chụp sắc nét, giao hàng siêu nhanh..."
-              className="w-full text-xs p-3 rounded-[4px] border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 text-slate-900 dark:text-white outline-none focus:border-[#d70018]"
+              className="w-full text-xs p-3 rounded-[4px] border border-slate-300 bg-white text-slate-900 outline-none focus:border-[#d70018]"
               required
             />
           </div>
 
           {/* Image upload */}
           <div className="space-y-2">
-            <label className="text-xs font-bold text-slate-700 dark:text-slate-300 block">
+            <label className="text-xs font-bold text-slate-700 block">
               3. Đính kèm ảnh thực tế (Tùy chọn)
             </label>
             <div className="flex items-center gap-3">
-              <label className="inline-flex items-center gap-2 px-3 py-2 bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-600 rounded-[4px] text-xs font-semibold text-slate-700 dark:text-slate-300 hover:bg-slate-50 cursor-pointer transition-colors shadow-sm">
+              <label className="inline-flex items-center gap-2 px-3 py-2 bg-white border border-slate-300 rounded-[4px] text-xs font-semibold text-slate-700 hover:bg-slate-50 cursor-pointer transition-colors shadow-sm">
                 <Upload className="w-4 h-4 text-[#d70018]" />
                 <span>{uploadingImage ? 'Đang tải ảnh...' : 'Chọn ảnh từ máy tính'}</span>
                 <input
@@ -327,7 +327,7 @@ const ProductReviews = ({ productId, onRatingStatsUpdate }) => {
               </label>
 
               {reviewImage && (
-                <div className="relative inline-block border border-slate-300 dark:border-slate-600 rounded-[4px] overflow-hidden group">
+                <div className="relative inline-block border border-slate-300 rounded-[4px] overflow-hidden group">
                   <img
                     src={reviewImage.startsWith('http') ? reviewImage : `http://localhost:5000${reviewImage}`}
                     alt="Preview"
@@ -347,11 +347,11 @@ const ProductReviews = ({ productId, onRatingStatsUpdate }) => {
           </div>
 
           {/* Action buttons */}
-          <div className="flex items-center justify-end gap-2 pt-2 border-t border-red-200 dark:border-red-900/60">
+          <div className="flex items-center justify-end gap-2 pt-2 border-t border-red-200">
             <button
               type="button"
               onClick={() => setShowForm(false)}
-              className="px-4 py-2 bg-white dark:bg-slate-700 text-slate-700 dark:text-slate-300 rounded-[4px] text-xs font-bold hover:bg-slate-100 transition-colors"
+              className="px-4 py-2 bg-white text-slate-700 rounded-[4px] text-xs font-bold hover:bg-slate-100 transition-colors"
             >
               Hủy
             </button>
@@ -367,15 +367,15 @@ const ProductReviews = ({ productId, onRatingStatsUpdate }) => {
       )}
 
       {/* Filter Tabs */}
-      <div className="flex flex-wrap items-center gap-2 pt-2 border-t border-slate-100 dark:border-slate-700 text-xs">
-        <span className="font-bold text-slate-600 dark:text-slate-400 mr-1">Lọc xem theo:</span>
+      <div className="flex flex-wrap items-center gap-2 pt-2 border-t border-slate-100 text-xs">
+        <span className="font-bold text-slate-600 mr-1">Lọc xem theo:</span>
 
         <button
           onClick={() => setActiveFilter('ALL')}
           className={`px-3 py-1.5 rounded-[4px] font-bold transition-colors cursor-pointer ${
             activeFilter === 'ALL'
               ? 'bg-[#d70018] text-white'
-              : 'bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-300 hover:bg-slate-200'
+              : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
           }`}
         >
           Tất cả ({reviewsData.totalReviews})
@@ -386,7 +386,7 @@ const ProductReviews = ({ productId, onRatingStatsUpdate }) => {
           className={`px-3 py-1.5 rounded-[4px] font-bold flex items-center gap-1 transition-colors cursor-pointer ${
             activeFilter === 'WITH_IMAGE'
               ? 'bg-[#d70018] text-white'
-              : 'bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-300 hover:bg-slate-200'
+              : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
           }`}
         >
           <ImageIcon className="w-3.5 h-3.5" /> Có hình ảnh
@@ -399,7 +399,7 @@ const ProductReviews = ({ productId, onRatingStatsUpdate }) => {
             className={`px-3 py-1.5 rounded-[4px] font-bold flex items-center gap-1 transition-colors cursor-pointer ${
               activeFilter === s
                 ? 'bg-[#d70018] text-white'
-                : 'bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-300 hover:bg-slate-200'
+                : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
             }`}
           >
             {s} <Star className="w-3 h-3 text-amber-400 fill-amber-400" /> ({reviewsData.ratingDistribution[s] || 0})
@@ -410,10 +410,10 @@ const ProductReviews = ({ productId, onRatingStatsUpdate }) => {
       {/* Reviews List */}
       <div className="space-y-4 pt-2">
         {filteredReviews.length === 0 ? (
-          <div className="text-center py-10 bg-slate-50 dark:bg-slate-900/40 rounded-md border border-dashed border-slate-200 dark:border-slate-700">
+          <div className="text-center py-10 bg-slate-50 rounded-md border border-dashed border-slate-200">
             <MessageSquare className="w-10 h-10 text-slate-400 mx-auto mb-2 opacity-50" />
-            <p className="text-xs font-bold text-slate-700 dark:text-slate-300">Chưa có đánh giá nào phù hợp bộ lọc.</p>
-            <p className="text-[11px] text-slate-500 dark:text-slate-400 mt-1">Hãy là người đầu tiên trải nghiệm và chia sẻ nhận xét!</p>
+            <p className="text-xs font-bold text-slate-700">Chưa có đánh giá nào phù hợp bộ lọc.</p>
+            <p className="text-[11px] text-slate-500 mt-1">Hãy là người đầu tiên trải nghiệm và chia sẻ nhận xét!</p>
           </div>
         ) : (
           filteredReviews.map((rev) => {
@@ -424,7 +424,7 @@ const ProductReviews = ({ productId, onRatingStatsUpdate }) => {
             return (
               <div
                 key={rev.MaDanhGia}
-                className="p-4 bg-slate-50 dark:bg-slate-900/50 rounded-md border border-slate-200 dark:border-slate-700/80 space-y-2 text-xs"
+                className="p-4 bg-[#f8fafc] rounded-md border border-slate-200 space-y-2 text-xs"
               >
                 {/* User & Date Header */}
                 <div className="flex items-center justify-between">
@@ -433,9 +433,9 @@ const ProductReviews = ({ productId, onRatingStatsUpdate }) => {
                       {(rev.NguoiDung?.TenKH || 'K')[0]}
                     </div>
                     <div>
-                      <p className="font-bold text-slate-900 dark:text-white flex items-center gap-1.5">
+                      <p className="font-bold text-slate-900 flex items-center gap-1.5">
                         {rev.NguoiDung?.TenKH || rev.NguoiDung?.TaiKhoan || 'Khách hàng CellphoneS'}
-                        <span className="inline-flex items-center gap-0.5 text-[10px] font-normal text-emerald-700 bg-emerald-100 dark:bg-emerald-950 dark:text-emerald-400 px-1.5 py-0.2 rounded-full">
+                        <span className="inline-flex items-center gap-0.5 text-[10px] font-semibold text-emerald-700 bg-emerald-50 border border-emerald-200 px-1.5 py-0.5 rounded-[3px]">
                           <CheckCircle2 className="w-3 h-3" /> Đã mua tại CellphoneS
                         </span>
                       </p>
@@ -453,14 +453,14 @@ const ProductReviews = ({ productId, onRatingStatsUpdate }) => {
                     <Star
                       key={st}
                       className={`w-3.5 h-3.5 ${
-                        st <= rev.SoSao ? 'text-amber-400 fill-amber-400' : 'text-slate-300 dark:text-slate-600'
+                        st <= rev.SoSao ? 'text-amber-400 fill-amber-400' : 'text-slate-300'
                       }`}
                     />
                   ))}
                 </div>
 
                 {/* Content */}
-                <p className="text-slate-700 dark:text-slate-300 leading-relaxed font-normal pt-1">
+                <p className="text-slate-700 leading-relaxed font-normal pt-1">
                   {rev.NoiDung}
                 </p>
 
@@ -471,7 +471,7 @@ const ProductReviews = ({ productId, onRatingStatsUpdate }) => {
                       src={imgSrc}
                       alt="Ảnh nhận xét"
                       onClick={() => setPreviewModalImg(imgSrc)}
-                      className="w-20 h-20 object-cover rounded-lg border border-slate-200 dark:border-slate-700 shadow-sm cursor-pointer hover:opacity-90 hover:scale-105 transition-all"
+                      className="w-20 h-20 object-cover rounded-md border border-slate-200 shadow-sm cursor-pointer hover:opacity-90 hover:scale-105 transition-all"
                     />
                   </div>
                 )}
@@ -487,8 +487,8 @@ const ProductReviews = ({ productId, onRatingStatsUpdate }) => {
           onClick={() => setPreviewModalImg(null)}
           className="fixed inset-0 z-50 bg-black/80 backdrop-blur-xs flex items-center justify-center p-4 cursor-pointer"
         >
-          <div className="relative max-w-2xl max-h-[85vh] bg-white rounded-2xl overflow-hidden p-2 shadow-2xl" onClick={e => e.stopPropagation()}>
-            <img src={previewModalImg} alt="Phóng to ảnh" className="max-w-full max-h-[80vh] object-contain rounded-lg" />
+          <div className="relative max-w-2xl max-h-[85vh] bg-white rounded-md overflow-hidden p-2 shadow-2xl" onClick={e => e.stopPropagation()}>
+            <img src={previewModalImg} alt="Phóng to ảnh" className="max-w-full max-h-[80vh] object-contain rounded" />
             <button
               onClick={() => setPreviewModalImg(null)}
               className="absolute top-4 right-4 bg-black/60 text-white rounded-full p-1.5 hover:bg-black transition-colors"
