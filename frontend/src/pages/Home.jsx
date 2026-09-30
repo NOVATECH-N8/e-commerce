@@ -268,10 +268,10 @@ const Home = () => {
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-2.5 items-stretch">
             
             {/* Column 1: Left Vertical Category Mega Menu (3 cols) */}
-            <div className="hidden lg:flex lg:col-span-3 bg-white dark:bg-[#0f1a30] rounded-md border border-slate-200 dark:border-slate-800 shadow-sm p-2 flex-col justify-between text-xs">
+            <div className="hidden lg:flex lg:col-span-3 bg-white dark:bg-[#111827] rounded-md border border-slate-200 dark:border-slate-800 shadow-sm p-2 flex-col justify-between text-xs">
               <div className="space-y-0.5">
                 <div className="px-2.5 py-1 text-[11px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider flex items-center gap-1.5 border-b border-slate-100 dark:border-slate-800 mb-1">
-                  <SlidersHorizontal className="w-3 h-3 text-[#0284c7]" />
+                  <SlidersHorizontal className="w-3 h-3 text-[#d70018]" />
                   <span>Danh Mục Sản Phẩm</span>
                 </div>
 
@@ -279,12 +279,12 @@ const Home = () => {
                   onClick={() => updateFilter('categoryId', '')}
                   className={`w-full flex items-center justify-between px-2.5 py-2 rounded text-left transition-colors cursor-pointer ${
                     !selectedCategory
-                      ? 'bg-sky-50 dark:bg-sky-950/50 text-[#0284c7] font-bold'
-                      : 'text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800/80 hover:text-[#0284c7]'
+                      ? 'bg-red-50 dark:bg-red-950/40 text-[#d70018] font-bold border-l-2 border-[#d70018]'
+                      : 'text-slate-700 dark:text-slate-300 hover:bg-red-50/60 dark:hover:bg-slate-800/80 hover:text-[#d70018]'
                   }`}
                 >
                   <div className="flex items-center gap-2">
-                    <Sparkles className="w-4 h-4 text-[#0284c7]" />
+                    <Sparkles className="w-4 h-4 text-[#d70018]" />
                     <span>Tất cả sản phẩm</span>
                   </div>
                   <ChevronRight className="w-3.5 h-3.5 text-slate-400" />
@@ -298,8 +298,8 @@ const Home = () => {
                       onClick={() => updateFilter('categoryId', String(cat.MaDM))}
                       className={`w-full flex items-center justify-between px-2.5 py-2 rounded text-left transition-colors cursor-pointer ${
                         isSelected
-                          ? 'bg-sky-50 dark:bg-sky-950/50 text-[#0284c7] font-bold'
-                          : 'text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800/80 hover:text-[#0284c7]'
+                          ? 'bg-red-50 dark:bg-red-950/40 text-[#d70018] font-bold border-l-2 border-[#d70018]'
+                          : 'text-slate-700 dark:text-slate-300 hover:bg-red-50/60 dark:hover:bg-slate-800/80 hover:text-[#d70018]'
                       }`}
                     >
                       <div className="flex items-center gap-2">
@@ -313,7 +313,7 @@ const Home = () => {
 
                 <button
                   onClick={() => handleBrandClick('Apple')}
-                  className="w-full flex items-center justify-between px-2.5 py-2 rounded text-left text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800/80 hover:text-[#0284c7] transition-colors cursor-pointer"
+                  className="w-full flex items-center justify-between px-2.5 py-2 rounded text-left text-slate-700 dark:text-slate-300 hover:bg-red-50/60 dark:hover:bg-slate-800/80 hover:text-[#d70018] transition-colors cursor-pointer"
                 >
                   <div className="flex items-center gap-2">
                     <span className="text-sm font-serif"></span>
@@ -324,7 +324,7 @@ const Home = () => {
 
                 <Link
                   to="/tracking"
-                  className="w-full flex items-center justify-between px-2.5 py-2 rounded text-left text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800/80 hover:text-[#0284c7] transition-colors"
+                  className="w-full flex items-center justify-between px-2.5 py-2 rounded text-left text-slate-700 dark:text-slate-300 hover:bg-red-50/60 dark:hover:bg-slate-800/80 hover:text-[#d70018] transition-colors"
                 >
                   <div className="flex items-center gap-2">
                     <RefreshCw className="w-4 h-4 text-emerald-500" />
@@ -335,19 +335,19 @@ const Home = () => {
               </div>
 
               {/* Bottom Member Banner in Sidebar */}
-              <div className="mt-2 p-2 bg-gradient-to-r from-sky-500 to-[#0284c7] text-white rounded text-[11px] flex items-center justify-between shadow-sm">
+              <div className="mt-2 p-2 bg-gradient-to-r from-red-600 to-[#d70018] text-white rounded text-[11px] flex items-center justify-between shadow-sm">
                 <div>
-                  <p className="font-bold leading-tight">NovaMember</p>
-                  <p className="text-[9.5px] text-sky-100">Đăng ký nhận deal hời</p>
+                  <p className="font-bold leading-tight">Smember VIP</p>
+                  <p className="text-[9.5px] text-red-100">Đăng ký nhận deal hời</p>
                 </div>
-                <Link to="/login" className="bg-white text-[#0284c7] px-2 py-0.5 rounded font-bold text-[10px]">
+                <Link to="/login" className="bg-white text-[#d70018] px-2 py-0.5 rounded font-bold text-[10px]">
                   Vào ngay
                 </Link>
               </div>
             </div>
 
             {/* Column 2: Center Main Carousel (6 cols) */}
-            <div className="lg:col-span-6 bg-white dark:bg-[#0f1a30] rounded-md overflow-hidden shadow-sm border border-slate-200 dark:border-slate-800 flex flex-col justify-between">
+            <div className="lg:col-span-6 bg-white dark:bg-[#111827] rounded-md overflow-hidden shadow-sm border border-slate-200 dark:border-slate-800 flex flex-col justify-between">
               <div className="relative h-56 sm:h-64 md:h-72 lg:h-80 w-full overflow-hidden bg-slate-900 group">
                 <img
                   src={HERO_BANNERS[activeBanner].image}
@@ -355,24 +355,24 @@ const Home = () => {
                   className="w-full h-full object-cover object-center transition-all duration-700 group-hover:scale-105"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-slate-900/30 to-transparent flex flex-col justify-end p-4 text-white">
-                  <span className="inline-block self-start px-2 py-0.5 bg-[#0284c7] text-white font-bold text-[10px] rounded mb-1 uppercase shadow-sm">
+                  <span className="inline-block self-start px-2 py-0.5 bg-[#d70018] text-white font-bold text-[10px] rounded mb-1 uppercase shadow-sm">
                     {HERO_BANNERS[activeBanner].tag}
                   </span>
                   <h2 className="text-lg sm:text-xl font-black">{HERO_BANNERS[activeBanner].title}</h2>
-                  <p className="text-xs text-sky-200 font-medium">{HERO_BANNERS[activeBanner].subtitle}</p>
+                  <p className="text-xs text-red-200 font-medium">{HERO_BANNERS[activeBanner].subtitle}</p>
                 </div>
               </div>
 
               {/* Banner Tab bar (4 tabs) */}
-              <div className="grid grid-cols-4 border-t border-slate-200 dark:border-slate-800 bg-white dark:bg-[#0b1325] text-[11px] font-semibold text-center divide-x divide-slate-100 dark:divide-slate-800">
+              <div className="grid grid-cols-4 border-t border-slate-200 dark:border-slate-800 bg-white dark:bg-[#111827] text-[11px] font-semibold text-center divide-x divide-slate-100 dark:divide-slate-800">
                 {HERO_BANNERS.map((b, idx) => (
                   <button
                     key={b.id}
                     onClick={() => setActiveBanner(idx)}
                     className={`py-2 px-1 transition-colors leading-tight cursor-pointer ${
                       activeBanner === idx
-                        ? 'border-b-2 border-[#0284c7] font-bold text-[#0284c7] bg-sky-50/70 dark:bg-sky-950/50'
-                        : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-50 dark:hover:bg-slate-800'
+                        ? 'border-b-2 border-[#d70018] font-bold text-[#d70018] bg-red-50/70 dark:bg-red-950/40'
+                        : 'text-slate-600 dark:text-slate-400 hover:text-[#d70018] dark:hover:text-white hover:bg-slate-50 dark:hover:bg-slate-800'
                     }`}
                   >
                     <span className="line-clamp-2">{b.title}</span>
@@ -385,18 +385,18 @@ const Home = () => {
             <div className="lg:col-span-3 flex flex-col sm:flex-row lg:flex-col gap-2.5">
               <div 
                 onClick={() => navigate('/?brand=Apple')}
-                className="flex-1 bg-gradient-to-br from-slate-900 via-slate-800 to-sky-950 rounded-md p-3.5 text-white shadow-sm cursor-pointer hover:border-sky-500 border border-slate-700/60 transition-all flex flex-col justify-between min-h-[110px]"
+                className="flex-1 bg-gradient-to-br from-slate-900 via-slate-800 to-red-950 rounded-md p-3.5 text-white shadow-sm cursor-pointer hover:border-red-500 border border-slate-700/60 transition-all flex flex-col justify-between min-h-[110px]"
               >
                 <div>
-                  <span className="text-[9.5px] font-bold uppercase tracking-wider bg-white/10 px-1.5 py-0.5 rounded text-sky-300">
-                    Độc quyền NovaTech
+                  <span className="text-[9.5px] font-bold uppercase tracking-wider bg-white/10 px-1.5 py-0.5 rounded text-red-300">
+                    Độc quyền CellphoneS
                   </span>
                   <h3 className="text-sm font-black mt-1.5">THU CŨ ĐỔI MỚI</h3>
                   <p className="text-[11px] text-slate-300 mt-0.5 leading-snug">
-                    Trợ giá lên đến 2.500.000đ khi lên đời máy tại NovaTech
+                    Trợ giá lên đến 2.500.000đ khi lên đời máy tại hệ thống
                   </p>
                 </div>
-                <div className="flex items-center gap-1 text-[11px] text-sky-400 font-bold mt-2">
+                <div className="flex items-center gap-1 text-[11px] text-red-400 font-bold mt-2">
                   <span>Khám phá ngay</span>
                   <ChevronRight className="w-3.5 h-3.5" />
                 </div>
@@ -404,14 +404,14 @@ const Home = () => {
 
               <div 
                 onClick={() => navigate('/?priceRange=under5m')}
-                className="flex-1 bg-gradient-to-br from-[#0c2a4d] to-[#0284c7] rounded-md p-3.5 text-white shadow-sm cursor-pointer hover:border-sky-400 border border-sky-800/60 transition-all flex flex-col justify-between min-h-[110px]"
+                className="flex-1 bg-gradient-to-br from-[#7f000d] to-[#d70018] rounded-md p-3.5 text-white shadow-sm cursor-pointer hover:border-red-300 border border-red-800/60 transition-all flex flex-col justify-between min-h-[110px]"
               >
                 <div>
                   <span className="text-[9.5px] font-bold uppercase tracking-wider bg-white/20 px-1.5 py-0.5 rounded text-white">
                     Ưu Đãi Học Sinh - SV
                   </span>
                   <h3 className="text-sm font-black mt-1.5">LAPTOP CHÍNH HÃNG</h3>
-                  <p className="text-[11px] text-sky-100 mt-0.5 leading-snug">
+                  <p className="text-[11px] text-red-100 mt-0.5 leading-snug">
                     Giảm thêm 500.000đ và tặng balo chống sốc cao cấp
                   </p>
                 </div>
@@ -423,14 +423,14 @@ const Home = () => {
 
               <div 
                 onClick={() => navigate('/?brand=Samsung')}
-                className="hidden xl:flex flex-1 bg-gradient-to-br from-blue-900 to-indigo-950 rounded-md p-3.5 text-white shadow-sm cursor-pointer hover:border-blue-400 border border-blue-800/60 transition-all flex flex-col justify-between min-h-[100px]"
+                className="hidden xl:flex flex-1 bg-gradient-to-br from-red-950 via-slate-900 to-black rounded-md p-3.5 text-white shadow-sm cursor-pointer hover:border-red-500 border border-red-900/60 transition-all flex flex-col justify-between min-h-[100px]"
               >
                 <div>
                   <span className="text-[9.5px] font-bold uppercase tracking-wider bg-amber-400 text-slate-950 px-1.5 py-0.5 rounded">
                     Galaxy AI
                   </span>
                   <h3 className="text-sm font-black mt-1.5">SAMSUNG GALAXY</h3>
-                  <p className="text-[11px] text-blue-200 mt-0.5 leading-snug">
+                  <p className="text-[11px] text-red-200 mt-0.5 leading-snug">
                     Tặng gói bảo hành Samsung Care+ 1 năm miễn phí
                   </p>
                 </div>
@@ -445,16 +445,16 @@ const Home = () => {
         )}
 
         {/* ================= 2. BRAND QUICK FILTER CHIPS (TECH TABS) ================= */}
-        <div className="bg-white dark:bg-[#0f1a30] rounded-md p-2.5 shadow-sm border border-slate-200 dark:border-slate-800">
+        <div className="bg-white dark:bg-[#111827] rounded-md p-2.5 shadow-sm border border-slate-200 dark:border-slate-800">
           <div className="flex items-center justify-between gap-2 mb-2">
             <span className="text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wide flex items-center gap-1.5">
-              <Sparkles className="w-3.5 h-3.5 text-[#0284c7]" />
+              <Sparkles className="w-3.5 h-3.5 text-[#d70018]" />
               Thương hiệu nổi bật:
             </span>
             {brandFilter && (
               <button
                 onClick={() => handleBrandClick(brandFilter)}
-                className="text-xs text-[#0284c7] hover:underline flex items-center gap-1 font-semibold cursor-pointer"
+                className="text-xs text-[#d70018] hover:underline flex items-center gap-1 font-semibold cursor-pointer"
               >
                 <span>Xóa lọc ({brandFilter})</span>
                 <X className="w-3 h-3" />
@@ -470,8 +470,8 @@ const Home = () => {
                   onClick={() => handleBrandClick(b.name)}
                   className={`px-3 py-1.5 rounded border text-xs font-bold transition-all whitespace-nowrap cursor-pointer flex items-center gap-1.5 ${
                     isActive
-                      ? 'border-[#0284c7] bg-sky-50 dark:bg-sky-950/60 text-[#0284c7] shadow-xs'
-                      : 'border-slate-200 dark:border-slate-700 hover:border-[#0284c7] text-slate-700 dark:text-slate-300 bg-slate-50 dark:bg-[#0b1325] hover:bg-white'
+                      ? 'border-[#d70018] bg-red-50 dark:bg-red-950/60 text-[#d70018] shadow-xs'
+                      : 'border-slate-200 dark:border-slate-700 hover:border-[#d70018] text-slate-700 dark:text-slate-300 bg-slate-50 dark:bg-[#1f2937] hover:bg-white'
                   }`}
                 >
                   <span className="font-mono text-slate-400">{b.logo}</span>
@@ -498,8 +498,8 @@ const Home = () => {
                 onClick={() => handlePriceClick(r.id)}
                 className={`px-3 py-1.5 rounded border font-semibold whitespace-nowrap transition-colors cursor-pointer ${
                   isSelected
-                    ? 'border-[#0284c7] bg-[#0284c7] text-white font-bold shadow-xs'
-                    : 'border-slate-200 dark:border-slate-700 bg-white dark:bg-[#0f1a30] text-slate-700 dark:text-slate-300 hover:border-[#0284c7]'
+                    ? 'border-[#d70018] bg-[#d70018] text-white font-bold shadow-xs'
+                    : 'border-slate-200 dark:border-slate-700 bg-white dark:bg-[#111827] text-slate-700 dark:text-slate-300 hover:border-[#d70018]'
                 }`}
               >
                 {r.label}
@@ -532,7 +532,7 @@ const Home = () => {
 
               {/* Countdown Timer */}
               <div className="flex items-center gap-1.5 text-xs font-bold">
-                <span className="text-sky-100 text-[11px]">KẾT THÚC TRONG:</span>
+                <span className="text-red-100 text-[11px]">KẾT THÚC TRONG:</span>
                 <span className="bg-slate-950 text-white px-1.5 py-0.5 rounded-[2px] font-mono font-black text-xs border border-slate-700">
                   {String(timeLeft.hours).padStart(2, '0')}
                 </span>
@@ -587,14 +587,14 @@ const Home = () => {
                     )}
 
                     {/* Product Name */}
-                    <h3 className="text-xs sm:text-[13px] font-bold text-slate-900 dark:text-white line-clamp-2 group-hover:text-[#0284c7] transition-colors mb-1.5 leading-snug">
+                    <h3 className="text-xs sm:text-[13px] font-bold text-slate-900 dark:text-white line-clamp-2 group-hover:text-[#d70018] transition-colors mb-1.5 leading-snug">
                       {product.TenSP}
                     </h3>
 
                     {/* Price & Deal Progress */}
                     <div className="mt-auto pt-1.5 border-t border-slate-100 dark:border-slate-800">
                       <div className="flex items-baseline gap-1.5 flex-wrap mb-1">
-                        <span className="text-rose-600 dark:text-rose-400 font-black text-sm sm:text-base">
+                        <span className="text-[#d70018] dark:text-rose-400 font-black text-sm sm:text-base">
                           {formatPrice(product.GiaBan)}
                         </span>
                         <span className="text-slate-400 line-through text-[11px]">
@@ -605,7 +605,7 @@ const Home = () => {
                       {/* Sold progress bar */}
                       <div className="w-full bg-slate-100 dark:bg-slate-800 rounded-[2px] h-3.5 relative overflow-hidden mb-2 border border-slate-200 dark:border-slate-700">
                         <div 
-                          className="bg-gradient-to-r from-rose-500 to-amber-500 h-full rounded-[2px]"
+                          className="bg-gradient-to-r from-[#d70018] to-amber-500 h-full rounded-[2px]"
                           style={{ width: `${Math.min(95, 40 + (product.MaSP * 7) % 55)}%` }}
                         />
                         <span className="absolute inset-0 text-[9px] font-bold text-slate-900 dark:text-white flex items-center justify-center drop-shadow-xs">
@@ -633,7 +633,7 @@ const Home = () => {
 
         {/* ================= 5. FILTER RESULTS MODE ================= */}
         {isFiltering ? (
-          <div className="bg-white dark:bg-[#0f1a30] rounded-md p-3.5 shadow-sm border border-slate-200 dark:border-slate-800">
+          <div className="bg-white dark:bg-[#111827] rounded-md p-3.5 shadow-sm border border-slate-200 dark:border-slate-800">
             <div className="flex flex-wrap items-center justify-between gap-3 mb-3.5 pb-2.5 border-b border-slate-200 dark:border-slate-800">
               <div>
                 <h2 className="text-sm sm:text-base font-bold text-slate-900 dark:text-white uppercase tracking-tight">
@@ -661,7 +661,7 @@ const Home = () => {
 
             {loading ? (
               <div className="py-20 text-center text-slate-500 text-sm">
-                <div className="w-8 h-8 border-3 border-[#0284c7] border-t-transparent rounded-full animate-spin mx-auto mb-2" />
+                <div className="w-8 h-8 border-3 border-[#d70018] border-t-transparent rounded-full animate-spin mx-auto mb-2" />
                 Đang tải dữ liệu sản phẩm...
               </div>
             ) : products.length === 0 ? (
@@ -671,7 +671,7 @@ const Home = () => {
                 <p className="text-xs mt-1 text-slate-400">Vui lòng thử lại với từ khóa hoặc bộ lọc khác.</p>
                 <button
                   onClick={handleClearAllFilters}
-                  className="mt-4 px-4 py-2 bg-[#0284c7] text-white font-bold text-xs rounded hover:bg-[#0369a1] transition-colors cursor-pointer"
+                  className="mt-4 px-4 py-2 bg-[#d70018] text-white font-bold text-xs rounded hover:bg-[#be0015] transition-colors cursor-pointer"
                 >
                   Xem tất cả sản phẩm
                 </button>
@@ -688,17 +688,17 @@ const Home = () => {
             
             {/* Section: Điện thoại nổi bật */}
             {phoneProducts.length > 0 && (
-              <div className="bg-white dark:bg-[#0f1a30] rounded-md p-3.5 shadow-sm border border-slate-200 dark:border-slate-800">
+              <div className="bg-white dark:bg-[#111827] rounded-md p-3.5 shadow-sm border border-slate-200 dark:border-slate-800">
                 <div className="flex items-center justify-between mb-2.5 border-b border-slate-100 dark:border-slate-800 pb-2">
                   <div className="flex items-center gap-2">
-                    <span className="w-1.5 h-4 bg-[#0284c7] rounded-[1px]" />
+                    <span className="w-1.5 h-4 bg-[#d70018] rounded-[1px]" />
                     <h2 className="text-sm sm:text-base font-black text-slate-900 dark:text-white uppercase tracking-tight">
                       ĐIỆN THOẠI NỔI BẬT NHẤT
                     </h2>
                   </div>
                   <button
                     onClick={() => navigate('/?categoryId=1')}
-                    className="text-xs font-bold text-[#0284c7] hover:underline flex items-center gap-0.5 cursor-pointer"
+                    className="text-xs font-bold text-[#d70018] hover:underline flex items-center gap-0.5 cursor-pointer"
                   >
                     <span>Xem tất cả ({phoneProducts.length}+)</span>
                     <ChevronRight className="w-3.5 h-3.5" />
@@ -713,17 +713,17 @@ const Home = () => {
 
             {/* Section: Laptop & Máy tính */}
             {laptopProducts.length > 0 && (
-              <div className="bg-white dark:bg-[#0f1a30] rounded-md p-3.5 shadow-sm border border-slate-200 dark:border-slate-800">
+              <div className="bg-white dark:bg-[#111827] rounded-md p-3.5 shadow-sm border border-slate-200 dark:border-slate-800">
                 <div className="flex items-center justify-between mb-2.5 border-b border-slate-100 dark:border-slate-800 pb-2">
                   <div className="flex items-center gap-2">
-                    <span className="w-1.5 h-4 bg-[#0ea5e9] rounded-[1px]" />
+                    <span className="w-1.5 h-4 bg-[#d70018] rounded-[1px]" />
                     <h2 className="text-sm sm:text-base font-black text-slate-900 dark:text-white uppercase tracking-tight">
                       LAPTOP &amp; PC GIÁ TỐT
                     </h2>
                   </div>
                   <button
                     onClick={() => navigate('/?categoryId=2')}
-                    className="text-xs font-bold text-[#0284c7] hover:underline flex items-center gap-0.5 cursor-pointer"
+                    className="text-xs font-bold text-[#d70018] hover:underline flex items-center gap-0.5 cursor-pointer"
                   >
                     <span>Xem tất cả ({laptopProducts.length}+)</span>
                     <ChevronRight className="w-3.5 h-3.5" />
@@ -738,17 +738,17 @@ const Home = () => {
 
             {/* Section: Phụ kiện & Thiết bị thông minh */}
             {accessoryProducts.length > 0 && (
-              <div className="bg-white dark:bg-[#0f1a30] rounded-md p-3.5 shadow-sm border border-slate-200 dark:border-slate-800">
+              <div className="bg-white dark:bg-[#111827] rounded-md p-3.5 shadow-sm border border-slate-200 dark:border-slate-800">
                 <div className="flex items-center justify-between mb-2.5 border-b border-slate-100 dark:border-slate-800 pb-2">
                   <div className="flex items-center gap-2">
-                    <span className="w-1.5 h-4 bg-[#38bdf8] rounded-[1px]" />
+                    <span className="w-1.5 h-4 bg-[#d70018] rounded-[1px]" />
                     <h2 className="text-sm sm:text-base font-black text-slate-900 dark:text-white uppercase tracking-tight">
                       PHỤ KIỆN &amp; THIẾT BỊ THÔNG MINH
                     </h2>
                   </div>
                   <button
                     onClick={() => navigate('/?categoryId=3')}
-                    className="text-xs font-bold text-[#0284c7] hover:underline flex items-center gap-0.5 cursor-pointer"
+                    className="text-xs font-bold text-[#d70018] hover:underline flex items-center gap-0.5 cursor-pointer"
                   >
                     <span>Xem tất cả ({accessoryProducts.length}+)</span>
                     <ChevronRight className="w-3.5 h-3.5" />
@@ -762,10 +762,10 @@ const Home = () => {
             )}
 
             {/* Section: Toàn bộ danh mục sản phẩm (Gợi ý hôm nay) */}
-            <div className="bg-white dark:bg-[#0f1a30] rounded-md p-3.5 shadow-sm border border-slate-200 dark:border-slate-800">
+            <div className="bg-white dark:bg-[#111827] rounded-md p-3.5 shadow-sm border border-slate-200 dark:border-slate-800">
               <div className="flex items-center justify-between mb-2.5 border-b border-slate-100 dark:border-slate-800 pb-2">
                 <div className="flex items-center gap-2">
-                  <span className="w-1.5 h-4 bg-slate-700 rounded-[1px]" />
+                  <span className="w-1.5 h-4 bg-[#d70018] rounded-[1px]" />
                   <h2 className="text-sm sm:text-base font-black text-slate-900 dark:text-white uppercase tracking-tight">
                     GỢI Ý HÔM NAY CHO BẠN
                   </h2>
@@ -824,14 +824,14 @@ const Home = () => {
         )}
 
         {/* Product Title */}
-        <h3 className="text-xs sm:text-[13px] font-bold text-slate-900 dark:text-white line-clamp-2 group-hover:text-[#0284c7] transition-colors mb-1.5 leading-snug">
+        <h3 className="text-xs sm:text-[13px] font-bold text-slate-900 dark:text-white line-clamp-2 group-hover:text-[#d70018] transition-colors mb-1.5 leading-snug">
           {product.TenSP}
         </h3>
 
         {/* Pricing */}
         <div className="mt-auto pt-1.5 border-t border-slate-100 dark:border-slate-800">
           <div className="flex items-baseline gap-1.5 flex-wrap mb-0.5">
-            <span className="text-[#0284c7] dark:text-[#38bdf8] font-black text-sm sm:text-base">
+            <span className="text-[#d70018] dark:text-rose-400 font-black text-sm sm:text-base">
               {formatPrice(product.GiaBan)}
             </span>
             <span className="text-slate-400 line-through text-[11px]">
@@ -841,7 +841,7 @@ const Home = () => {
 
           {/* Member perk */}
           <div className="text-[10px] text-amber-600 dark:text-amber-400 font-semibold mb-1 truncate">
-            🎁 NovaMember giảm thêm 1%
+            🎁 Smember giảm thêm 1%
           </div>
 
           {/* Ratings & reviews */}
