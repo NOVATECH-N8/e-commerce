@@ -117,20 +117,41 @@ app.get('/', (req, res) => {
 });
 
 // Database Synchronization and Server Launch
-sequelize.sync({ force: false }) // keeps database content if exists
-  .then(() => {
+async function startServer() {
+  if (process.env.DB_DIALECT === 'mysql') {
+    try {
+      const mysql = require('mysql2/promise');
+      const connection = await mysql.createConnection({
+        host: process.env.DB_HOST || 'localhost',
+        port: Number(process.env.DB_PORT) || 3306,
+        user: process.env.DB_USER || 'root',
+        password: process.env.DB_PASS || ''
+      });
+      const dbName = process.env.DB_NAME || 'ecommerce_db';
+      await connection.query(`CREATE DATABASE IF NOT EXISTS \`${dbName}\` CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;`);
+      await connection.end();
+      console.log(`Đã kiểm tra/khởi tạo database MySQL: ${dbName}`);
+    } catch (err) {
+      console.warn('Lưu ý khi tạo database MySQL tự động:', err.message);
+    }
+  }
+
+  try {
+    await sequelize.sync({ force: false }); // keeps database content if exists
     console.log('Đồng bộ cơ sở dữ liệu thành công.');
     
-    // Check if we need to auto-seed (mainly for newly created SQLite)
-    autoSeedIfEmpty();
+    // Check if we need to auto-seed (mainly for newly created database)
+    await autoSeedIfEmpty();
 
     app.listen(PORT, () => {
       console.log(`Máy chủ đang chạy tại: http://localhost:${PORT}`);
     });
-  })
-  .catch(err => {
+  } catch (err) {
     console.error('Không thể đồng bộ cơ sở dữ liệu:', err);
-  });
+  }
+}
+
+startServer();
 
 // Auto-seed mock data when database is brand new and empty
 async function autoSeedIfEmpty() {
