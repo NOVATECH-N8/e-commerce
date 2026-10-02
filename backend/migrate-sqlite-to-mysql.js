@@ -67,31 +67,45 @@ async function migrateData() {
       'HINHANH',
       'GIOHANG',
       'CHITIETGIOHANG',
-      'VOUCHER',
+      'KHUYENMAI',
       'DONHANG',
       'CHITIETDONHANG',
       'DANHGIA'
     ];
 
-    for (const tableName of migrationOrder) {
+    for (const targetTable of migrationOrder) {
       try {
-        const [rows] = await sqlite.query(`SELECT * FROM \`${tableName}\``);
+        const sourceTable = targetTable;
+
+        if (!tables.some(t => t.name.toUpperCase() === sourceTable.toUpperCase())) {
+          continue;
+        }
+
+        const [rows] = await sqlite.query(`SELECT * FROM \`${sourceTable}\``);
         if (rows.length === 0) continue;
 
-        console.log(`Đang chuyển bảng ${tableName}: ${rows.length} dòng...`);
+        console.log(`Đang chuyển bảng ${targetTable}: ${rows.length} dòng...`);
         for (const row of rows) {
           const columns = Object.keys(row).map(c => `\`${c}\``).join(', ');
           const placeholders = Object.keys(row).map(() => '?').join(', ');
-          const values = Object.values(row);
+          const values = Object.values(row).map(val => {
+            if (typeof val === 'string' && /^\d{4}-\d{2}-\d{2}[ T]\d{2}:\d{2}:\d{2}/.test(val)) {
+              const d = new Date(val);
+              if (!isNaN(d.getTime())) {
+                return d.toISOString().slice(0, 19).replace('T', ' ');
+              }
+            }
+            return val;
+          });
 
           await mysql.query(
-            `REPLACE INTO \`${tableName}\` (${columns}) VALUES (${placeholders})`,
+            `REPLACE INTO \`${targetTable}\` (${columns}) VALUES (${placeholders})`,
             { replacements: values }
           );
         }
-        console.log(`✓ Hoàn tất bảng ${tableName}`);
+        console.log(`✓ Hoàn tất bảng ${targetTable}`);
       } catch (tableErr) {
-        console.warn(`Lưu ý bảng ${tableName}:`, tableErr.message);
+        console.warn(`Lưu ý bảng ${targetTable}:`, tableErr.message);
       }
     }
 
