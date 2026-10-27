@@ -2,7 +2,7 @@ const { NguoiDung, GioHang } = require('../models');
 const bcrypt = require('bcryptjs');
 const { Op } = require('sequelize');
 
-// Admin: Get all accounts with search
+// Admin: Tìm kiếm tất cả tài khoản
 exports.getUsers = async (req, res) => {
   const { search } = req.query;
 
