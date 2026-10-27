@@ -1,4 +1,4 @@
--- MySQL Database Seed Data for Online E-commerce Website
+-- MySQL Database Seed Data for Online e-commerce Website
 USE `ecommerce_db`;
 
 -- 1. DANHMUC (Categories)
