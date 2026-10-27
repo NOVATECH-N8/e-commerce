@@ -16,7 +16,7 @@ const Register = () => {
     MatKhau: '',
     confirmPassword: ''
   });
-  
+
   const [showPassword, setShowPassword] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [toast, setToast] = useState(null);
@@ -49,7 +49,7 @@ const Register = () => {
 
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(Email)) {
-      setToast({ type: 'error', message: 'Định dạng Email không hợp lệ.' });
+      setToast({ type: 'error', message: 'Định dạng email không hợp lệ.' });
       return;
     }
 
@@ -84,7 +84,7 @@ const Register = () => {
       )}
 
       <div className="w-full max-w-lg bg-white rounded-md shadow-sm border border-slate-200 overflow-hidden">
-        
+
         {/* CellphoneS Red Header */}
         <div className="bg-gradient-to-r from-[#d70018] to-[#be0015] text-white p-6 text-center">
           <div className="w-10 h-10 rounded-md bg-white text-[#d70018] flex items-center justify-center font-black text-xl mx-auto mb-2 shadow-sm">
@@ -96,7 +96,7 @@ const Register = () => {
 
         <div className="p-6 space-y-4">
           <form onSubmit={handleSubmit} className="space-y-3.5 text-xs">
-            
+
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               <div>
                 <label className="font-bold text-slate-700 block mb-1">Tên tài khoản (Username) *</label>
