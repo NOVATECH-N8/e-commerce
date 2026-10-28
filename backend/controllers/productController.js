@@ -1,7 +1,7 @@
 const { SanPham, DanhMuc, HinhAnh, ChiTietGioHang, ChiTietDonHang } = require('../models');
 const { Op } = require('sequelize');
 
-// Public: Get list of products with search and filter
+// Public: Lấy sản phẩm với tìm kiếm
 exports.getProducts = async (req, res) => {
   const { search, categoryId, minPrice, maxPrice, status } = req.query;
 
