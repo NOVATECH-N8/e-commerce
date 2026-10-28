@@ -7,7 +7,7 @@ exports.getProducts = async (req, res) => {
 
   const whereClause = {};
 
-  // Search by name
+  // tìm kiếm bằng tên
   if (search) {
     whereClause.TenSP = {
       [Op.like]: `%${search}%`
