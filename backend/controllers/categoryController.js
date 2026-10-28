@@ -1,6 +1,6 @@
 const { DanhMuc, SanPham } = require('../models');
 
-// Public: Get all categories
+// Public: lấy toàn bộ danh sách
 exports.getCategories = async (req, res) => {
   try {
     const categories = await DanhMuc.findAll({
